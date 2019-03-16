@@ -1,0 +1,7 @@
+.root{
+    -fx-background-color: #164664;
+}
+
+.text-field{
+    -fx-text-fill: red;
+}

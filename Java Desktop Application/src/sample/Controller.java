@@ -14,6 +14,12 @@ import javafx.scene.control.*;
 public class Controller {
 
   @FXML
+  private ResourceBundle resources;
+
+  @FXML
+  private URL location;
+
+  @FXML
   private JFXButton btnLoginTab;
 
   @FXML
@@ -41,31 +47,34 @@ public class Controller {
   private JFXButton fxMinimize;
 
   @FXML
+  private Pane pnlCustomers;
+
+  @FXML
+  private Pane pnlBookings;
+
+  @FXML
+  private Pane pnlSettings;
+
+  @FXML
   private Pane pnlMainMenu;
 
   @FXML
   private JFXButton btnLogout;
 
   @FXML
-  private Pane pnlPackagesOverview;
+  private Pane pnlLogin;
 
   @FXML
-  private TableView<?> tblPackages;
+  private JFXButton btnLogin;
 
   @FXML
-  private TableView<?> tblProducts;
+  private JFXButton btnCancelLogin;
 
   @FXML
-  private TableView<?> tblSupplier;
+  private JFXPasswordField txtPassword;
 
   @FXML
-  private JFXButton btnAddPkg;
-
-  @FXML
-  private JFXButton btnDeletePkg;
-
-  @FXML
-  private JFXButton btnEditPkg;
+  private JFXTextField txtUserName;
 
   @FXML
   private Pane pnlPackages;
@@ -128,28 +137,64 @@ public class Controller {
   private JFXButton btnAddPkgProdSup;
 
   @FXML
-  private Pane pnlCustomers;
+  private Pane pnlPackagesOverview;
 
   @FXML
-  private Pane pnlBookings;
+  private TableView<?> tblPackages;
 
   @FXML
-  private Pane pnlSettings;
+  private TableColumn<?, ?> colPkgPkgName;
 
   @FXML
-  private Pane pnlLogin;
+  private TableColumn<?, ?> colPkgPkgStartDate;
 
   @FXML
-  private JFXTextField txtUserName;
+  private TableColumn<?, ?> colPkgPkgEndDate;
 
   @FXML
-  private JFXPasswordField txtPassword;
+  private TableColumn<?, ?> colPkgPkgDesc;
 
   @FXML
-  private JFXButton btnLogin;
+  private TableColumn<?, ?> colPkgBasePrice;
 
   @FXML
-  private JFXButton btnCancelLogin;
+  private TableColumn<?, ?> colPkgAgencyCommission;
+
+  @FXML
+  private TableView<?> tblExistProductsSuppliers;
+
+  @FXML
+  private TableColumn<?, ?> colPkgExistProdName;
+
+  @FXML
+  private TableColumn<?, ?> colPkgExistSupName;
+
+  @FXML
+  private TableView<?> tblNonExistProductsSuppliers;
+
+  @FXML
+  private TableColumn<?, ?> colPkgNonExistProdName;
+
+  @FXML
+  private TableColumn<?, ?> colPkgNonExistSupName;
+
+  @FXML
+  private JFXButton btnAddPkg;
+
+  @FXML
+  private JFXButton btnDeletePkg;
+
+  @FXML
+  private JFXButton btnEditPkg;
+
+  @FXML
+  private JFXButton btnSavePkg;
+
+  @FXML
+  private JFXButton btnProdSupRemove;
+
+  @FXML
+  private JFXButton btnProdSupAdd;
 
   @FXML
   void onActionAddEditPkg(ActionEvent event) {
@@ -263,6 +308,21 @@ public class Controller {
   }
 
   @FXML
+  void onActionProdSupAdd(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionProdSupRemove(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionSavePkg(ActionEvent event) {
+
+  }
+
+  @FXML
   void onActionSettings(ActionEvent event) {
     pnlSettings.toFront();
   }
@@ -276,18 +336,13 @@ public class Controller {
     assert btnCustomers != null : "fx:id=\"btnCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnBookings != null : "fx:id=\"btnBookings\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnSettings != null : "fx:id=\"btnSettings\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
+    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlMainMenu != null : "fx:id=\"pnlMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlPackagesOverview != null : "fx:id=\"pnlPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
-    assert tblPackages != null : "fx:id=\"tblPackages\" was not injected: check your FXML file 'sample.fxml'.";
-    assert tblProducts != null : "fx:id=\"tblProducts\" was not injected: check your FXML file 'sample.fxml'.";
-    assert tblSupplier != null : "fx:id=\"tblSupplier\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnAddPkg != null : "fx:id=\"btnAddPkg\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnDeletePkg != null : "fx:id=\"btnDeletePkg\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnEditPkg != null : "fx:id=\"btnEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
@@ -313,6 +368,26 @@ public class Controller {
     assert gvProdSup_pkg != null : "fx:id=\"gvProdSup_pkg\" was not injected: check your FXML file 'sample.fxml'.";
     assert gvProdSup_all_pkgs != null : "fx:id=\"gvProdSup_all_pkgs\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnAddPkgProdSup != null : "fx:id=\"btnAddPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlPackagesOverview != null : "fx:id=\"pnlPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
+    assert tblPackages != null : "fx:id=\"tblPackages\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgPkgName != null : "fx:id=\"colPkgPkgName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgPkgStartDate != null : "fx:id=\"colPkgPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgPkgEndDate != null : "fx:id=\"colPkgPkgEndDate\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgPkgDesc != null : "fx:id=\"colPkgPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgBasePrice != null : "fx:id=\"colPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgAgencyCommission != null : "fx:id=\"colPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
+    assert tblExistProductsSuppliers != null : "fx:id=\"tblExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgExistProdName != null : "fx:id=\"colPkgExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgExistSupName != null : "fx:id=\"colPkgExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert tblNonExistProductsSuppliers != null : "fx:id=\"tblNonExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgNonExistProdName != null : "fx:id=\"colPkgNonExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colPkgNonExistSupName != null : "fx:id=\"colPkgNonExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnAddPkg != null : "fx:id=\"btnAddPkg\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnDeletePkg != null : "fx:id=\"btnDeletePkg\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnEditPkg != null : "fx:id=\"btnEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnSavePkg != null : "fx:id=\"btnSavePkg\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnProdSupRemove != null : "fx:id=\"btnProdSupRemove\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
 
   }
 }

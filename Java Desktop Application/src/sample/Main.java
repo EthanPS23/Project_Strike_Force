@@ -14,7 +14,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Travel Experts");
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(new Scene(root, 1152, 648));
+        Scene scene = new Scene(root, 1152, 648);
+        scene.getStylesheets().add("stylesheet.css");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
