@@ -14,12 +14,6 @@ import javafx.scene.control.*;
 public class Controller {
 
   @FXML
-  private ResourceBundle resources;
-
-  @FXML
-  private URL location;
-
-  @FXML
   private JFXButton btnLoginTab;
 
   @FXML
@@ -45,9 +39,6 @@ public class Controller {
 
   @FXML
   private JFXButton fxMinimize;
-
-  @FXML
-  private Pane pnlCustomers;
 
   @FXML
   private Pane pnlBookings;
@@ -197,6 +188,57 @@ public class Controller {
   private JFXButton btnProdSupAdd;
 
   @FXML
+  private Pane pnlCustomers;
+
+  @FXML
+  private JFXTextField txtCustSearch;
+
+  @FXML
+  private TableView<?> gvCustomer;
+
+  @FXML
+  private TableColumn<?, ?> colCustFirstName;
+
+  @FXML
+  private TableColumn<?, ?> colCustLastName;
+
+  @FXML
+  private TableColumn<?, ?> colCustAddress;
+
+  @FXML
+  private TableColumn<?, ?> colCustCity;
+
+  @FXML
+  private TableColumn<?, ?> colCustProvince;
+
+  @FXML
+  private TableColumn<?, ?> colCustPostalCode;
+
+  @FXML
+  private TableColumn<?, ?> colCustCountry;
+
+  @FXML
+  private TableColumn<?, ?> colCustHomePhone;
+
+  @FXML
+  private TableColumn<?, ?> colCustBusinessPhone;
+
+  @FXML
+  private TableColumn<?, ?> colCustEmail;
+
+  @FXML
+  private JFXButton btnCustAdd;
+
+  @FXML
+  private JFXButton btnCustEdit;
+
+  @FXML
+  private JFXButton btnCustDelete;
+
+  @FXML
+  private JFXButton btnCustSave;
+
+  @FXML
   void onActionAddEditPkg(ActionEvent event) {
 
   }
@@ -230,6 +272,26 @@ public class Controller {
   @FXML
   void onActionClose(ActionEvent event) {
     System.exit(0);
+  }
+
+  @FXML
+  void onActionCustAdd(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionCustDelete(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionCustEdit(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionCustSave(ActionEvent event) {
+
   }
 
   @FXML
