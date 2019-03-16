@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
@@ -23,7 +24,19 @@
             <JFXButton fx:id="btnSettings" layoutY="212.0" onAction="#onActionSettings" prefHeight="25.0" prefWidth="135.0" text="Settings" visible="true" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="30.0" prefWidth="1152.0" style="-fx-background-color: #343434;" />
+      <AnchorPane prefHeight="30.0" prefWidth="1152.0" style="-fx-background-color: #cd72ff;">
+         <children>
+            <JFXButton fx:id="btnClose" layoutX="1079.0" layoutY="3.0" onAction="#onActionClose" text="X">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="fxMinimize" layoutX="1058.0" layoutY="3.0" onAction="#onActionMinimize" text="─">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children></AnchorPane>
       <AnchorPane layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
          <children>
             <Pane fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0300FF;" />

@@ -14,10 +14,7 @@ import javafx.scene.control.*;
 public class Controller {
 
   @FXML
-  private ResourceBundle resources;
-
-  @FXML
-  private URL location;
+  private JFXButton btnLoginTab;
 
   @FXML
   private JFXButton btnMainMenu;
@@ -38,7 +35,10 @@ public class Controller {
   private JFXButton btnSettings;
 
   @FXML
-  private JFXButton btnLoginTab;
+  private JFXButton btnClose;
+
+  @FXML
+  private JFXButton fxMinimize;
 
   @FXML
   private Pane pnlMainMenu;
@@ -183,6 +183,11 @@ public class Controller {
   }
 
   @FXML
+  void onActionClose(ActionEvent event) {
+    System.exit(0);
+  }
+
+  @FXML
   void onActionCustomers(ActionEvent event) {
     pnlCustomers.toFront();
   }
@@ -235,6 +240,11 @@ public class Controller {
   @FXML
   void onActionMainMenu(ActionEvent event) {
     pnlMainMenu.toFront();
+  }
+
+  @FXML
+  void onActionMinimize(ActionEvent event) {
+
   }
 
   @FXML
