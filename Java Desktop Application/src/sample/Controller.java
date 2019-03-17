@@ -16,260 +16,287 @@ import javafx.scene.*;
 
 public class Controller {
 
-    @FXML
-    private AnchorPane apEverything;
+  @FXML
+  private ResourceBundle resources;
 
-    @FXML
-    private AnchorPane apMenu;
+  @FXML
+  private URL location;
 
-    @FXML
-    private JFXButton btnLoginTab;
+  @FXML
+  private AnchorPane apEverything;
 
-    @FXML
-    private JFXButton btnMainMenu;
+  @FXML
+  private AnchorPane apMenu;
 
-    @FXML
-    private JFXButton btnPackagesOverview;
+  @FXML
+  private JFXButton btnLoginTab;
 
-    @FXML
-    private JFXButton btnPackages;
+  @FXML
+  private JFXButton btnMainMenu;
 
-    @FXML
-    private JFXButton btnCustomers;
+  @FXML
+  private JFXButton btnPackagesOverview;
 
-    @FXML
-    private JFXButton btnBookings;
+  @FXML
+  private JFXButton btnPackages;
 
-    @FXML
-    private JFXButton btnSettings;
+  @FXML
+  private JFXButton btnCustomers;
 
-    @FXML
-    private AnchorPane apItems;
+  @FXML
+  private JFXButton btnBookings;
 
-    @FXML
-    private Pane pnlBookings;
+  @FXML
+  private JFXButton btnSettings;
 
-    @FXML
-    private Pane pnlLogin;
+  @FXML
+  private AnchorPane apItems;
 
-    @FXML
-    private Label lblLoginUserName;
+  @FXML
+  private Pane pnlBookings;
 
-    @FXML
-    private Label lblLoginPassword;
+  @FXML
+  private Pane pnlLogin;
 
-    @FXML
-    private JFXButton btnLogin;
+  @FXML
+  private Label lblLoginUserName;
 
-    @FXML
-    private JFXButton btnCancelLogin;
+  @FXML
+  private Label lblLoginPassword;
 
-    @FXML
-    private JFXPasswordField txtPassword;
+  @FXML
+  private JFXButton btnLogin;
 
-    @FXML
-    private JFXTextField txtUserName;
+  @FXML
+  private JFXButton btnCancelLogin;
 
-    @FXML
-    private Pane pnlMainMenu;
+  @FXML
+  private JFXPasswordField txtPassword;
 
-    @FXML
-    private JFXButton btnLogout;
+  @FXML
+  private JFXTextField txtUserName;
 
-    @FXML
-    private Pane pnlPackages;
+  @FXML
+  private Pane pnlMainMenu;
 
-    @FXML
-    private Label lblPkgName;
+  @FXML
+  private JFXButton btnLogout;
 
-    @FXML
-    private Label lblPkgStartDate;
+  @FXML
+  private Pane pnlPackages;
 
-    @FXML
-    private Label lblPkgEndDate;
+  @FXML
+  private Label lblPkgName;
 
-    @FXML
-    private Label lblPkgDesc;
+  @FXML
+  private Label lblPkgStartDate;
 
-    @FXML
-    private Label lblPkgBasePrice;
+  @FXML
+  private Label lblPkgEndDate;
 
-    @FXML
-    private Label lblPkgAgencyCommission;
+  @FXML
+  private Label lblPkgDesc;
 
-    @FXML
-    private JFXDatePicker txtPkgEndDate;
+  @FXML
+  private Label lblPkgBasePrice;
 
-    @FXML
-    private JFXTextField txtPackageName;
+  @FXML
+  private Label lblPkgAgencyCommission;
 
-    @FXML
-    private JFXTextField txtPkgDesc;
+  @FXML
+  private JFXDatePicker txtPkgEndDate;
 
-    @FXML
-    private JFXTextField txtPkgBasePrice;
+  @FXML
+  private JFXTextField txtPackageName;
 
-    @FXML
-    private JFXTextField txtPkgAgencyCommission;
+  @FXML
+  private JFXTextField txtPkgDesc;
 
-    @FXML
-    private JFXDatePicker txtPkgStartDate;
+  @FXML
+  private JFXTextField txtPkgBasePrice;
 
-    @FXML
-    private JFXButton btnAddEditPkg;
+  @FXML
+  private JFXTextField txtPkgAgencyCommission;
 
-    @FXML
-    private JFXButton btnClearPkg;
+  @FXML
+  private JFXDatePicker txtPkgStartDate;
 
-    @FXML
-    private JFXButton btnNewPkgProdSup;
+  @FXML
+  private JFXButton btnAddEditPkg;
 
-    @FXML
-    private JFXButton btnDeletePkgProdSup;
+  @FXML
+  private JFXButton btnClearPkg;
 
-    @FXML
-    private TableView<?> gvProdSup_pkg;
+  @FXML
+  private JFXButton btnNewPkgProdSup;
 
-    @FXML
-    private TableView<?> gvProdSup_all_pkgs;
+  @FXML
+  private JFXButton btnDeletePkgProdSup;
 
-    @FXML
-    private JFXButton btnAddPkgProdSup;
+  @FXML
+  private TableView<?> gvProdSup_pkg;
 
-    @FXML
-    private Pane pnlPackagesOverview;
+  @FXML
+  private TableView<?> gvProdSup_all_pkgs;
 
-    @FXML
-    private TableView<?> tblPackages;
+  @FXML
+  private JFXButton btnAddPkgProdSup;
 
-    @FXML
-    private TableColumn<?, ?> colPkgPkgName;
+  @FXML
+  private Pane pnlPackagesOverview;
 
-    @FXML
-    private TableColumn<?, ?> colPkgPkgStartDate;
+  @FXML
+  private TableView<?> tblPackages;
 
-    @FXML
-    private TableColumn<?, ?> colPkgPkgEndDate;
+  @FXML
+  private TableColumn<?, ?> colPkgPkgName;
 
-    @FXML
-    private TableColumn<?, ?> colPkgPkgDesc;
+  @FXML
+  private TableColumn<?, ?> colPkgPkgStartDate;
 
-    @FXML
-    private TableColumn<?, ?> colPkgBasePrice;
+  @FXML
+  private TableColumn<?, ?> colPkgPkgEndDate;
 
-    @FXML
-    private TableColumn<?, ?> colPkgAgencyCommission;
+  @FXML
+  private TableColumn<?, ?> colPkgPkgDesc;
 
-    @FXML
-    private TableView<?> tblExistProductsSuppliers;
+  @FXML
+  private TableColumn<?, ?> colPkgBasePrice;
 
-    @FXML
-    private TableColumn<?, ?> colPkgExistProdName;
+  @FXML
+  private TableColumn<?, ?> colPkgAgencyCommission;
 
-    @FXML
-    private TableColumn<?, ?> colPkgExistSupName;
+  @FXML
+  private TableView<?> tblExistProductsSuppliers;
 
-    @FXML
-    private TableView<?> tblNonExistProductsSuppliers;
+  @FXML
+  private TableColumn<?, ?> colPkgExistProdName;
 
-    @FXML
-    private TableColumn<?, ?> colPkgNonExistProdName;
+  @FXML
+  private TableColumn<?, ?> colPkgExistSupName;
 
-    @FXML
-    private TableColumn<?, ?> colPkgNonExistSupName;
+  @FXML
+  private TableView<?> tblNonExistProductsSuppliers;
 
-    @FXML
-    private JFXButton btnAddPkg;
+  @FXML
+  private TableColumn<?, ?> colPkgNonExistProdName;
 
-    @FXML
-    private JFXButton btnDeletePkg;
+  @FXML
+  private TableColumn<?, ?> colPkgNonExistSupName;
 
-    @FXML
-    private JFXButton btnEditPkg;
+  @FXML
+  private JFXButton btnAddPkg;
 
-    @FXML
-    private JFXButton btnSavePkg;
+  @FXML
+  private JFXButton btnDeletePkg;
 
-    @FXML
-    private JFXButton btnProdSupRemove;
+  @FXML
+  private JFXButton btnEditPkg;
 
-    @FXML
-    private JFXButton btnProdSupAdd;
+  @FXML
+  private JFXButton btnSavePkg;
 
-    @FXML
-    private Pane pnlCustomers;
+  @FXML
+  private JFXButton btnProdSupRemove;
 
-    @FXML
-    private JFXTextField txtCustSearch;
+  @FXML
+  private JFXButton btnProdSupAdd;
 
-    @FXML
-    private Label lblCustSearch;
+  @FXML
+  private Pane pnlCustomers;
 
-    @FXML
-    private TableView<?> gvCustomer;
+  @FXML
+  private JFXTextField txtCustSearch;
 
-    @FXML
-    private TableColumn<?, ?> colCustFirstName;
+  @FXML
+  private Label lblCustSearch;
 
-    @FXML
-    private TableColumn<?, ?> colCustLastName;
+  @FXML
+  private TableView<?> gvCustomer;
 
-    @FXML
-    private TableColumn<?, ?> colCustAddress;
+  @FXML
+  private TableColumn<?, ?> colCustFirstName;
 
-    @FXML
-    private TableColumn<?, ?> colCustCity;
+  @FXML
+  private TableColumn<?, ?> colCustLastName;
 
-    @FXML
-    private TableColumn<?, ?> colCustProvince;
+  @FXML
+  private TableColumn<?, ?> colCustAddress;
 
-    @FXML
-    private TableColumn<?, ?> colCustPostalCode;
+  @FXML
+  private TableColumn<?, ?> colCustCity;
 
-    @FXML
-    private TableColumn<?, ?> colCustCountry;
+  @FXML
+  private TableColumn<?, ?> colCustProvince;
 
-    @FXML
-    private TableColumn<?, ?> colCustHomePhone;
+  @FXML
+  private TableColumn<?, ?> colCustPostalCode;
 
-    @FXML
-    private TableColumn<?, ?> colCustBusinessPhone;
+  @FXML
+  private TableColumn<?, ?> colCustCountry;
 
-    @FXML
-    private TableColumn<?, ?> colCustEmail;
+  @FXML
+  private TableColumn<?, ?> colCustHomePhone;
 
-    @FXML
-    private JFXButton btnCustAdd;
+  @FXML
+  private TableColumn<?, ?> colCustBusinessPhone;
 
-    @FXML
-    private JFXButton btnCustEdit;
+  @FXML
+  private TableColumn<?, ?> colCustEmail;
 
-    @FXML
-    private JFXButton btnCustDelete;
+  @FXML
+  private JFXButton btnCustAdd;
 
-    @FXML
-    private JFXButton btnCustSave;
+  @FXML
+  private JFXButton btnCustEdit;
 
-    @FXML
-    private Pane pnlSettings;
+  @FXML
+  private JFXButton btnCustDelete;
 
-    @FXML
-    private JFXColorPicker cpSettingsTextColour;
+  @FXML
+  private JFXButton btnCustSave;
 
-    @FXML
-    private Label lblSettingsTextColour;
+  @FXML
+  private Pane pnlSettings;
 
-    @FXML
-    private JFXColorPicker cpSettingsBgColour;
+  @FXML
+  private JFXColorPicker cpSettingsTextColour;
 
-    @FXML
-    private Label lblSettingsBgColour;
+  @FXML
+  private Label lblSettingsTextColour;
 
-    @FXML
-    private JFXButton btnClose;
+  @FXML
+  private JFXColorPicker cpSettingsBgColour;
 
-    @FXML
-    private JFXButton fxMinimize;
+  @FXML
+  private Label lblSettingsBgColour;
+
+  @FXML
+  private JFXColorPicker cpSettingsSecondaryColour;
+
+  @FXML
+  private Label lblSettingsSecondaryColour;
+
+  @FXML
+  private JFXColorPicker cpSettingsTertiaryColour;
+
+  @FXML
+  private Label lblSettingsTertiaryColour;
+
+  @FXML
+  private JFXColorPicker cpSettingsMenuColour;
+
+  @FXML
+  private Label lblSettingsMenuColour;
+
+  @FXML
+  private AnchorPane apToolbar;
+
+  @FXML
+  private JFXButton btnClose;
+
+  @FXML
+  private JFXButton fxMinimize;
 
   @FXML
   void onActionAddEditPkg(ActionEvent event) {
@@ -424,11 +451,7 @@ public class Controller {
 
   @FXML
   void onActionSettingsBgColour(ActionEvent event) {
-    Color c = cpSettingsBgColour.getValue();
-    String hex = String.format( "#%02X%02X%02X",
-            (int)( c.getRed() * 255 ),
-            (int)( c.getGreen() * 255 ),
-            (int)( c.getBlue() * 255 ) );
+    String hex = hexi(cpSettingsBgColour);
     pnlBookings.setStyle("-fx-background-color: " + hex);
     pnlCustomers.setStyle("-fx-background-color: " + hex);
     pnlLogin.setStyle("-fx-background-color: " + hex);
@@ -439,13 +462,27 @@ public class Controller {
   }
 
   @FXML
-  void onActionSettingsTextColour(ActionEvent event) {
-    Color c =cpSettingsTextColour.getValue();
-    String hex = String.format( "#%02X%02X%02X",
-            (int)( c.getRed() * 255 ),
-            (int)( c.getGreen() * 255 ),
-            (int)( c.getBlue() * 255 ) );
+  void onActionSettingsMenuColour(ActionEvent event) {
+    String hex = hexi(cpSettingsMenuColour);
+    apMenu.setStyle("-fx-background-color: " + hex);
+    /*apItems.setStyle("-fx-background-color: " + hex);*/
+  }
 
+  @FXML
+  void onActionSettingsSecondaryColour(ActionEvent event) {
+    String hex = hexi(cpSettingsSecondaryColour);
+    apItems.setStyle("-btn-bg-colour: " + hex);
+  }
+
+  @FXML
+  void onActionSettingsTertiaryColour(ActionEvent event) {
+    String hex = hexi(cpSettingsTertiaryColour);
+    apItems.setStyle("-btn-brdr-colour: " + hex);
+  }
+
+  @FXML
+  void onActionSettingsTextColour(ActionEvent event) {
+    String hex = hexi(cpSettingsTextColour);
     apEverything.setStyle("-label-text-colour: " + hex);
   }
 
@@ -534,8 +571,22 @@ public class Controller {
     assert lblSettingsTextColour != null : "fx:id=\"lblSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert cpSettingsBgColour != null : "fx:id=\"cpSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblSettingsBgColour != null : "fx:id=\"lblSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsSecondaryColour != null : "fx:id=\"cpSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsSecondaryColour != null : "fx:id=\"lblSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsTertiaryColour != null : "fx:id=\"cpSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsTertiaryColour != null : "fx:id=\"lblSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsMenuColour != null : "fx:id=\"cpSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsMenuColour != null : "fx:id=\"lblSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert apToolbar != null : "fx:id=\"apToolbar\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
     assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+  }
 
+  private String hexi(ColorPicker cp){
+    Color c = cp.getValue();
+    return String.format( "#%02X%02X%02X",
+            (int)( c.getRed() * 255 ),
+            (int)( c.getGreen() * 255 ),
+            (int)( c.getBlue() * 255 ) );
   }
 }

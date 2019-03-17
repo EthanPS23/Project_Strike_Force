@@ -9,7 +9,7 @@
 
 #apEverything .jfx-button{
     -fx-text-fill: -label-text-colour;
-    -fx-border-color: #44d0ff;
+    /*-fx-border-color: #44d0ff;*/
     -fx-border-width: 2pt;
     -fx-background-radius: 0pt;
 }
@@ -34,5 +34,18 @@
 #apEverything {
     -label-text-colour: #42f45f;
     -fx-background-color: #f442a4;
+}
 
+#apItems .jfx-button{
+    -fx-background-color: -btn-bg-colour;
+    -fx-border-color: -btn-brdr-colour;
+}
+
+#apItems .text-field{
+    -fx-background-color: -btn-bg-colour;
+}
+
+#apItems{
+    -btn-bg-colour: #6ef441;
+    -btn-brdr-colour: #ea7638;
 }
