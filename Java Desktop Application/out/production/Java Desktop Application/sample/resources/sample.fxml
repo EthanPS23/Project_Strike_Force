@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXColorPicker?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -11,17 +12,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane id="apEverything" fx:id="apEverything" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <AnchorPane layoutY="30.0" prefHeight="618.0" prefWidth="135.0" style="-fx-background-color: #FFEDF5;">
+      <AnchorPane fx:id="apMenu" layoutY="30.0" prefHeight="618.0" prefWidth="135.0" styleClass="menuBar">
          <children>
-            <JFXButton fx:id="btnLoginTab" layoutY="62.0" onAction="#onActionLoginTab" prefHeight="25.0" prefWidth="135.0" text="Login" />
-            <JFXButton fx:id="btnMainMenu" layoutY="87.0" onAction="#onActionMainMenu" prefHeight="25.0" prefWidth="135.0" text="Main Menu" visible="true" />
-            <JFXButton fx:id="btnPackagesOverview" layoutY="112.0" onAction="#onActionPackagesOverview" prefHeight="25.0" prefWidth="135.0" text="Packages Overview" visible="true" />
-            <JFXButton fx:id="btnPackages" layoutY="137.0" onAction="#onActionPackages" prefHeight="25.0" prefWidth="135.0" text="Packages" visible="true" />
-            <JFXButton fx:id="btnCustomers" layoutY="162.0" onAction="#onActionCustomers" prefHeight="25.0" prefWidth="135.0" text="Customers" visible="true" />
-            <JFXButton fx:id="btnBookings" layoutY="187.0" onAction="#onActionBookings" prefHeight="25.0" prefWidth="135.0" text="Bookings" visible="true" />
-            <JFXButton fx:id="btnSettings" layoutY="212.0" onAction="#onActionSettings" prefHeight="25.0" prefWidth="135.0" text="Settings" visible="true" />
+            <JFXButton fx:id="btnLoginTab" layoutY="62.0" onAction="#onActionLoginTab" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Login" />
+            <JFXButton fx:id="btnMainMenu" layoutY="87.0" onAction="#onActionMainMenu" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Main Menu" visible="true" />
+            <JFXButton fx:id="btnPackagesOverview" layoutY="112.0" onAction="#onActionPackagesOverview" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Packages Overview" visible="true" />
+            <JFXButton fx:id="btnPackages" layoutY="137.0" onAction="#onActionPackages" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Packages" visible="true" />
+            <JFXButton fx:id="btnCustomers" layoutY="162.0" onAction="#onActionCustomers" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Customers" visible="true" />
+            <JFXButton fx:id="btnBookings" layoutY="187.0" onAction="#onActionBookings" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Bookings" visible="true" />
+            <JFXButton fx:id="btnSettings" layoutY="212.0" onAction="#onActionSettings" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Settings" visible="true" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="30.0" prefWidth="1152.0" style="-fx-background-color: #cd72ff;">
@@ -37,22 +38,26 @@
                </font>
             </JFXButton>
          </children></AnchorPane>
-      <AnchorPane layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
+      <AnchorPane fx:id="apItems" layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
          <children>
             <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #13FF00;" />
-            <Pane fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #F200FF;" />
-            <Pane fx:id="pnlMainMenu" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FDFF03;">
+            <Pane fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #F200FF;">
                <children>
-                  <JFXButton fx:id="btnLogout" layoutX="174.0" layoutY="159.0" onAction="#onActionLogout" prefHeight="47.0" prefWidth="97.0" style="-fx-background-color: #FFAF7F; -fx-background-radius: 0;" text="Logout" />
+                  <JFXColorPicker fx:id="cpSettingsTextColour" layoutX="327.0" layoutY="90.0" onAction="#onActionSettingsTextColour" />
+                  <Label fx:id="lblSettingsTextColour" layoutX="283.0" layoutY="173.0" text="Text Colour" />
                </children></Pane>
             <Pane fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
                <children>
-                  <Label layoutX="91.0" layoutY="132.0" prefHeight="65.0" prefWidth="143.0" text="User name:" />
-                  <Label layoutX="91.0" layoutY="197.0" prefHeight="65.0" prefWidth="143.0" text="Password:" />
-                  <JFXButton fx:id="btnLogin" layoutX="91.0" layoutY="339.0" onAction="#onActionLogin" style="-fx-background-color: #FFAF7F; -fx-background-radius: 0;" text="Login" />
-                  <JFXButton fx:id="btnCancelLogin" layoutX="285.0" layoutY="339.0" onAction="#onActionCancelLogin" style="-fx-background-color: #FFAF7F; -fx-background-radius: 0;" text="Cancel" />
-                  <JFXPasswordField fx:id="txtPassword" layoutX="243.0" layoutY="217.0" style="-fx-background-color: #60DDFF; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                  <JFXTextField fx:id="txtUserName" layoutX="243.0" layoutY="152.0" style="-fx-background-color: #60DDFF; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <Label fx:id="lblLoginUserName" layoutX="91.0" layoutY="132.0" prefHeight="65.0" prefWidth="143.0" text="User name:" />
+                  <Label fx:id="lblLoginPassword" layoutX="91.0" layoutY="197.0" prefHeight="65.0" prefWidth="143.0" text="Password:" />
+                  <JFXButton fx:id="btnLogin" layoutX="91.0" layoutY="339.0" onAction="#onActionLogin" text="Login" />
+                  <JFXButton fx:id="btnCancelLogin" layoutX="285.0" layoutY="339.0" onAction="#onActionCancelLogin" text="Cancel" />
+                  <JFXPasswordField fx:id="txtPassword" layoutX="243.0" layoutY="217.0" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtUserName" layoutX="243.0" layoutY="152.0" unFocusColor="#4d4d4d00" />
+               </children></Pane>
+            <Pane fx:id="pnlMainMenu" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FDFF03;">
+               <children>
+                  <JFXButton fx:id="btnLogout" layoutX="174.0" layoutY="159.0" onAction="#onActionLogout" prefHeight="47.0" prefWidth="97.0" text="Logout" />
                </children></Pane>
             <Pane fx:id="pnlPackages" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #00FEFF;">
                <children>
@@ -110,17 +115,17 @@
                         <TableColumn fx:id="colPkgNonExistSupName" prefWidth="168.0" text="Supplier Name" />
                     </columns>
                   </TableView>
-                  <JFXButton fx:id="btnAddPkg" layoutX="100.0" layoutY="271.0" onAction="#onActionAddPkg" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="Add Package" />
-                  <JFXButton fx:id="btnDeletePkg" layoutX="750.0" layoutY="264.0" onAction="#onActionDeletePkg" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="Delete Package" />
-                  <JFXButton fx:id="btnEditPkg" layoutX="299.0" layoutY="269.0" onAction="#onActionEditPkg" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="Edit Package" />
-                  <JFXButton fx:id="btnSavePkg" layoutX="528.0" layoutY="272.0" onAction="#onActionSavePkg" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="Save Package" />
-                  <JFXButton fx:id="btnProdSupRemove" layoutX="403.0" layoutY="391.0" onAction="#onActionProdSupRemove" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="&gt;&gt;" />
-                  <JFXButton fx:id="btnProdSupAdd" layoutX="396.0" layoutY="481.0" onAction="#onActionProdSupAdd" prefHeight="65.0" prefWidth="143.0" style="-fx-background-color: #BFFF59; -fx-background-radius: 0;" text="&lt;&lt;" />
+                  <JFXButton fx:id="btnAddPkg" layoutX="100.0" layoutY="271.0" onAction="#onActionAddPkg" prefHeight="65.0" prefWidth="143.0" text="Add Package" />
+                  <JFXButton fx:id="btnDeletePkg" layoutX="750.0" layoutY="264.0" onAction="#onActionDeletePkg" prefHeight="65.0" prefWidth="143.0" text="Delete Package" />
+                  <JFXButton fx:id="btnEditPkg" layoutX="299.0" layoutY="269.0" onAction="#onActionEditPkg" prefHeight="65.0" prefWidth="143.0" text="Edit Package" />
+                  <JFXButton fx:id="btnSavePkg" layoutX="528.0" layoutY="272.0" onAction="#onActionSavePkg" prefHeight="65.0" prefWidth="143.0" text="Save Package" />
+                  <JFXButton fx:id="btnProdSupRemove" layoutX="403.0" layoutY="391.0" onAction="#onActionProdSupRemove" prefHeight="65.0" prefWidth="143.0" text="&gt;&gt;" />
+                  <JFXButton fx:id="btnProdSupAdd" layoutX="403.0" layoutY="484.0" onAction="#onActionProdSupAdd" prefHeight="65.0" prefWidth="143.0" text="&lt;&lt;" />
                </children></Pane>
             <Pane fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
                <children>
                   <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" text="Search" />
-                  <Label layoutX="226.0" layoutY="46.0" text="Search:" />
+                  <Label fx:id="lblCustSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
                   <TableView fx:id="gvCustomer" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
                     <columns>
                       <TableColumn fx:id="colCustFirstName" prefWidth="75.0" text="First Name" />
@@ -135,10 +140,10 @@
                         <TableColumn fx:id="colCustEmail" prefWidth="86.0" text="Email" />
                     </columns>
                   </TableView>
-                  <JFXButton fx:id="btnCustAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionCustAdd" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Add" />
-                  <JFXButton fx:id="btnCustEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionCustEdit" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Edit" />
-                  <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Delete" />
-                  <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Save" />
+                  <JFXButton fx:id="btnCustAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionCustAdd" prefHeight="37.0" prefWidth="65.0" text="Add" />
+                  <JFXButton fx:id="btnCustEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionCustEdit" prefHeight="37.0" prefWidth="65.0" text="Edit" />
+                  <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" text="Delete" />
+                  <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" text="Save" />
                </children></Pane>
          </children>
       </AnchorPane>

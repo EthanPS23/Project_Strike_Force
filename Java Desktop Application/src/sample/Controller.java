@@ -5,13 +5,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 /*import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableView;*/
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.*;
 
 public class Controller {
+
+  @FXML
+  private AnchorPane apEverything;
+
+  @FXML
+  private AnchorPane apMenu;
 
   @FXML
   private JFXButton btnLoginTab;
@@ -41,19 +50,28 @@ public class Controller {
   private JFXButton fxMinimize;
 
   @FXML
+  private AnchorPane apItems;
+
+  @FXML
   private Pane pnlBookings;
 
   @FXML
   private Pane pnlSettings;
 
   @FXML
-  private Pane pnlMainMenu;
+  private JFXColorPicker cpSettingsTextColour;
 
   @FXML
-  private JFXButton btnLogout;
+  private Label lblSettingsTextColour;
 
   @FXML
   private Pane pnlLogin;
+
+  @FXML
+  private Label lblLoginUserName;
+
+  @FXML
+  private Label lblLoginPassword;
 
   @FXML
   private JFXButton btnLogin;
@@ -66,6 +84,12 @@ public class Controller {
 
   @FXML
   private JFXTextField txtUserName;
+
+  @FXML
+  private Pane pnlMainMenu;
+
+  @FXML
+  private JFXButton btnLogout;
 
   @FXML
   private Pane pnlPackages;
@@ -192,6 +216,9 @@ public class Controller {
 
   @FXML
   private JFXTextField txtCustSearch;
+
+  @FXML
+  private Label lblCustSearch;
 
   @FXML
   private TableView<?> gvCustomer;
@@ -390,6 +417,23 @@ public class Controller {
   }
 
   @FXML
+  void onActionSettingsTextColour(ActionEvent event) {
+    //labelColours(cpSettingsTextColour.getValue());
+    Color c =cpSettingsTextColour.getValue();
+    String hex = String.format( "#%02X%02X%02X",
+            (int)( c.getRed() * 255 ),
+            (int)( c.getGreen() * 255 ),
+            (int)( c.getBlue() * 255 ) );
+
+    apEverything.setStyle("-label-text-colour: " + hex);
+    //apEverything.setStyle("-root-text-colour: " + hex);
+    //apEverything.setStyle("-jfxbutton-text-colour: " + hex);
+    //apEverything.setStyle("-text-field-colour: " + hex);
+    //lblSettingsTextColour.setText(hex);
+    //textColours(hex);
+  }
+
+  @FXML
   void initialize() {
     assert btnLoginTab != null : "fx:id=\"btnLoginTab\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnMainMenu != null : "fx:id=\"btnMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
@@ -400,16 +444,9 @@ public class Controller {
     assert btnSettings != null : "fx:id=\"btnSettings\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
     assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlMainMenu != null : "fx:id=\"pnlMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlPackages != null : "fx:id=\"pnlPackages\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblPkgName != null : "fx:id=\"lblPkgName\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblPkgStartDate != null : "fx:id=\"lblPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
@@ -450,6 +487,48 @@ public class Controller {
     assert btnSavePkg != null : "fx:id=\"btnSavePkg\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnProdSupRemove != null : "fx:id=\"btnProdSupRemove\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtCustSearch != null : "fx:id=\"txtCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
+    assert gvCustomer != null : "fx:id=\"gvCustomer\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustFirstName != null : "fx:id=\"colCustFirstName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustLastName != null : "fx:id=\"colCustLastName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustAddress != null : "fx:id=\"colCustAddress\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustCity != null : "fx:id=\"colCustCity\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustProvince != null : "fx:id=\"colCustProvince\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustPostalCode != null : "fx:id=\"colCustPostalCode\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustCountry != null : "fx:id=\"colCustCountry\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustHomePhone != null : "fx:id=\"colCustHomePhone\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustBusinessPhone != null : "fx:id=\"colCustBusinessPhone\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colCustEmail != null : "fx:id=\"colCustEmail\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCustAdd != null : "fx:id=\"btnCustAdd\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCustEdit != null : "fx:id=\"btnCustEdit\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCustDelete != null : "fx:id=\"btnCustDelete\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCustSave != null : "fx:id=\"btnCustSave\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsTextColour != null : "fx:id=\"cpSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsTextColour != null : "fx:id=\"lblSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
 
+  }
+
+  private void textColours(String colour){
+    lblPkgAgencyCommission.setStyle("-fx-text-fill: " + colour);
+    lblPkgBasePrice.setStyle("-fx-text-fill: " + colour);
+    lblPkgDesc.setStyle("-fx-text-fill: " + colour);
+    lblPkgEndDate.setStyle("-fx-text-fill: " + colour);
+    lblPkgName.setStyle("-fx-text-fill: " + colour);
+    lblPkgStartDate.setStyle("-fx-text-fill: " + colour);
+    lblLoginUserName.setStyle("-fx-text-fill: " + colour);
+    lblLoginPassword.setStyle("-fx-text-fill: " + colour);
+    lblSettingsTextColour.setStyle("-fx-text-fill: " + colour);
+    txtCustSearch.setStyle("-fx-text-fill: " + colour);
+
+    
   }
 }

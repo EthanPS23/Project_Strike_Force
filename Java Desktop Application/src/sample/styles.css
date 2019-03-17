@@ -1,0 +1,33 @@
+#apEverything .root{
+    -fx-font-size: 12pt;
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .label{
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .jfx-button{
+    -fx-text-fill: -label-text-colour;
+    -fx-border-color: #44d0ff;
+    -fx-border-width: 2pt;
+    -fx-background-radius: 0pt;
+}
+
+#apEverything .text-field{
+    -fx-background-color: #d30a54;
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .menuBtn{
+    -fx-border-color: null;
+}
+
+#apEverything .menuBar{
+    -fx-background-color: #707275;
+}
+
+#apEverything {
+    -label-text-colour: #42f45f;
+
+}
