@@ -39,7 +39,6 @@
          </children></AnchorPane>
       <AnchorPane layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
          <children>
-            <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #13FF00;" />
             <Pane fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #F200FF;" />
             <Pane fx:id="pnlMainMenu" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FDFF03;">
                <children>
@@ -119,7 +118,7 @@
                </children></Pane>
             <Pane fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
                <children>
-                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" text="Search" />
+                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionCustSearch" prefHeight="37.0" prefWidth="356.0" text="Search" />
                   <Label layoutX="226.0" layoutY="46.0" text="Search:" />
                   <TableView fx:id="gvCustomer" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
                     <columns>
@@ -140,6 +139,29 @@
                   <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Delete" />
                   <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Save" />
                </children></Pane>
+            <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
+               <children>
+                  <JFXTextField fx:id="txtBkSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionBkSearch" prefHeight="37.0" prefWidth="356.0" text="Search" />
+                  <Label fx:id="lblBkSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
+                  <TableView fx:id="gvBookings" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
+                     <columns>
+                        <TableColumn fx:id="colBkTripStart" prefWidth="75.0" text="Trip Start" />
+                        <TableColumn fx:id="colBkTripEnd" prefWidth="75.0" text="Trip End" />
+                        <TableColumn fx:id="colBkDescription" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="colBkDestination" prefWidth="75.0" text="Destination" />
+                        <TableColumn fx:id="colBkBasePrice" prefWidth="75.0" text="Base Price" />
+                        <TableColumn fx:id="colBkAgencyCommission" prefWidth="75.0" text="Agency Commission" />
+                        <TableColumn fx:id="colBkRegionId" prefWidth="75.0" text="RegionId" />
+                        <TableColumn fx:id="colBkClassId" prefWidth="85.0" text="ClassId" />
+                        <TableColumn fx:id="colBkFeeId" prefWidth="99.0" text="FeeId" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnBkAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionBkAdd" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Add" />
+                  <JFXButton fx:id="btnBkEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionBkEdit" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Edit" />
+                  <JFXButton fx:id="btnBkDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionBkDelete" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Delete" />
+                  <JFXButton fx:id="btnBkSave" layoutX="899.0" layoutY="208.0" onAction="#onActionBkSave" prefHeight="37.0" prefWidth="65.0" style="-fx-background-color: #5ff442; -fx-background-radius: 0;" text="Save" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

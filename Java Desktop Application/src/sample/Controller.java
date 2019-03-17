@@ -1,15 +1,15 @@
 package sample;
 
-import com.jfoenix.controls.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
-/*import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;*/
-import javafx.scene.control.*;
 
 public class Controller {
 
@@ -39,9 +39,6 @@ public class Controller {
 
   @FXML
   private JFXButton fxMinimize;
-
-  @FXML
-  private Pane pnlBookings;
 
   @FXML
   private Pane pnlSettings;
@@ -239,6 +236,57 @@ public class Controller {
   private JFXButton btnCustSave;
 
   @FXML
+  private Pane pnlBookings;
+
+  @FXML
+  private JFXTextField txtBkSearch;
+
+  @FXML
+  private Label lblBkSearch;
+
+  @FXML
+  private TableView<?> gvBookings;
+
+  @FXML
+  private TableColumn<?, ?> colBkTripStart;
+
+  @FXML
+  private TableColumn<?, ?> colBkTripEnd;
+
+  @FXML
+  private TableColumn<?, ?> colBkDescription;
+
+  @FXML
+  private TableColumn<?, ?> colBkDestination;
+
+  @FXML
+  private TableColumn<?, ?> colBkBasePrice;
+
+  @FXML
+  private TableColumn<?, ?> colBkAgencyCommission;
+
+  @FXML
+  private TableColumn<?, ?> colBkRegionId;
+
+  @FXML
+  private TableColumn<?, ?> colBkClassId;
+
+  @FXML
+  private TableColumn<?, ?> colBkFeeId;
+
+  @FXML
+  private JFXButton btnBkAdd;
+
+  @FXML
+  private JFXButton btnBkEdit;
+
+  @FXML
+  private JFXButton btnBkDelete;
+
+  @FXML
+  private JFXButton btnBkSave;
+
+  @FXML
   void onActionAddEditPkg(ActionEvent event) {
 
   }
@@ -250,6 +298,31 @@ public class Controller {
 
   @FXML
   void onActionAddPkgProdSup(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionBkAdd(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionBkDelete(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionBkEdit(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionBkSave(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionBkSearch(ActionEvent event) {
 
   }
 
@@ -291,6 +364,11 @@ public class Controller {
 
   @FXML
   void onActionCustSave(ActionEvent event) {
+
+  }
+
+  @FXML
+  void onActionCustSearch(ActionEvent event) {
 
   }
 
