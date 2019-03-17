@@ -27,7 +27,12 @@
     -fx-background-color: #707275;
 }
 
+#pItems{
+    -fx-background-color: #f442a4;
+}
+
 #apEverything {
     -label-text-colour: #42f45f;
+    -fx-background-color: #f442a4;
 
 }

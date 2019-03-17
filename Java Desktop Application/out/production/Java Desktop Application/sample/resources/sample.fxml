@@ -25,28 +25,10 @@
             <JFXButton fx:id="btnSettings" layoutY="212.0" onAction="#onActionSettings" prefHeight="25.0" prefWidth="135.0" styleClass="menuBtn" text="Settings" visible="true" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="30.0" prefWidth="1152.0" style="-fx-background-color: #cd72ff;">
-         <children>
-            <JFXButton fx:id="btnClose" layoutX="1079.0" layoutY="3.0" onAction="#onActionClose" text="X">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="fxMinimize" layoutX="1058.0" layoutY="3.0" onAction="#onActionMinimize" text="─">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </JFXButton>
-         </children></AnchorPane>
       <AnchorPane fx:id="apItems" layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
          <children>
-            <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #13FF00;" />
-            <Pane fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #F200FF;">
-               <children>
-                  <JFXColorPicker fx:id="cpSettingsTextColour" layoutX="327.0" layoutY="90.0" onAction="#onActionSettingsTextColour" />
-                  <Label fx:id="lblSettingsTextColour" layoutX="283.0" layoutY="173.0" text="Text Colour" />
-               </children></Pane>
-            <Pane fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
+            <Pane id="pItems" fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" />
+            <Pane id="pItems" fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0">
                <children>
                   <Label fx:id="lblLoginUserName" layoutX="91.0" layoutY="132.0" prefHeight="65.0" prefWidth="143.0" text="User name:" />
                   <Label fx:id="lblLoginPassword" layoutX="91.0" layoutY="197.0" prefHeight="65.0" prefWidth="143.0" text="Password:" />
@@ -55,11 +37,11 @@
                   <JFXPasswordField fx:id="txtPassword" layoutX="243.0" layoutY="217.0" unFocusColor="#4d4d4d00" />
                   <JFXTextField fx:id="txtUserName" layoutX="243.0" layoutY="152.0" unFocusColor="#4d4d4d00" />
                </children></Pane>
-            <Pane fx:id="pnlMainMenu" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FDFF03;">
+            <Pane id="pItems" fx:id="pnlMainMenu" prefHeight="618.0" prefWidth="1017.0">
                <children>
                   <JFXButton fx:id="btnLogout" layoutX="174.0" layoutY="159.0" onAction="#onActionLogout" prefHeight="47.0" prefWidth="97.0" text="Logout" />
                </children></Pane>
-            <Pane fx:id="pnlPackages" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #00FEFF;">
+            <Pane id="pItems" fx:id="pnlPackages" prefHeight="618.0" prefWidth="1017.0">
                <children>
                   <Label fx:id="lblPkgName" layoutX="40.0" layoutY="52.0" prefHeight="37.0" prefWidth="161.0" text="Package Name" />
                   <Label fx:id="lblPkgStartDate" layoutX="40.0" layoutY="101.0" prefHeight="37.0" prefWidth="161.0" text="Package Start " />
@@ -91,7 +73,7 @@
                   </TableView>
                   <JFXButton fx:id="btnAddPkgProdSup" layoutX="576.0" layoutY="550.0" onAction="#onActionAddPkgProdSup" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Add New" />
                </children></Pane>
-            <Pane fx:id="pnlPackagesOverview" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF0000;">
+            <Pane id="pItems" fx:id="pnlPackagesOverview" prefHeight="618.0" prefWidth="1017.0">
                <children>
                   <TableView fx:id="tblPackages" layoutX="88.0" layoutY="21.0" prefHeight="200.0" prefWidth="758.0">
                     <columns>
@@ -122,7 +104,7 @@
                   <JFXButton fx:id="btnProdSupRemove" layoutX="403.0" layoutY="391.0" onAction="#onActionProdSupRemove" prefHeight="65.0" prefWidth="143.0" text="&gt;&gt;" />
                   <JFXButton fx:id="btnProdSupAdd" layoutX="403.0" layoutY="484.0" onAction="#onActionProdSupAdd" prefHeight="65.0" prefWidth="143.0" text="&lt;&lt;" />
                </children></Pane>
-            <Pane fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
+            <Pane id="pItems" fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0">
                <children>
                   <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" text="Search" />
                   <Label fx:id="lblCustSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
@@ -145,7 +127,27 @@
                   <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" text="Delete" />
                   <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" text="Save" />
                </children></Pane>
+            <Pane id="pItems" fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0">
+               <children>
+                  <JFXColorPicker fx:id="cpSettingsTextColour" layoutX="327.0" layoutY="90.0" onAction="#onActionSettingsTextColour" />
+                  <Label fx:id="lblSettingsTextColour" layoutX="215.0" layoutY="94.0" text="Text Colour" />
+                  <JFXColorPicker fx:id="cpSettingsBgColour" layoutX="327.0" layoutY="140.0" onAction="#onActionSettingsBgColour" />
+                  <Label fx:id="lblSettingsBgColour" layoutX="215.0" layoutY="144.0" text="Background colour" />
+               </children></Pane>
          </children>
       </AnchorPane>
+      <AnchorPane prefHeight="30.0" prefWidth="1152.0" style="-fx-background-color: #cd72ff;">
+         <children>
+            <JFXButton fx:id="btnClose" layoutX="1079.0" layoutY="3.0" onAction="#onActionClose" text="X">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="fxMinimize" layoutX="1058.0" layoutY="3.0" onAction="#onActionMinimize" text="─">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

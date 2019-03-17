@@ -16,254 +16,260 @@ import javafx.scene.*;
 
 public class Controller {
 
-  @FXML
-  private AnchorPane apEverything;
+    @FXML
+    private AnchorPane apEverything;
 
-  @FXML
-  private AnchorPane apMenu;
+    @FXML
+    private AnchorPane apMenu;
 
-  @FXML
-  private JFXButton btnLoginTab;
+    @FXML
+    private JFXButton btnLoginTab;
 
-  @FXML
-  private JFXButton btnMainMenu;
+    @FXML
+    private JFXButton btnMainMenu;
 
-  @FXML
-  private JFXButton btnPackagesOverview;
+    @FXML
+    private JFXButton btnPackagesOverview;
 
-  @FXML
-  private JFXButton btnPackages;
+    @FXML
+    private JFXButton btnPackages;
 
-  @FXML
-  private JFXButton btnCustomers;
+    @FXML
+    private JFXButton btnCustomers;
 
-  @FXML
-  private JFXButton btnBookings;
+    @FXML
+    private JFXButton btnBookings;
 
-  @FXML
-  private JFXButton btnSettings;
+    @FXML
+    private JFXButton btnSettings;
 
-  @FXML
-  private JFXButton btnClose;
+    @FXML
+    private AnchorPane apItems;
 
-  @FXML
-  private JFXButton fxMinimize;
+    @FXML
+    private Pane pnlBookings;
 
-  @FXML
-  private AnchorPane apItems;
+    @FXML
+    private Pane pnlLogin;
 
-  @FXML
-  private Pane pnlBookings;
+    @FXML
+    private Label lblLoginUserName;
 
-  @FXML
-  private Pane pnlSettings;
+    @FXML
+    private Label lblLoginPassword;
 
-  @FXML
-  private JFXColorPicker cpSettingsTextColour;
+    @FXML
+    private JFXButton btnLogin;
 
-  @FXML
-  private Label lblSettingsTextColour;
+    @FXML
+    private JFXButton btnCancelLogin;
 
-  @FXML
-  private Pane pnlLogin;
+    @FXML
+    private JFXPasswordField txtPassword;
 
-  @FXML
-  private Label lblLoginUserName;
+    @FXML
+    private JFXTextField txtUserName;
 
-  @FXML
-  private Label lblLoginPassword;
+    @FXML
+    private Pane pnlMainMenu;
 
-  @FXML
-  private JFXButton btnLogin;
+    @FXML
+    private JFXButton btnLogout;
 
-  @FXML
-  private JFXButton btnCancelLogin;
+    @FXML
+    private Pane pnlPackages;
 
-  @FXML
-  private JFXPasswordField txtPassword;
+    @FXML
+    private Label lblPkgName;
 
-  @FXML
-  private JFXTextField txtUserName;
+    @FXML
+    private Label lblPkgStartDate;
 
-  @FXML
-  private Pane pnlMainMenu;
+    @FXML
+    private Label lblPkgEndDate;
 
-  @FXML
-  private JFXButton btnLogout;
+    @FXML
+    private Label lblPkgDesc;
 
-  @FXML
-  private Pane pnlPackages;
+    @FXML
+    private Label lblPkgBasePrice;
 
-  @FXML
-  private Label lblPkgName;
+    @FXML
+    private Label lblPkgAgencyCommission;
 
-  @FXML
-  private Label lblPkgStartDate;
+    @FXML
+    private JFXDatePicker txtPkgEndDate;
 
-  @FXML
-  private Label lblPkgEndDate;
+    @FXML
+    private JFXTextField txtPackageName;
 
-  @FXML
-  private Label lblPkgDesc;
+    @FXML
+    private JFXTextField txtPkgDesc;
 
-  @FXML
-  private Label lblPkgBasePrice;
+    @FXML
+    private JFXTextField txtPkgBasePrice;
 
-  @FXML
-  private Label lblPkgAgencyCommission;
+    @FXML
+    private JFXTextField txtPkgAgencyCommission;
 
-  @FXML
-  private JFXDatePicker txtPkgEndDate;
+    @FXML
+    private JFXDatePicker txtPkgStartDate;
 
-  @FXML
-  private JFXTextField txtPackageName;
+    @FXML
+    private JFXButton btnAddEditPkg;
 
-  @FXML
-  private JFXTextField txtPkgDesc;
+    @FXML
+    private JFXButton btnClearPkg;
 
-  @FXML
-  private JFXTextField txtPkgBasePrice;
+    @FXML
+    private JFXButton btnNewPkgProdSup;
 
-  @FXML
-  private JFXTextField txtPkgAgencyCommission;
+    @FXML
+    private JFXButton btnDeletePkgProdSup;
 
-  @FXML
-  private JFXDatePicker txtPkgStartDate;
+    @FXML
+    private TableView<?> gvProdSup_pkg;
 
-  @FXML
-  private JFXButton btnAddEditPkg;
+    @FXML
+    private TableView<?> gvProdSup_all_pkgs;
 
-  @FXML
-  private JFXButton btnClearPkg;
+    @FXML
+    private JFXButton btnAddPkgProdSup;
 
-  @FXML
-  private JFXButton btnNewPkgProdSup;
+    @FXML
+    private Pane pnlPackagesOverview;
 
-  @FXML
-  private JFXButton btnDeletePkgProdSup;
+    @FXML
+    private TableView<?> tblPackages;
 
-  @FXML
-  private TableView<?> gvProdSup_pkg;
+    @FXML
+    private TableColumn<?, ?> colPkgPkgName;
 
-  @FXML
-  private TableView<?> gvProdSup_all_pkgs;
+    @FXML
+    private TableColumn<?, ?> colPkgPkgStartDate;
 
-  @FXML
-  private JFXButton btnAddPkgProdSup;
+    @FXML
+    private TableColumn<?, ?> colPkgPkgEndDate;
 
-  @FXML
-  private Pane pnlPackagesOverview;
+    @FXML
+    private TableColumn<?, ?> colPkgPkgDesc;
 
-  @FXML
-  private TableView<?> tblPackages;
+    @FXML
+    private TableColumn<?, ?> colPkgBasePrice;
 
-  @FXML
-  private TableColumn<?, ?> colPkgPkgName;
+    @FXML
+    private TableColumn<?, ?> colPkgAgencyCommission;
 
-  @FXML
-  private TableColumn<?, ?> colPkgPkgStartDate;
+    @FXML
+    private TableView<?> tblExistProductsSuppliers;
 
-  @FXML
-  private TableColumn<?, ?> colPkgPkgEndDate;
+    @FXML
+    private TableColumn<?, ?> colPkgExistProdName;
 
-  @FXML
-  private TableColumn<?, ?> colPkgPkgDesc;
+    @FXML
+    private TableColumn<?, ?> colPkgExistSupName;
 
-  @FXML
-  private TableColumn<?, ?> colPkgBasePrice;
+    @FXML
+    private TableView<?> tblNonExistProductsSuppliers;
 
-  @FXML
-  private TableColumn<?, ?> colPkgAgencyCommission;
+    @FXML
+    private TableColumn<?, ?> colPkgNonExistProdName;
 
-  @FXML
-  private TableView<?> tblExistProductsSuppliers;
+    @FXML
+    private TableColumn<?, ?> colPkgNonExistSupName;
 
-  @FXML
-  private TableColumn<?, ?> colPkgExistProdName;
+    @FXML
+    private JFXButton btnAddPkg;
 
-  @FXML
-  private TableColumn<?, ?> colPkgExistSupName;
+    @FXML
+    private JFXButton btnDeletePkg;
 
-  @FXML
-  private TableView<?> tblNonExistProductsSuppliers;
+    @FXML
+    private JFXButton btnEditPkg;
 
-  @FXML
-  private TableColumn<?, ?> colPkgNonExistProdName;
+    @FXML
+    private JFXButton btnSavePkg;
 
-  @FXML
-  private TableColumn<?, ?> colPkgNonExistSupName;
+    @FXML
+    private JFXButton btnProdSupRemove;
 
-  @FXML
-  private JFXButton btnAddPkg;
+    @FXML
+    private JFXButton btnProdSupAdd;
 
-  @FXML
-  private JFXButton btnDeletePkg;
+    @FXML
+    private Pane pnlCustomers;
 
-  @FXML
-  private JFXButton btnEditPkg;
+    @FXML
+    private JFXTextField txtCustSearch;
 
-  @FXML
-  private JFXButton btnSavePkg;
+    @FXML
+    private Label lblCustSearch;
 
-  @FXML
-  private JFXButton btnProdSupRemove;
+    @FXML
+    private TableView<?> gvCustomer;
 
-  @FXML
-  private JFXButton btnProdSupAdd;
+    @FXML
+    private TableColumn<?, ?> colCustFirstName;
 
-  @FXML
-  private Pane pnlCustomers;
+    @FXML
+    private TableColumn<?, ?> colCustLastName;
 
-  @FXML
-  private JFXTextField txtCustSearch;
+    @FXML
+    private TableColumn<?, ?> colCustAddress;
 
-  @FXML
-  private Label lblCustSearch;
+    @FXML
+    private TableColumn<?, ?> colCustCity;
 
-  @FXML
-  private TableView<?> gvCustomer;
+    @FXML
+    private TableColumn<?, ?> colCustProvince;
 
-  @FXML
-  private TableColumn<?, ?> colCustFirstName;
+    @FXML
+    private TableColumn<?, ?> colCustPostalCode;
 
-  @FXML
-  private TableColumn<?, ?> colCustLastName;
+    @FXML
+    private TableColumn<?, ?> colCustCountry;
 
-  @FXML
-  private TableColumn<?, ?> colCustAddress;
+    @FXML
+    private TableColumn<?, ?> colCustHomePhone;
 
-  @FXML
-  private TableColumn<?, ?> colCustCity;
+    @FXML
+    private TableColumn<?, ?> colCustBusinessPhone;
 
-  @FXML
-  private TableColumn<?, ?> colCustProvince;
+    @FXML
+    private TableColumn<?, ?> colCustEmail;
 
-  @FXML
-  private TableColumn<?, ?> colCustPostalCode;
+    @FXML
+    private JFXButton btnCustAdd;
 
-  @FXML
-  private TableColumn<?, ?> colCustCountry;
+    @FXML
+    private JFXButton btnCustEdit;
 
-  @FXML
-  private TableColumn<?, ?> colCustHomePhone;
+    @FXML
+    private JFXButton btnCustDelete;
 
-  @FXML
-  private TableColumn<?, ?> colCustBusinessPhone;
+    @FXML
+    private JFXButton btnCustSave;
 
-  @FXML
-  private TableColumn<?, ?> colCustEmail;
+    @FXML
+    private Pane pnlSettings;
 
-  @FXML
-  private JFXButton btnCustAdd;
+    @FXML
+    private JFXColorPicker cpSettingsTextColour;
 
-  @FXML
-  private JFXButton btnCustEdit;
+    @FXML
+    private Label lblSettingsTextColour;
 
-  @FXML
-  private JFXButton btnCustDelete;
+    @FXML
+    private JFXColorPicker cpSettingsBgColour;
 
-  @FXML
-  private JFXButton btnCustSave;
+    @FXML
+    private Label lblSettingsBgColour;
+
+    @FXML
+    private JFXButton btnClose;
+
+    @FXML
+    private JFXButton fxMinimize;
 
   @FXML
   void onActionAddEditPkg(ActionEvent event) {
@@ -417,8 +423,23 @@ public class Controller {
   }
 
   @FXML
+  void onActionSettingsBgColour(ActionEvent event) {
+    Color c = cpSettingsBgColour.getValue();
+    String hex = String.format( "#%02X%02X%02X",
+            (int)( c.getRed() * 255 ),
+            (int)( c.getGreen() * 255 ),
+            (int)( c.getBlue() * 255 ) );
+    pnlBookings.setStyle("-fx-background-color: " + hex);
+    pnlCustomers.setStyle("-fx-background-color: " + hex);
+    pnlLogin.setStyle("-fx-background-color: " + hex);
+    pnlMainMenu.setStyle("-fx-background-color: " + hex);
+    pnlPackages.setStyle("-fx-background-color: " + hex);
+    pnlPackagesOverview.setStyle("-fx-background-color: " + hex);
+    pnlSettings.setStyle("-fx-background-color: " + hex);
+  }
+
+  @FXML
   void onActionSettingsTextColour(ActionEvent event) {
-    //labelColours(cpSettingsTextColour.getValue());
     Color c =cpSettingsTextColour.getValue();
     String hex = String.format( "#%02X%02X%02X",
             (int)( c.getRed() * 255 ),
@@ -426,15 +447,12 @@ public class Controller {
             (int)( c.getBlue() * 255 ) );
 
     apEverything.setStyle("-label-text-colour: " + hex);
-    //apEverything.setStyle("-root-text-colour: " + hex);
-    //apEverything.setStyle("-jfxbutton-text-colour: " + hex);
-    //apEverything.setStyle("-text-field-colour: " + hex);
-    //lblSettingsTextColour.setText(hex);
-    //textColours(hex);
   }
 
   @FXML
   void initialize() {
+    assert apEverything != null : "fx:id=\"apEverything\" was not injected: check your FXML file 'sample.fxml'.";
+    assert apMenu != null : "fx:id=\"apMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLoginTab != null : "fx:id=\"btnLoginTab\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnMainMenu != null : "fx:id=\"btnMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnPackagesOverview != null : "fx:id=\"btnPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
@@ -442,9 +460,15 @@ public class Controller {
     assert btnCustomers != null : "fx:id=\"btnCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnBookings != null : "fx:id=\"btnBookings\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnSettings != null : "fx:id=\"btnSettings\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
-    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+    assert apItems != null : "fx:id=\"apItems\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlMainMenu != null : "fx:id=\"pnlMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlPackages != null : "fx:id=\"pnlPackages\" was not injected: check your FXML file 'sample.fxml'.";
@@ -489,6 +513,7 @@ public class Controller {
     assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert txtCustSearch != null : "fx:id=\"txtCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblCustSearch != null : "fx:id=\"lblCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
     assert gvCustomer != null : "fx:id=\"gvCustomer\" was not injected: check your FXML file 'sample.fxml'.";
     assert colCustFirstName != null : "fx:id=\"colCustFirstName\" was not injected: check your FXML file 'sample.fxml'.";
     assert colCustLastName != null : "fx:id=\"colCustLastName\" was not injected: check your FXML file 'sample.fxml'.";
@@ -504,31 +529,13 @@ public class Controller {
     assert btnCustEdit != null : "fx:id=\"btnCustEdit\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnCustDelete != null : "fx:id=\"btnCustDelete\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnCustSave != null : "fx:id=\"btnCustSave\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
     assert cpSettingsTextColour != null : "fx:id=\"cpSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblSettingsTextColour != null : "fx:id=\"lblSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsBgColour != null : "fx:id=\"cpSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsBgColour != null : "fx:id=\"lblSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
+    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
 
-  }
-
-  private void textColours(String colour){
-    lblPkgAgencyCommission.setStyle("-fx-text-fill: " + colour);
-    lblPkgBasePrice.setStyle("-fx-text-fill: " + colour);
-    lblPkgDesc.setStyle("-fx-text-fill: " + colour);
-    lblPkgEndDate.setStyle("-fx-text-fill: " + colour);
-    lblPkgName.setStyle("-fx-text-fill: " + colour);
-    lblPkgStartDate.setStyle("-fx-text-fill: " + colour);
-    lblLoginUserName.setStyle("-fx-text-fill: " + colour);
-    lblLoginPassword.setStyle("-fx-text-fill: " + colour);
-    lblSettingsTextColour.setStyle("-fx-text-fill: " + colour);
-    txtCustSearch.setStyle("-fx-text-fill: " + colour);
-
-    
   }
 }
