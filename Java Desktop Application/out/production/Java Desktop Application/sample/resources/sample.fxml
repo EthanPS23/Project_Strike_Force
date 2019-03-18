@@ -27,15 +27,6 @@
       </AnchorPane>
       <AnchorPane id="apItems" fx:id="apItems" layoutX="135.0" layoutY="30.0" prefHeight="618.0" prefWidth="1017.0">
          <children>
-            <Pane id="pItems" fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
-               <children>
-                  <Label fx:id="lblLoginUserName" layoutX="91.0" layoutY="132.0" prefHeight="65.0" prefWidth="143.0" text="User name:" />
-                  <Label fx:id="lblLoginPassword" layoutX="91.0" layoutY="197.0" prefHeight="65.0" prefWidth="143.0" text="Password:" />
-                  <JFXButton fx:id="btnLogin" layoutX="91.0" layoutY="339.0" onAction="#onActionLogin" text="Login" />
-                  <JFXButton fx:id="btnCancelLogin" layoutX="285.0" layoutY="339.0" onAction="#onActionCancelLogin" text="Cancel" />
-                  <JFXPasswordField fx:id="txtPassword" layoutX="243.0" layoutY="217.0" unFocusColor="#4d4d4d00" />
-                  <JFXTextField fx:id="txtUserName" layoutX="243.0" layoutY="152.0" unFocusColor="#4d4d4d00" />
-               </children></Pane>
             <Pane id="pItems" fx:id="pnlSettings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #F200FF;">
                <children>
                   <JFXColorPicker fx:id="cpSettingsTextColour" layoutX="345.0" layoutY="90.0" onAction="#onActionSettingsTextColour" />
@@ -85,52 +76,6 @@
                   </TableView>
                   <JFXButton fx:id="btnAddPkgProdSup" layoutX="576.0" layoutY="550.0" onAction="#onActionAddPkgProdSup" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Add New" />
                </children></Pane>
-            <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
-               <children>
-                  <JFXTextField fx:id="txtBkSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionBkSearch" prefHeight="37.0" prefWidth="356.0" text="Search" />
-                  <Label fx:id="lblBkSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
-                  <TableView fx:id="gvBookings" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
-                     <columns>
-                        <TableColumn fx:id="colBkTripStart" prefWidth="75.0" text="Trip Start" />
-                        <TableColumn fx:id="colBkTripEnd" prefWidth="75.0" text="Trip End" />
-                        <TableColumn fx:id="colBkDescription" prefWidth="75.0" text="Description" />
-                        <TableColumn fx:id="colBkDestination" prefWidth="75.0" text="Destination" />
-                        <TableColumn fx:id="colBkBasePrice" prefWidth="75.0" text="Base Price" />
-                        <TableColumn fx:id="colBkAgencyCommission" prefWidth="75.0" text="Agency Commission" />
-                        <TableColumn fx:id="colBkRegionId" prefWidth="75.0" text="RegionId" />
-                        <TableColumn fx:id="colBkClassId" prefWidth="85.0" text="ClassId" />
-                        <TableColumn fx:id="colBkFeeId" prefWidth="99.0" text="FeeId" />
-                     </columns>
-                  </TableView>
-                  <JFXButton fx:id="btnBkAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionBkAdd" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Add" />
-                  <JFXButton fx:id="btnBkEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionBkEdit" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Edit" />
-                  <JFXButton fx:id="btnBkDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionBkDelete" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Delete" />
-                  <JFXButton fx:id="btnBkSave" layoutX="899.0" layoutY="208.0" onAction="#onActionBkSave" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Save" />
-               </children>
-            </Pane>
-            <Pane id="pItems" fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
-               <children>
-                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" text="Search" />
-                  <Label fx:id="lblCustSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
-                  <TableView fx:id="gvCustomer" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
-                    <columns>
-                      <TableColumn fx:id="colCustFirstName" prefWidth="75.0" text="First Name" />
-                      <TableColumn fx:id="colCustLastName" prefWidth="75.0" text="Last Name" />
-                        <TableColumn fx:id="colCustAddress" prefWidth="75.0" text="Address" />
-                        <TableColumn fx:id="colCustCity" prefWidth="75.0" text="City" />
-                        <TableColumn fx:id="colCustProvince" prefWidth="75.0" text="Province" />
-                        <TableColumn fx:id="colCustPostalCode" prefWidth="75.0" text="Postal Code" />
-                        <TableColumn fx:id="colCustCountry" prefWidth="75.0" text="Country" />
-                        <TableColumn fx:id="colCustHomePhone" prefWidth="85.0" text="Home Phone" />
-                        <TableColumn fx:id="colCustBusinessPhone" prefWidth="99.0" text="Business Phone" />
-                        <TableColumn fx:id="colCustEmail" prefWidth="86.0" text="Email" />
-                    </columns>
-                  </TableView>
-                  <JFXButton fx:id="btnCustAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionCustAdd" prefHeight="37.0" prefWidth="65.0" text="Add" />
-                  <JFXButton fx:id="btnCustEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionCustEdit" prefHeight="37.0" prefWidth="65.0" text="Edit" />
-                  <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" text="Delete" />
-                  <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" text="Save" />
-               </children></Pane>
             <Pane id="pItems" fx:id="pnlPackagesOverview" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF0000;">
                <children>
                   <TableView fx:id="tblPackages" layoutX="88.0" layoutY="21.0" prefHeight="200.0" prefWidth="758.0">
@@ -162,6 +107,61 @@
                   <JFXButton fx:id="btnSavePkg" layoutX="529.0" layoutY="266.0" onAction="#onActionSavePkg" prefHeight="65.0" prefWidth="143.0" style="-fx-background-radius: 0;" text="Save Package" />
                   <JFXButton fx:id="btnProdSupRemove" layoutX="403.0" layoutY="391.0" onAction="#onActionProdSupRemove" prefHeight="65.0" prefWidth="143.0" style="-fx-background-radius: 0;" text="&gt;&gt;" />
                   <JFXButton fx:id="btnProdSupAdd" layoutX="403.0" layoutY="484.0" onAction="#onActionProdSupAdd" prefHeight="65.0" prefWidth="143.0" style="-fx-background-radius: 0;" text="&lt;&lt;" />
+               </children></Pane>
+            <Pane id="pItems" fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
+               <children>
+                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" text="Search" unFocusColor="#4d4d4d00" />
+                  <Label fx:id="lblCustSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
+                  <TableView fx:id="gvCustomer" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
+                    <columns>
+                      <TableColumn fx:id="colCustFirstName" prefWidth="75.0" text="First Name" />
+                      <TableColumn fx:id="colCustLastName" prefWidth="75.0" text="Last Name" />
+                        <TableColumn fx:id="colCustAddress" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="colCustCity" prefWidth="75.0" text="City" />
+                        <TableColumn fx:id="colCustProvince" prefWidth="75.0" text="Province" />
+                        <TableColumn fx:id="colCustPostalCode" prefWidth="75.0" text="Postal Code" />
+                        <TableColumn fx:id="colCustCountry" prefWidth="75.0" text="Country" />
+                        <TableColumn fx:id="colCustHomePhone" prefWidth="85.0" text="Home Phone" />
+                        <TableColumn fx:id="colCustBusinessPhone" prefWidth="99.0" text="Business Phone" />
+                        <TableColumn fx:id="colCustEmail" prefWidth="86.0" text="Email" />
+                    </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnCustAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionCustAdd" prefHeight="37.0" prefWidth="65.0" text="Add" />
+                  <JFXButton fx:id="btnCustEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionCustEdit" prefHeight="37.0" prefWidth="65.0" text="Edit" />
+                  <JFXButton fx:id="btnCustDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionCustDelete" prefHeight="37.0" prefWidth="65.0" text="Delete" />
+                  <JFXButton fx:id="btnCustSave" layoutX="899.0" layoutY="208.0" onAction="#onActionCustSave" prefHeight="37.0" prefWidth="65.0" text="Save" />
+               </children></Pane>
+            <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
+               <children>
+                  <JFXTextField fx:id="txtBkSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionBkSearch" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" text="Search" unFocusColor="#4d4d4d00" />
+                  <Label fx:id="lblBkSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
+                  <TableView fx:id="gvBookings" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
+                     <columns>
+                        <TableColumn fx:id="colBkTripStart" prefWidth="75.0" text="Trip Start" />
+                        <TableColumn fx:id="colBkTripEnd" prefWidth="75.0" text="Trip End" />
+                        <TableColumn fx:id="colBkDescription" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="colBkDestination" prefWidth="75.0" text="Destination" />
+                        <TableColumn fx:id="colBkBasePrice" prefWidth="75.0" text="Base Price" />
+                        <TableColumn fx:id="colBkAgencyCommission" prefWidth="75.0" text="Agency Commission" />
+                        <TableColumn fx:id="colBkRegionId" prefWidth="75.0" text="RegionId" />
+                        <TableColumn fx:id="colBkClassId" prefWidth="85.0" text="ClassId" />
+                        <TableColumn fx:id="colBkFeeId" prefWidth="99.0" text="FeeId" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnBkAdd" layoutX="899.0" layoutY="103.0" onAction="#onActionBkAdd" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Add" />
+                  <JFXButton fx:id="btnBkEdit" layoutX="899.0" layoutY="156.0" onAction="#onActionBkEdit" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Edit" />
+                  <JFXButton fx:id="btnBkDelete" layoutX="899.0" layoutY="256.0" onAction="#onActionBkDelete" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Delete" />
+                  <JFXButton fx:id="btnBkSave" layoutX="899.0" layoutY="208.0" onAction="#onActionBkSave" prefHeight="37.0" prefWidth="65.0" style="-fx-background-radius: 0;" text="Save" />
+               </children>
+            </Pane>
+            <Pane id="pItems" fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
+               <children>
+                  <Label fx:id="lblLoginUserName" layoutX="91.0" layoutY="132.0" prefHeight="65.0" prefWidth="143.0" text="User name:" />
+                  <Label fx:id="lblLoginPassword" layoutX="91.0" layoutY="197.0" prefHeight="65.0" prefWidth="143.0" text="Password:" />
+                  <JFXButton fx:id="btnLogin" layoutX="91.0" layoutY="339.0" onAction="#onActionLogin" text="Login" />
+                  <JFXButton fx:id="btnCancelLogin" layoutX="285.0" layoutY="339.0" onAction="#onActionCancelLogin" text="Cancel" />
+                  <JFXPasswordField fx:id="txtPassword" layoutX="243.0" layoutY="217.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtUserName" layoutX="243.0" layoutY="152.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                </children></Pane>
          </children>
       </AnchorPane>
