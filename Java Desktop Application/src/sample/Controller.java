@@ -1,10 +1,7 @@
 package sample;
 
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -15,6 +12,9 @@ import javafx.scene.control.TableView;*/
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.*;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class Controller {
 
@@ -349,9 +349,6 @@ public class Controller {
 
   @FXML
   private JFXButton btnBkSave;
-
-  @FXML
-  private Pane pnlSettings;
 
   @FXML
   private JFXColorPicker cpSettingsTextColour;
