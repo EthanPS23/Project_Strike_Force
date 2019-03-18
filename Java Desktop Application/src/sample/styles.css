@@ -1,0 +1,89 @@
+#apEverything .root{
+    -fx-font-size: 12pt;
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .label{
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .jfx-button{
+    -fx-text-fill: -label-text-colour;
+    /*-fx-border-color: #44d0ff;*/
+    -fx-border-width: 2pt;
+    -fx-background-radius: 0pt;
+}
+
+#apEverything .text-field{
+    -fx-background-color: #d30a54;
+    -fx-text-fill: -label-text-colour;
+}
+
+#apEverything .menuBtn{
+    -fx-border-color: transparent;
+}
+
+#apEverything .menuBar{
+    -fx-background-color: #707275;
+}
+
+#pItems{
+    -fx-background-color: #f442a4;
+}
+
+#apEverything {
+    -label-text-colour: #000000;
+    -fx-background-color: transparent;
+}
+
+#apItems .jfx-button{
+    -fx-background-color: -btn-bg-colour;
+    -fx-border-color: -btn-brdr-colour;
+}
+
+#apItems .text-field{
+    -fx-background-color: -btn-bg-colour;
+}
+
+#apItems{
+    -btn-bg-colour: transparent;
+    -btn-brdr-colour: transparent;
+    -secondary-bg-colour: transparent;
+    -tertiary-brdr-colour: transparent;
+}
+
+#apItems .table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color:  -secondary-bg-colour;
+}
+
+#apItems .table-view .column-header .label{
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+#apItems .table-view{
+    -fx-background-color: -secondary-bg-colour;
+    -fx-border-color: -btn-brdr-colour;
+    -fx-border-width: 2pt;
+}
+
+#apItems .column-header{
+    -fx-border-color: -btn-brdr-colour;
+    -fx-border-width: 3pt;
+}
+
+#apItems .cell{
+    -fx-border-color: -btn-brdr-colour;
+    -fx-border-width: 1pt;
+}
+
+#apItems .table-view .cell{
+    -fx-cell-size: 35;
+    -fx-alignment: center-left;
+    /*-fx-background-color: -secondary-bg-colour;*/
+    /*-fx-border-color: -btn-brdr-colour;*/
+    -fx-text-fill: lightgray;
+    -fx-alignment: CENTER_LEFT;
+
+}
