@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 /*import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
@@ -16,6 +17,44 @@ import javafx.scene.*;
 
 public class Controller {
 
+  String textColour="#000000";
+  String backgroundColour="#64B5F6";
+  String menuColour="#03A9F4";
+  String secondaryColour="#1E88E5";
+  String tertiaryColour="#5E35B1";
+
+  private void setTextColour(){
+    apEverything.setStyle("-label-text-colour: " + textColour + ";");
+  }
+
+  private void setBackgroundColour(){
+    pnlBookings.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlCustomers.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlLogin.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlMainMenu.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlPackages.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlPackagesOverview.setStyle("-fx-background-color: " + backgroundColour + ";");
+    pnlSettings.setStyle("-fx-background-color: " + backgroundColour + ";");
+  }
+
+  private void setMenuColour(){
+    apMenu.setStyle("-fx-background-color: " + menuColour + ";");
+    apToolbar.setStyle("-fx-background-color: " + menuColour + ";");
+  }
+
+  private void setSecondaryColour(){
+    apItems.setStyle("-btn-bg-colour: " + secondaryColour + ";" +
+            "-secondary-bg-colour: " + secondaryColour + ";" +
+            "-btn-brdr-colour: " + tertiaryColour + ";" +
+            "-tertiary-brdr-colour: " + tertiaryColour + ";");
+  }
+
+  private void setTertiaryColour(){
+    apItems.setStyle("-btn-brdr-colour: " + tertiaryColour + ";" +
+            "-tertiary-brdr-colour: " + tertiaryColour + ";" +
+            "-btn-bg-colour: " + secondaryColour + ";" +
+            "-secondary-bg-colour: " + secondaryColour + ";");
+  }
   @FXML
   private ResourceBundle resources;
 
@@ -451,43 +490,42 @@ public class Controller {
 
   @FXML
   void onActionSettingsBgColour(ActionEvent event) {
-    String hex = hexi(cpSettingsBgColour);
-    pnlBookings.setStyle("-fx-background-color: " + hex);
-    pnlCustomers.setStyle("-fx-background-color: " + hex);
-    pnlLogin.setStyle("-fx-background-color: " + hex);
-    pnlMainMenu.setStyle("-fx-background-color: " + hex);
-    pnlPackages.setStyle("-fx-background-color: " + hex);
-    pnlPackagesOverview.setStyle("-fx-background-color: " + hex);
-    pnlSettings.setStyle("-fx-background-color: " + hex);
+    backgroundColour = hexi(cpSettingsBgColour);
+    setBackgroundColour();
   }
 
   @FXML
   void onActionSettingsMenuColour(ActionEvent event) {
-    String hex = hexi(cpSettingsMenuColour);
-    apMenu.setStyle("-fx-background-color: " + hex);
-    /*apItems.setStyle("-fx-background-color: " + hex);*/
+    menuColour = hexi(cpSettingsMenuColour);
+    setMenuColour();
   }
 
   @FXML
   void onActionSettingsSecondaryColour(ActionEvent event) {
-    String hex = hexi(cpSettingsSecondaryColour);
-    apItems.setStyle("-btn-bg-colour: " + hex);
+    secondaryColour = hexi(cpSettingsSecondaryColour);
+    setSecondaryColour();
   }
 
   @FXML
   void onActionSettingsTertiaryColour(ActionEvent event) {
-    String hex = hexi(cpSettingsTertiaryColour);
-    apItems.setStyle("-btn-brdr-colour: " + hex);
+    tertiaryColour = hexi(cpSettingsTertiaryColour);
+    setTertiaryColour();
   }
 
   @FXML
   void onActionSettingsTextColour(ActionEvent event) {
-    String hex = hexi(cpSettingsTextColour);
-    apEverything.setStyle("-label-text-colour: " + hex);
+    textColour = hexi(cpSettingsTextColour);
+    setTextColour();
   }
 
   @FXML
   void initialize() {
+    cpSettingsTextColour.setValue(Color.web(textColour));
+    cpSettingsBgColour.setValue(Color.web(backgroundColour));
+    cpSettingsMenuColour.setValue(Color.web(menuColour));
+    cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
+    cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+
     assert apEverything != null : "fx:id=\"apEverything\" was not injected: check your FXML file 'sample.fxml'.";
     assert apMenu != null : "fx:id=\"apMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLoginTab != null : "fx:id=\"btnLoginTab\" was not injected: check your FXML file 'sample.fxml'.";
@@ -580,6 +618,12 @@ public class Controller {
     assert apToolbar != null : "fx:id=\"apToolbar\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
     assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+
+    setTextColour();
+    setMenuColour();
+    setBackgroundColour();
+    setSecondaryColour();
+    setTertiaryColour();
   }
 
   private String hexi(ColorPicker cp){
