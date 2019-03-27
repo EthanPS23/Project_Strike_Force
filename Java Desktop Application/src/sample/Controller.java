@@ -885,7 +885,7 @@ public class Controller {
       colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
       colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
 
-      // the following two lines of code and override method are for testing.
+      // the following two lines of code and override method are for testing 
       colBkDescription.setCellFactory(TextFieldTableCell.forTableColumn());
       colBkDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Booking, String>>() {
         @Override
