@@ -1,8 +1,13 @@
 package sample;
 
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -12,8 +17,10 @@ import javafx.scene.control.TableView;*/
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.*;
+import sample.Styles.Booking;
 
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class Controller {
@@ -308,35 +315,37 @@ public class Controller {
   @FXML
   private Label lblBkSearch;
 
-  @FXML
-  private TableView<?> gvBookings;
+  ////////////////////////////////////////////////////////////////////////////
 
   @FXML
-  private TableColumn<?, ?> colBkTripStart;
+  private TableView<Booking> gvBookings;
 
   @FXML
-  private TableColumn<?, ?> colBkTripEnd;
+  private TableColumn<Booking, Date> colBkTripStart;
 
   @FXML
-  private TableColumn<?, ?> colBkDescription;
+  private TableColumn<Booking, Date> colBkTripEnd;
 
   @FXML
-  private TableColumn<?, ?> colBkDestination;
+  private TableColumn<Booking, String> colBkDescription;
 
   @FXML
-  private TableColumn<?, ?> colBkBasePrice;
+  private TableColumn<Booking, String> colBkDestination;
 
   @FXML
-  private TableColumn<?, ?> colBkAgencyCommission;
+  private TableColumn<Booking, String> colBkBasePrice;
 
   @FXML
-  private TableColumn<?, ?> colBkRegionId;
+  private TableColumn<Booking, String> colBkAgencyCommission;
 
   @FXML
-  private TableColumn<?, ?> colBkClassId;
+  private TableColumn<Booking, String> colBkRegionId;
 
   @FXML
-  private TableColumn<?, ?> colBkFeeId;
+  private TableColumn<Booking, String> colBkClassId;
+
+  @FXML
+  private TableColumn<Booking, String> colBkFeeId;
 
   @FXML
   private JFXButton btnBkAdd;
@@ -349,6 +358,8 @@ public class Controller {
 
   @FXML
   private JFXButton btnBkSave;
+
+  //////////////////////////////////////////////////////////////////////////////
 
   @FXML
   private JFXColorPicker cpSettingsTextColour;
@@ -601,13 +612,128 @@ public class Controller {
     setTextColour();
   }
 
+  private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+
+//  @FXML
+//  void initialize() {
+//    cpSettingsTextColour.setValue(Color.web(textColour));
+//    cpSettingsBgColour.setValue(Color.web(backgroundColour));
+//    cpSettingsMenuColour.setValue(Color.web(menuColour));
+//    cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
+//    cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+//
+//
+//    assert apEverything != null : "fx:id=\"apEverything\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert apMenu != null : "fx:id=\"apMenu\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnLoginTab != null : "fx:id=\"btnLoginTab\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnMainMenu != null : "fx:id=\"btnMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnPackagesOverview != null : "fx:id=\"btnPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnPackages != null : "fx:id=\"btnPackages\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCustomers != null : "fx:id=\"btnCustomers\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnBookings != null : "fx:id=\"btnBookings\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnSettings != null : "fx:id=\"btnSettings\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert apItems != null : "fx:id=\"apItems\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlMainMenu != null : "fx:id=\"pnlMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlPackages != null : "fx:id=\"pnlPackages\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgName != null : "fx:id=\"lblPkgName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgStartDate != null : "fx:id=\"lblPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgEndDate != null : "fx:id=\"lblPkgEndDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgDesc != null : "fx:id=\"lblPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgBasePrice != null : "fx:id=\"lblPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblPkgAgencyCommission != null : "fx:id=\"lblPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPkgEndDate != null : "fx:id=\"txtPkgEndDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPackageName != null : "fx:id=\"txtPackageName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPkgDesc != null : "fx:id=\"txtPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPkgBasePrice != null : "fx:id=\"txtPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPkgAgencyCommission != null : "fx:id=\"txtPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtPkgStartDate != null : "fx:id=\"txtPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnAddEditPkg != null : "fx:id=\"btnAddEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnClearPkg != null : "fx:id=\"btnClearPkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnNewPkgProdSup != null : "fx:id=\"btnNewPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnDeletePkgProdSup != null : "fx:id=\"btnDeletePkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert gvProdSup_pkg != null : "fx:id=\"gvProdSup_pkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert gvProdSup_all_pkgs != null : "fx:id=\"gvProdSup_all_pkgs\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnAddPkgProdSup != null : "fx:id=\"btnAddPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlPackagesOverview != null : "fx:id=\"pnlPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert tblPackages != null : "fx:id=\"tblPackages\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgPkgName != null : "fx:id=\"colPkgPkgName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgPkgStartDate != null : "fx:id=\"colPkgPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgPkgEndDate != null : "fx:id=\"colPkgPkgEndDate\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgPkgDesc != null : "fx:id=\"colPkgPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgBasePrice != null : "fx:id=\"colPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgAgencyCommission != null : "fx:id=\"colPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert tblExistProductsSuppliers != null : "fx:id=\"tblExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgExistProdName != null : "fx:id=\"colPkgExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgExistSupName != null : "fx:id=\"colPkgExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert tblNonExistProductsSuppliers != null : "fx:id=\"tblNonExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgNonExistProdName != null : "fx:id=\"colPkgNonExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colPkgNonExistSupName != null : "fx:id=\"colPkgNonExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnAddPkg != null : "fx:id=\"btnAddPkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnDeletePkg != null : "fx:id=\"btnDeletePkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnEditPkg != null : "fx:id=\"btnEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnSavePkg != null : "fx:id=\"btnSavePkg\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnProdSupRemove != null : "fx:id=\"btnProdSupRemove\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert txtCustSearch != null : "fx:id=\"txtCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblCustSearch != null : "fx:id=\"lblCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert gvCustomer != null : "fx:id=\"gvCustomer\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustFirstName != null : "fx:id=\"colCustFirstName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustLastName != null : "fx:id=\"colCustLastName\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustAddress != null : "fx:id=\"colCustAddress\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustCity != null : "fx:id=\"colCustCity\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustProvince != null : "fx:id=\"colCustProvince\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustPostalCode != null : "fx:id=\"colCustPostalCode\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustCountry != null : "fx:id=\"colCustCountry\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustHomePhone != null : "fx:id=\"colCustHomePhone\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustBusinessPhone != null : "fx:id=\"colCustBusinessPhone\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert colCustEmail != null : "fx:id=\"colCustEmail\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCustAdd != null : "fx:id=\"btnCustAdd\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCustEdit != null : "fx:id=\"btnCustEdit\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCustDelete != null : "fx:id=\"btnCustDelete\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnCustSave != null : "fx:id=\"btnCustSave\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert cpSettingsTextColour != null : "fx:id=\"cpSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblSettingsTextColour != null : "fx:id=\"lblSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert cpSettingsBgColour != null : "fx:id=\"cpSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblSettingsBgColour != null : "fx:id=\"lblSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert cpSettingsSecondaryColour != null : "fx:id=\"cpSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblSettingsSecondaryColour != null : "fx:id=\"lblSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert cpSettingsTertiaryColour != null : "fx:id=\"cpSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblSettingsTertiaryColour != null : "fx:id=\"lblSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert cpSettingsMenuColour != null : "fx:id=\"cpSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert lblSettingsMenuColour != null : "fx:id=\"lblSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert apToolbar != null : "fx:id=\"apToolbar\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
+//    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+//
+//    setTextColour();
+//    setMenuColour();
+//    setBackgroundColour();
+//    setSecondaryColour();
+//    setTertiaryColour();
+//  }
+
   @FXML
   void initialize() {
+
     cpSettingsTextColour.setValue(Color.web(textColour));
     cpSettingsBgColour.setValue(Color.web(backgroundColour));
     cpSettingsMenuColour.setValue(Color.web(menuColour));
     cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
     cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+
 
     assert apEverything != null : "fx:id=\"apEverything\" was not injected: check your FXML file 'sample.fxml'.";
     assert apMenu != null : "fx:id=\"apMenu\" was not injected: check your FXML file 'sample.fxml'.";
@@ -618,17 +744,7 @@ public class Controller {
     assert btnCustomers != null : "fx:id=\"btnCustomers\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnBookings != null : "fx:id=\"btnBookings\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnSettings != null : "fx:id=\"btnSettings\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
-    assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
     assert apItems != null : "fx:id=\"apItems\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
-    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
-    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlMainMenu != null : "fx:id=\"pnlMainMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlPackages != null : "fx:id=\"pnlPackages\" was not injected: check your FXML file 'sample.fxml'.";
@@ -689,20 +805,46 @@ public class Controller {
     assert btnCustEdit != null : "fx:id=\"btnCustEdit\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnCustDelete != null : "fx:id=\"btnCustDelete\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnCustSave != null : "fx:id=\"btnCustSave\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlBookings != null : "fx:id=\"pnlBookings\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtBkSearch != null : "fx:id=\"txtBkSearch\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblBkSearch != null : "fx:id=\"lblBkSearch\" was not injected: check your FXML file 'sample.fxml'.";
+    assert gvBookings != null : "fx:id=\"gvBookings\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkTripStart != null : "fx:id=\"colBkTripStart\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkTripEnd != null : "fx:id=\"colBkTripEnd\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkDescription != null : "fx:id=\"colBkDescription\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkDestination != null : "fx:id=\"colBkDestination\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkBasePrice != null : "fx:id=\"colBkBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkAgencyCommission != null : "fx:id=\"colBkAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkRegionId != null : "fx:id=\"colBkRegionId\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkClassId != null : "fx:id=\"colBkClassId\" was not injected: check your FXML file 'sample.fxml'.";
+    assert colBkFeeId != null : "fx:id=\"colBkFeeId\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnBkAdd != null : "fx:id=\"btnBkAdd\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnBkEdit != null : "fx:id=\"btnBkEdit\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnBkDelete != null : "fx:id=\"btnBkDelete\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnBkSave != null : "fx:id=\"btnBkSave\" was not injected: check your FXML file 'sample.fxml'.";
     assert pnlSettings != null : "fx:id=\"pnlSettings\" was not injected: check your FXML file 'sample.fxml'.";
-    assert cpSettingsTextColour != null : "fx:id=\"cpSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblSettingsTextColour != null : "fx:id=\"lblSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert cpSettingsBgColour != null : "fx:id=\"cpSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsTextColour != null : "fx:id=\"cpSettingsTextColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblSettingsBgColour != null : "fx:id=\"lblSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert cpSettingsSecondaryColour != null : "fx:id=\"cpSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblSettingsSecondaryColour != null : "fx:id=\"lblSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert cpSettingsTertiaryColour != null : "fx:id=\"cpSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert lblSettingsTertiaryColour != null : "fx:id=\"lblSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
-    assert cpSettingsMenuColour != null : "fx:id=\"cpSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsBgColour != null : "fx:id=\"cpSettingsBgColour\" was not injected: check your FXML file 'sample.fxml'.";
     assert lblSettingsMenuColour != null : "fx:id=\"lblSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsMenuColour != null : "fx:id=\"cpSettingsMenuColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsSecondaryColour != null : "fx:id=\"lblSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsSecondaryColour != null : "fx:id=\"cpSettingsSecondaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblSettingsTertiaryColour != null : "fx:id=\"lblSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert cpSettingsTertiaryColour != null : "fx:id=\"cpSettingsTertiaryColour\" was not injected: check your FXML file 'sample.fxml'.";
+    assert pnlLogin != null : "fx:id=\"pnlLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginUserName != null : "fx:id=\"lblLoginUserName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtUserName != null : "fx:id=\"txtUserName\" was not injected: check your FXML file 'sample.fxml'.";
+    assert lblLoginPassword != null : "fx:id=\"lblLoginPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'sample.fxml'.";
+    assert btnCancelLogin != null : "fx:id=\"btnCancelLogin\" was not injected: check your FXML file 'sample.fxml'.";
     assert apToolbar != null : "fx:id=\"apToolbar\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
     assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
+
+    getBooking();
 
     setTextColour();
     setMenuColour();
@@ -717,5 +859,53 @@ public class Controller {
             (int)( c.getRed() * 255 ),
             (int)( c.getGreen() * 255 ),
             (int)( c.getBlue() * 255 ) );
+  }
+
+  private void getBooking()
+  {
+
+    Connection conn = DBConnect.getConnection();
+    gvBookings.setEditable(true);
+
+    String sql = "select TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as BasePrice, RegionId, ClassId, FeeId " +
+            "from BookingDetails";
+
+    try
+    {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery(sql);
+      while(rs.next())
+      {
+        Booking booking = new Booking(rs.getDate(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6) + "", rs.getString(7) + "", rs.getString(8), rs.getString(9));
+
+        bookingData.add(booking);
+      }
+
+      colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
+      colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
+      colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
+
+      // the following two lines of code and override method are for testing.
+      colBkDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+      colBkDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Booking, String>>() {
+        @Override
+        public void handle(TableColumn.CellEditEvent<Booking, String> event) {
+
+
+        }
+      });
+      colBkDestination.setCellValueFactory(new PropertyValueFactory<Booking, String>("destination"));
+      colBkBasePrice.setCellValueFactory(new PropertyValueFactory<Booking, String>("basePrice"));
+      colBkAgencyCommission.setCellValueFactory(new PropertyValueFactory<Booking, String>("agencyComission"));
+      colBkRegionId.setCellValueFactory(new PropertyValueFactory<Booking, String>("regionId"));
+      colBkClassId.setCellValueFactory(new PropertyValueFactory<Booking, String>("classId"));
+      colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
+
+      gvBookings.setItems(bookingData);
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
   }
 }
