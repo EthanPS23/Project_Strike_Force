@@ -155,16 +155,16 @@
                   <Label fx:id="lblPkgDesc" layoutX="40.0" layoutY="197.0" prefHeight="37.0" prefWidth="161.0" text="Package Description" />
                   <Label fx:id="lblPkgBasePrice" layoutX="40.0" layoutY="259.0" prefHeight="37.0" prefWidth="161.0" text="Package Base Price" />
                   <Label fx:id="lblPkgAgencyCommission" layoutX="40.0" layoutY="324.0" prefHeight="37.0" prefWidth="161.0" text="Package Agency Commission" />
-                  <JFXDatePicker fx:id="txtPkgEndDate" defaultColor="#00838f" layoutX="219.0" layoutY="150.0" prefHeight="28.0" prefWidth="135.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" />
-                  <JFXTextField fx:id="txtPackageName" layoutX="219.0" layoutY="58.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                  <JFXTextField fx:id="txtPkgDesc" layoutX="219.0" layoutY="203.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                  <JFXTextField fx:id="txtPkgBasePrice" layoutX="219.0" layoutY="265.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                  <JFXTextField fx:id="txtPkgAgencyCommission" layoutX="219.0" layoutY="330.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                  <JFXDatePicker fx:id="txtPkgStartDate" defaultColor="#00838f" layoutX="219.0" layoutY="106.0" prefHeight="28.0" prefWidth="135.0" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" />
-                  <JFXButton fx:id="btnAddEditPkg" layoutX="78.0" layoutY="433.0" onAction="#onActionAddEditPkg" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Save New Package" />
-                  <JFXButton fx:id="btnClearPkg" layoutX="229.0" layoutY="433.0" onAction="#onActionClearPkg" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Clear" />
-                  <JFXButton fx:id="btnNewPkgProdSup" layoutX="658.0" layoutY="265.0" onAction="#onActionNewPkgProdSup" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="New Product" />
-                  <JFXButton fx:id="btnDeletePkgProdSup" layoutX="827.0" layoutY="265.0" onAction="#onActionDeletePkgProdSup" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Delete Product" />
+                  <JFXDatePicker fx:id="txtPkgEndDate" defaultColor="#00838f" layoutX="219.0" layoutY="150.0" prefHeight="28.0" prefWidth="135.0" style="-fx-background-radius: 0;" />
+                  <JFXTextField fx:id="txtPackageName" layoutX="219.0" layoutY="58.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtPkgDesc" layoutX="219.0" layoutY="203.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtPkgBasePrice" layoutX="219.0" layoutY="265.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtPkgAgencyCommission" layoutX="219.0" layoutY="330.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXDatePicker fx:id="txtPkgStartDate" defaultColor="#00838f" layoutX="219.0" layoutY="106.0" prefHeight="28.0" prefWidth="135.0" style="-fx-background-radius: 0;" />
+                  <JFXButton fx:id="btnAddEditPkg" layoutX="78.0" layoutY="433.0" onAction="#onActionAddEditPkg" style="-fx-background-radius: 0;" text="Save New Package" />
+                  <JFXButton fx:id="btnClearPkg" layoutX="229.0" layoutY="433.0" onAction="#onActionClearPkg" style="-fx-background-radius: 0;" text="Clear" />
+                  <JFXButton fx:id="btnNewPkgProdSup" layoutX="658.0" layoutY="265.0" onAction="#onActionNewPkgProdSup" style="-fx-background-radius: 0;" text="New Product" />
+                  <JFXButton fx:id="btnDeletePkgProdSup" layoutX="827.0" layoutY="265.0" onAction="#onActionDeletePkgProdSup" style="-fx-background-radius: 0;" text="Delete Product" />
                   <TableView fx:id="gvProdSup_pkg" layoutX="576.0" layoutY="20.0" prefHeight="200.0" prefWidth="296.0">
                     <columns>
                       <TableColumn prefWidth="105.0" text="Product Name" />
@@ -177,7 +177,7 @@
                         <TableColumn minWidth="0.0" prefWidth="181.0" text="Supplier Name" />
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="btnAddPkgProdSup" layoutX="576.0" layoutY="550.0" onAction="#onActionAddPkgProdSup" style="-fx-background-color: #FF8082; -fx-background-radius: 0;" text="Add New" />
+                  <JFXButton fx:id="btnAddPkgProdSup" layoutX="576.0" layoutY="550.0" onAction="#onActionAddPkgProdSup" style="-fx-background-radius: 0;" text="Add New" />
                </children></Pane>
             <Pane id="pItems" fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
                <children>
@@ -206,31 +206,31 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustFirstName" prefHeight="17.0" prefWidth="110.0" text="First Name: " />
-                              <JFXTextField fx:id="txtCustFirstName" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustFirstName" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustLastName" prefWidth="110.0" text="Last Name:" />
-                              <JFXTextField fx:id="txtCustLastName" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustLastName" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustAddress" prefWidth="110.0" text="Address" />
-                              <JFXTextField fx:id="txtCustAddress" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustAddress" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustCity" prefWidth="110.0" text="City" />
-                              <JFXTextField fx:id="txtCustCity" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustCity" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustProv" prefHeight="17.0" prefWidth="110.0" text="Province:" />
-                              <JFXTextField fx:id="txtCustProv" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustProv" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                      </children>
@@ -240,31 +240,31 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustPostal" prefHeight="17.0" prefWidth="110.0" text="Postal Code:" />
-                              <JFXTextField fx:id="txtCustPostal" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustPostal" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustCountry" prefWidth="110.0" text="Country:" />
-                              <JFXTextField fx:id="txtCustCountry" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustCountry" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustHomePhone" prefWidth="110.0" text="Home Phone:" />
-                              <JFXTextField fx:id="txtCustHomePhone" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustHomePhone" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustBusPhone" prefWidth="110.0" text="Business Phone:" />
-                              <JFXTextField fx:id="txtCustBusPhone" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustBusPhone" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblCustEmail" prefHeight="17.0" prefWidth="110.0" text="Email:" />
-                              <JFXTextField fx:id="txtCustEmail" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtCustEmail" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                      </children>
@@ -296,25 +296,25 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblAgencyCommission" prefHeight="17.0" prefWidth="155.0" text="Agency Commission:" />
-                              <JFXTextField fx:id="txtAgencyCommission" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtAgencyCommission" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblRegionId" prefHeight="17.0" prefWidth="110.0" text="Region Id:" />
-                              <JFXComboBox fx:id="cbRegionId" prefHeight="25.0" prefWidth="125.0" />
+                              <JFXComboBox fx:id="cbRegionId" prefHeight="25.0" prefWidth="125.0" style="-fx-background-radius: 0;" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblClassId" prefWidth="110.0" text="Class Id:" />
-                              <JFXComboBox fx:id="cbClassId" prefHeight="25.0" prefWidth="125.0" />
+                              <JFXComboBox fx:id="cbClassId" prefHeight="25.0" prefWidth="125.0" style="-fx-background-radius: 0;" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblFeeId" prefWidth="110.0" text="Fee Id:" />
-                              <JFXComboBox fx:id="cbFeeId" prefWidth="125.0" />
+                              <JFXComboBox fx:id="cbFeeId" prefWidth="125.0" style="-fx-background-radius: 0;" />
                            </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0" />
@@ -325,31 +325,31 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblTripStart" prefHeight="17.0" prefWidth="110.0" text="Trip Start:" />
-                              <JFXTextField fx:id="txtTripStart" unFocusColor="#4d4d4d00" />
+                              <JFXDatePicker fx:id="txtTripStart" prefHeight="28.0" prefWidth="120.0" style="-fx-background-radius: 0;" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblTripEnd" prefWidth="110.0" text="Trip End:" />
-                              <JFXTextField fx:id="txtTripEnd" unFocusColor="#4d4d4d00" />
+                              <JFXDatePicker fx:id="txtTripEnd" prefHeight="28.0" prefWidth="120.0" style="-fx-background-radius: 0;" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblDescription" prefWidth="110.0" text="Description:" />
-                              <JFXTextField fx:id="txtDescription" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtDescription" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblDestination" prefWidth="110.0" text="Destination:" />
-                              <JFXTextField fx:id="txtDestination" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtDestination" prefWidth="120.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                         <HBox layoutX="10.0" layoutY="200.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="lblBasePrice" prefHeight="17.0" prefWidth="110.0" text="Base Price:" />
-                              <JFXTextField fx:id="txtBasePrice" unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="txtBasePrice" prefWidth="120.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
                      </children>

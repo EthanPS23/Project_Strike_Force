@@ -440,13 +440,13 @@ public class Controller {
   private Label lblTripStart;
 
   @FXML
-  private JFXTextField txtTripStart;
+  private JFXDatePicker txtTripStart;
 
   @FXML
   private Label lblTripEnd;
 
   @FXML
-  private JFXTextField txtTripEnd;
+  private JFXDatePicker txtTripEnd;
 
   @FXML
   private Label lblDescription;
