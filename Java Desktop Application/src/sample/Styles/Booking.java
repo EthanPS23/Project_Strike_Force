@@ -8,7 +8,7 @@ public class Booking {
      * Title: Booking object for bookingDetails tab
      * Date: March 24/2019
      * Author: James Cockriell
-     * */
+     */
 
     private Date tripStart;
     private Date tripEnd;

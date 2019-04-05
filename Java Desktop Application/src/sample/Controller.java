@@ -8,6 +8,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
@@ -19,23 +21,25 @@ import javafx.scene.paint.Color;
 import javafx.scene.*;
 import sample.Styles.Booking;
 
+import javax.swing.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 public class Controller {
 
-  String textColour="#000000";
-  String backgroundColour="#64B5F6";
-  String menuColour="#03A9F4";
-  String secondaryColour="#1E88E5";
-  String tertiaryColour="#5E35B1";
+  String textColour = "#000000";
+  String backgroundColour = "#64B5F6";
+  String menuColour = "#03A9F4";
+  String secondaryColour = "#1E88E5";
+  String tertiaryColour = "#5E35B1";
 
-  private void setTextColour(){
+
+  private void setTextColour() {
     apEverything.setStyle("-label-text-colour: " + textColour + ";");
   }
 
-  private void setBackgroundColour(){
+  private void setBackgroundColour() {
     pnlBookings.setStyle("-fx-background-color: " + backgroundColour + ";");
     pnlCustomers.setStyle("-fx-background-color: " + backgroundColour + ";");
     pnlLogin.setStyle("-fx-background-color: " + backgroundColour + ";");
@@ -45,24 +49,25 @@ public class Controller {
     pnlSettings.setStyle("-fx-background-color: " + backgroundColour + ";");
   }
 
-  private void setMenuColour(){
+  private void setMenuColour() {
     apMenu.setStyle("-fx-background-color: " + menuColour + ";");
     apToolbar.setStyle("-fx-background-color: " + menuColour + ";");
   }
 
-  private void setSecondaryColour(){
+  private void setSecondaryColour() {
     apItems.setStyle("-btn-bg-colour: " + secondaryColour + ";" +
             "-secondary-bg-colour: " + secondaryColour + ";" +
             "-btn-brdr-colour: " + tertiaryColour + ";" +
             "-tertiary-brdr-colour: " + tertiaryColour + ";");
   }
 
-  private void setTertiaryColour(){
+  private void setTertiaryColour() {
     apItems.setStyle("-btn-brdr-colour: " + tertiaryColour + ";" +
             "-tertiary-brdr-colour: " + tertiaryColour + ";" +
             "-btn-bg-colour: " + secondaryColour + ";" +
             "-secondary-bg-colour: " + secondaryColour + ";");
   }
+
   @FXML
   private ResourceBundle resources;
 
@@ -416,8 +421,11 @@ public class Controller {
 
   }
 
+  //WooHoo!
   @FXML
   void onActionBkAdd(ActionEvent event) {
+
+    getcustomerbooking();
 
   }
 
@@ -612,6 +620,22 @@ public class Controller {
     setTextColour();
   }
 
+  // on mouse event for when user clicks on bookings tableview
+  @FXML
+  void GetCustomerBookingDetails(MouseEvent event) {
+
+//    Booking customerBookingDetails = new Booking(colBkTripStart, );
+//    customerBookingDetails = gvBookings.getSelectionModel().getSelectedItem();
+    //Booking
+
+
+  // this is a key line of code to allow me to get the data from the table view and put into object
+    Booking yolo = gvBookings.getItems().get(gvBookings.getSelectionModel().getFocusedIndex());
+
+    System.out.println(yolo.getAgencyComission());
+  }
+
+
   private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
 
 //  @FXML
@@ -724,6 +748,7 @@ public class Controller {
 //    setSecondaryColour();
 //    setTertiaryColour();
 //  }
+
 
   @FXML
   void initialize() {
@@ -844,7 +869,7 @@ public class Controller {
     assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
     assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
 
-    getBooking();
+    //getBooking();
 
     setTextColour();
     setMenuColour();
@@ -853,16 +878,15 @@ public class Controller {
     setTertiaryColour();
   }
 
-  private String hexi(ColorPicker cp){
+  private String hexi(ColorPicker cp) {
     Color c = cp.getValue();
-    return String.format( "#%02X%02X%02X",
-            (int)( c.getRed() * 255 ),
-            (int)( c.getGreen() * 255 ),
-            (int)( c.getBlue() * 255 ) );
+    return String.format("#%02X%02X%02X",
+            (int) (c.getRed() * 255),
+            (int) (c.getGreen() * 255),
+            (int) (c.getBlue() * 255));
   }
 
-  private void getBooking()
-  {
+  private void getBooking() {
 
     Connection conn = DBConnect.getConnection();
     gvBookings.setEditable(true);
@@ -870,12 +894,10 @@ public class Controller {
     String sql = "select TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as BasePrice, RegionId, ClassId, FeeId " +
             "from BookingDetails";
 
-    try
-    {
+    try {
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery(sql);
-      while(rs.next())
-      {
+      while (rs.next()) {
         Booking booking = new Booking(rs.getDate(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6) + "", rs.getString(7) + "", rs.getString(8), rs.getString(9));
 
         bookingData.add(booking);
@@ -884,16 +906,6 @@ public class Controller {
       colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
       colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
       colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
-
-      // the following two lines of code and override method are for testing 
-      colBkDescription.setCellFactory(TextFieldTableCell.forTableColumn());
-      colBkDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Booking, String>>() {
-        @Override
-        public void handle(TableColumn.CellEditEvent<Booking, String> event) {
-
-
-        }
-      });
       colBkDestination.setCellValueFactory(new PropertyValueFactory<Booking, String>("destination"));
       colBkBasePrice.setCellValueFactory(new PropertyValueFactory<Booking, String>("basePrice"));
       colBkAgencyCommission.setCellValueFactory(new PropertyValueFactory<Booking, String>("agencyComission"));
@@ -902,10 +914,53 @@ public class Controller {
       colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
 
       gvBookings.setItems(bookingData);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-    catch (SQLException e)
-    {
+  }
+
+
+  // method to get booking details of specific customer by last name,
+  // txtBkSearch TextField input string value, and return bookingData ObservableList object
+  public void getcustomerbooking() {
+    String lname = txtBkSearch.getText();
+    Connection conn = DBConnect.getConnection();
+    String sql = "select TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as AgencyCommission, RegionId, ClassId, FeeId " +
+            "from ((bookingDetails " +
+            "Inner Join Bookings on BookingDetails.BookingId = Bookings.BookingId) " +
+            "Inner Join Customers on Bookings.CustomerId = Customers.CustomerId) " +
+            "where Customers.CustLastName LIKE '%" + lname + "%'" +
+            "ORDER BY TripStart DESC";
+    try {
+      //PreparedStatement stmt = conn.prepareStatement(sql);
+      Statement stmt = conn.createStatement();
+      // String lname = txtBkSearch.getText();
+      //stmt.setString(1, "%" + lname + "%");
+      // stmt.setString(1, "'%" + txtBkSearch.getText() + "%'");
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        Booking booking = new Booking(rs.getDate(1), rs.getDate(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6) + "", rs.getString(7) + "", rs.getString(8), rs.getString(9));
+
+        bookingData.add(booking);
+      }
+
+      colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
+      colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
+      colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
+      colBkDestination.setCellValueFactory(new PropertyValueFactory<Booking, String>("destination"));
+      colBkBasePrice.setCellValueFactory(new PropertyValueFactory<Booking, String>("basePrice"));
+      colBkAgencyCommission.setCellValueFactory(new PropertyValueFactory<Booking, String>("agencyComission"));
+      colBkRegionId.setCellValueFactory(new PropertyValueFactory<Booking, String>("regionId"));
+      colBkClassId.setCellValueFactory(new PropertyValueFactory<Booking, String>("classId"));
+      colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
+
+      gvBookings.setItems(bookingData);
+      //gvBookings.refresh();
+
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 }
+
+
