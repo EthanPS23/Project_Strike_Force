@@ -719,6 +719,12 @@ public class Controller {
 
   @FXML
   void initialize() {
+    cpSettingsTextColour.setValue(Color.web(textColour));
+    cpSettingsBgColour.setValue(Color.web(backgroundColour));
+    cpSettingsMenuColour.setValue(Color.web(menuColour));
+    cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
+    cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+
     assert apEverything != null : "fx:id=\"apEverything\" was not injected: check your FXML file 'sample.fxml'.";
     assert apMenu != null : "fx:id=\"apMenu\" was not injected: check your FXML file 'sample.fxml'.";
     assert btnLoginTab != null : "fx:id=\"btnLoginTab\" was not injected: check your FXML file 'sample.fxml'.";
