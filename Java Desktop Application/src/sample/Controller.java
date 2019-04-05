@@ -752,10 +752,11 @@ public class Controller implements Initializable {
             colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
 
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+//                Class.forName("com.mysql.jdbc.Driver");
 
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
-                        "Chris", "password");// this is temporary till tomorrow until I can bring in Harv's Travel Experts
+//                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
+//                        "Chris", "password");// this is temporary till tomorrow until I can bring in Harv's Travel Experts
+                Connection conn = DBConnect.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("select * from customers");
                 while (rs.next()) {
@@ -767,7 +768,7 @@ public class Controller implements Initializable {
                             rs.getString(11)));
                 }
                 gvCustomer.setItems(custData);
-            } catch (ClassNotFoundException | SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
         }
 

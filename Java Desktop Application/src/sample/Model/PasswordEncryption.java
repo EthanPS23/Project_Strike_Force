@@ -1,14 +1,12 @@
 package sample.Model;
 
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordEncryption {
 
-    public static String MD5 (String input) throws NoSuchAlgorithmException {
-
+    public static String MD5(String input) throws NoSuchAlgorithmException {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
@@ -17,9 +15,10 @@ public class PasswordEncryption {
             while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
+
             return hashtext;
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+        }
     }
-}

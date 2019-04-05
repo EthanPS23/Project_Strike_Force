@@ -125,8 +125,6 @@
                   </HBox>
                </children>
             </Pane>
-         </children>
-      </AnchorPane>
             <Pane id="pItems" fx:id="pnlPackagesOverview" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF0000;">
                <children>
                   <TableView fx:id="tblPackages" layoutX="88.0" layoutY="21.0" prefHeight="200.0" prefWidth="758.0">

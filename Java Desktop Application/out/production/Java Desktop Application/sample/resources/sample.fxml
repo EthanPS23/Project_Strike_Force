@@ -72,9 +72,9 @@
                      </children>
                   </VBox>
                </children></Pane>
-            <Pane id="pItems" fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
+                <Pane id="pItems" fx:id="pnlLogin" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF7F03;">
                <children>
-                  <VBox layoutX="66.0" layoutY="159.0" prefHeight="210.0" prefWidth="328.0">
+                  <VBox layoutX="66.0" layoutY="159.0" prefHeight="210.0" prefWidth="382.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -82,16 +82,17 @@
                               <JFXTextField fx:id="txtUserName" prefHeight="53.0" prefWidth="200.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                            </children>
                         </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblLoginPassword" prefHeight="65.0" prefWidth="143.0" text="Password:" />
+                              <JFXPasswordField fx:id="txtPassword" prefHeight="53.0" prefWidth="200.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                           </children>
+                        </HBox>
                         <HBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label fx:id="lblLoginPassword" prefHeight="65.0" prefWidth="143.0" text="Password:" />
-                                    <JFXPasswordField fx:id="txtPassword" prefHeight="53.0" prefWidth="200.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
-                                 </children>
-                              </HBox>
+                              <Label fx:id="lblPasswordMessage" prefHeight="38.0" prefWidth="333.0" textAlignment="CENTER" />
                            </children></HBox>
-                        <HBox layoutX="10.0" layoutY="81.0" prefHeight="100.0" prefWidth="200.0">
+                        <HBox layoutX="10.0" layoutY="81.0" prefHeight="97.0" prefWidth="363.0">
                            <children>
                               <JFXButton fx:id="btnLogin" onAction="#onActionLogin" text="Login">
                                  <HBox.margin>
@@ -113,6 +114,15 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <HBox layoutX="66.0" layoutY="385.0" prefHeight="71.0" prefWidth="115.0">
+                     <children>
+                        <JFXButton fx:id="btnMainLogout" onAction="#onMainLogout" prefHeight="57.0" prefWidth="89.0" text="Logout">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
             </Pane>
             <Pane id="pItems" fx:id="pnlPackagesOverview" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #FF0000;">
