@@ -12,11 +12,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import sample.Model.Customer;
+import sample.Model.Package;
 import sample.Model.PasswordEncryption;
 
+import javax.swing.*;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -205,25 +209,25 @@ public class Controller implements Initializable {
     private Pane pnlPackagesOverview;
 
     @FXML
-    private TableView<?> tblPackages;
+    private TableView<Package> tblPackages;
 
     @FXML
-    private TableColumn<?, ?> colPkgPkgName;
+    private TableColumn<Package, String> colPkgPkgName;
 
     @FXML
-    private TableColumn<?, ?> colPkgPkgStartDate;
+    private TableColumn<Package, Date> colPkgPkgStartDate;
 
     @FXML
-    private TableColumn<?, ?> colPkgPkgEndDate;
+    private TableColumn<Package, Date> colPkgPkgEndDate;
 
     @FXML
-    private TableColumn<?, ?> colPkgPkgDesc;
+    private TableColumn<Package, String> colPkgPkgDesc;
 
     @FXML
-    private TableColumn<?, ?> colPkgBasePrice;
+    private TableColumn<Package, Float> colPkgBasePrice;
 
     @FXML
-    private TableColumn<?, ?> colPkgAgencyCommission;
+    private TableColumn<Package, Float> colPkgAgencyCommission;
 
     @FXML
     private TableView<?> tblExistProductsSuppliers;
@@ -412,7 +416,40 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionAddEditPkg(ActionEvent event) {
+        String pkgName = txtPackageName.getText();
+        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgDesc = txtPkgDesc.getText();
+        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
+        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
 
+
+
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
+                    "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
+
+            JOptionPane.showMessageDialog( null,"New Package Added");
+
+            getPackages();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        txtPackageName.clear();
+        txtPkgStartDate.setValue(null);
+        txtPkgEndDate.setValue(null);
+        txtPkgDesc.clear();
+        txtPkgBasePrice.clear();
+        txtPkgAgencyCommission.clear();
+
+        txtPackageName.requestFocus();
     }
 
     @FXML
@@ -616,6 +653,8 @@ public class Controller implements Initializable {
         setTextColour();
     }
 
+    private ObservableList<Package> data = FXCollections.observableArrayList();
+
     @FXML
     void initialize() {
         cpSettingsTextColour.setValue(Color.web(textColour));
@@ -724,6 +763,10 @@ public class Controller implements Initializable {
         setBackgroundColour();
         setSecondaryColour();
         setTertiaryColour();
+
+
+
+
     }
 
     private String hexi(ColorPicker cp) {
@@ -734,45 +777,70 @@ public class Controller implements Initializable {
                 (int) (c.getBlue() * 255));
     }
 
-    //this populates the Customer table on form load 1st step
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            ObservableList<Customer> custData = FXCollections.observableArrayList();
-            // sets the columns to the customer object properties
 
-            colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-            colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
-            colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-            colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
-            colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
-            colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
-            colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
-            colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
-            colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
-            colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
+        setTextColour();
+        setMenuColour();
+        setBackgroundColour();
+        setSecondaryColour();
+        setTertiaryColour();
 
-            try {
+        ObservableList<Customer> custData = FXCollections.observableArrayList();
+        ObservableList<Package> packData = FXCollections.observableArrayList();
+
+
+        // sets the columns to the customer object properties
+
+        colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
+        colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
+        colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
+        colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
+        colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
+        colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
+        colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
+        colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
+        colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
+        colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
+
+
+        try {
 //                Class.forName("com.mysql.jdbc.Driver");
 
 //                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
 //                        "Chris", "password");// this is temporary till tomorrow until I can bring in Harv's Travel Experts
-                Connection conn = DBConnect.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from customers");
-                while (rs.next()) {
-                    custData.add(new Customer(rs.getString(2),
-                            rs.getString(3), rs.getString(4),
-                            rs.getString(5), rs.getString(6),
-                            rs.getString(7), rs.getString(8),
-                            rs.getString(9), rs.getString(10),
-                            rs.getString(11)));
-                }
-                gvCustomer.setItems(custData);
-            } catch (SQLException e) {
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from customers");
+            //ResultSet rsp = stmt.executeQuery("select * from Packages");
+            while (rs.next()) {
+                custData.add(new Customer(rs.getString(2),
+                        rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10),
+                        rs.getString(11)));
+
+               // packData.add(new Package(rsp.getInt(1), rsp.getString(2), rsp.getDate(3),
+                       // rsp.getDate(4), rsp.getString(5), rsp.getFloat(6),
+                       // rsp.getFloat(7)));
+
+            }
+            gvCustomer.setItems(custData);
+            //tblPackages.setItems(packData);
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // to load packages table
+        getPackages();
+
+
     }
+    //this populates the Customer table on form load 1st step
+
+
 
     //this is the login method
     private void Login() throws NoSuchAlgorithmException {
@@ -848,6 +916,38 @@ public class Controller implements Initializable {
         btnCustomers.setVisible(false);
         btnBookings.setVisible(false);
         btnSettings.setVisible(false);
+    }
+
+    private void getPackages()
+    {
+        ObservableList<Package> packData = FXCollections.observableArrayList();
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            String sql = "select * from Packages";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+            {
+                packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3),
+                        rs.getDate(4), rs.getString(5), rs.getFloat(6),
+                        rs.getFloat(7)));
+            }
+
+            colPkgPkgName.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgName"));
+            colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, java.util.Date>("pkgStartDate"));
+            colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, Date>("pkgEndDate"));
+            colPkgPkgDesc.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgDesc"));
+            colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgBasePrice"));
+            colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
+
+            tblPackages.setItems(packData);
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
