@@ -435,6 +435,10 @@ public class Controller implements Initializable {
 
             JOptionPane.showMessageDialog( null,"New Package Added");
 
+            clear();
+
+            pnlPackagesOverview.toFront();
+
             getPackages();
         }
         catch (ClassNotFoundException | SQLException e)
@@ -442,19 +446,19 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
-        txtPackageName.clear();
-        txtPkgStartDate.setValue(null);
-        txtPkgEndDate.setValue(null);
-        txtPkgDesc.clear();
-        txtPkgBasePrice.clear();
-        txtPkgAgencyCommission.clear();
-
-        txtPackageName.requestFocus();
     }
 
     @FXML
     void onActionAddPkg(ActionEvent event) {
 
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                pnlPackages.toFront();
+                txtPackageName.requestFocus();
+            }
+            else {
+                pnlPackagesOverview.toFront();
+            }
     }
 
     @FXML
@@ -500,7 +504,9 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionClearPkg(ActionEvent event) {
+        clear();
 
+        txtPackageName.requestFocus();
     }
 
     @FXML
@@ -787,7 +793,7 @@ public class Controller implements Initializable {
         setTertiaryColour();
 
         ObservableList<Customer> custData = FXCollections.observableArrayList();
-        ObservableList<Package> packData = FXCollections.observableArrayList();
+
 
 
         // sets the columns to the customer object properties
@@ -812,7 +818,7 @@ public class Controller implements Initializable {
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select * from customers");
-            //ResultSet rsp = stmt.executeQuery("select * from Packages");
+
             while (rs.next()) {
                 custData.add(new Customer(rs.getString(2),
                         rs.getString(3), rs.getString(4),
@@ -821,13 +827,11 @@ public class Controller implements Initializable {
                         rs.getString(9), rs.getString(10),
                         rs.getString(11)));
 
-               // packData.add(new Package(rsp.getInt(1), rsp.getString(2), rsp.getDate(3),
-                       // rsp.getDate(4), rsp.getString(5), rsp.getFloat(6),
-                       // rsp.getFloat(7)));
+
 
             }
             gvCustomer.setItems(custData);
-            //tblPackages.setItems(packData);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -949,5 +953,16 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private void clear()
+    {
+        txtPackageName.clear();
+        txtPkgStartDate.setValue(null);
+        txtPkgEndDate.setValue(null);
+        txtPkgDesc.clear();
+        txtPkgBasePrice.clear();
+        txtPkgAgencyCommission.clear();
+    }
+
 
 }
