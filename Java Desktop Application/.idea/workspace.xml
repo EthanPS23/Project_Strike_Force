@@ -134,10 +134,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="551" column="9" lean-forward="true" selection-start-line="551" selection-start-column="9" selection-end-line="551" selection-end-column="9" />
+            <state relative-caret-position="3316">
+              <caret line="1016" column="67" selection-start-line="1016" selection-start-column="67" selection-end-line="1016" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#11304#11305#0" expanded="true" />
+                <element signature="e#11643#11644#0" expanded="true" />
+                <element signature="e#12068#12069#0" expanded="true" />
+                <element signature="e#12930#12931#0" expanded="true" />
+                <element signature="e#13160#13161#0" expanded="true" />
+                <element signature="e#13271#13272#0" expanded="true" />
+                <element signature="e#13567#13568#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,9 +163,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Model/Package.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="21" selection-start-column="21" selection-end-column="21" />
+            <state relative-caret-position="264">
+              <caret line="48" column="38" lean-forward="true" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#763#764#0" expanded="true" />
                 <element signature="e#795#796#0" expanded="true" />
                 <element signature="e#846#847#0" expanded="true" />
@@ -169,9 +177,8 @@
                 <element signature="e#1036#1037#0" expanded="true" />
                 <element signature="e#1073#1074#0" expanded="true" />
                 <element signature="e#1108#1109#0" expanded="true" />
-                <element signature="e#1162#1163#0" expanded="true" />
-                <element signature="e#1210#1211#0" expanded="true" />
-                <element signature="e#1245#1246#0" expanded="true" />
+                <element signature="e#1205#1206#0" expanded="true" />
+                <element signature="e#1253#1254#0" expanded="true" />
                 <element signature="e#1278#1279#0" expanded="true" />
                 <element signature="e#1328#1329#0" expanded="true" />
                 <element signature="e#1372#1373#0" expanded="true" />
@@ -241,15 +248,16 @@
         <option value="$PROJECT_DIR$/src/sample/Model/PasswordEncryption.java" />
         <option value="$PROJECT_DIR$/src/sample/Model/Customer.java" />
         <option value="$PROJECT_DIR$/src/sample/resources/sample.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/Model/Package.java" />
         <option value="$PROJECT_DIR$/src/sample/DBConnect.java" />
+        <option value="$PROJECT_DIR$/src/sample/Model/Package.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2" />
+    <option name="y" value="1" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -299,6 +307,13 @@
               <item name="Java Desktop Application" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="sample" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Java Desktop Application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java Desktop Application" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sample" type="462c0819:PsiDirectoryNode" />
               <item name="Styles" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -319,7 +334,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554493189879" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/Brandon - Lab 7" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -429,18 +444,18 @@
       <workItem from="1554321133834" duration="2743000" />
       <workItem from="1554580818138" duration="4978000" />
       <workItem from="1554588797303" duration="2272000" />
-      <workItem from="1554650577850" duration="800000" />
+      <workItem from="1554650577850" duration="8195000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17771000" />
+    <option name="totallyTimeSpent" value="25166000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="2" y="1" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.077292114" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15864332" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -450,7 +465,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26868907" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2713348" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -461,7 +476,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32502708" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.3249453" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
@@ -580,6 +595,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/resources/sample.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="126" column="19" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/DBConnect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Model/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -629,19 +659,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/resources/sample.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="126" column="19" selection-start-line="126" selection-start-column="19" selection-end-line="126" selection-end-column="19" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Model/Package.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="21" selection-start-column="21" selection-end-column="21" />
+        <state relative-caret-position="264">
+          <caret line="48" column="38" lean-forward="true" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#763#764#0" expanded="true" />
             <element signature="e#795#796#0" expanded="true" />
             <element signature="e#846#847#0" expanded="true" />
@@ -652,9 +675,8 @@
             <element signature="e#1036#1037#0" expanded="true" />
             <element signature="e#1073#1074#0" expanded="true" />
             <element signature="e#1108#1109#0" expanded="true" />
-            <element signature="e#1162#1163#0" expanded="true" />
-            <element signature="e#1210#1211#0" expanded="true" />
-            <element signature="e#1245#1246#0" expanded="true" />
+            <element signature="e#1205#1206#0" expanded="true" />
+            <element signature="e#1253#1254#0" expanded="true" />
             <element signature="e#1278#1279#0" expanded="true" />
             <element signature="e#1328#1329#0" expanded="true" />
             <element signature="e#1372#1373#0" expanded="true" />
@@ -674,19 +696,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/DBConnect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="551" column="9" lean-forward="true" selection-start-line="551" selection-start-column="9" selection-end-line="551" selection-end-column="9" />
+        <state relative-caret-position="3316">
+          <caret line="1016" column="67" selection-start-line="1016" selection-start-column="67" selection-end-line="1016" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#11304#11305#0" expanded="true" />
+            <element signature="e#11643#11644#0" expanded="true" />
+            <element signature="e#12068#12069#0" expanded="true" />
+            <element signature="e#12930#12931#0" expanded="true" />
+            <element signature="e#13160#13161#0" expanded="true" />
+            <element signature="e#13271#13272#0" expanded="true" />
+            <element signature="e#13567#13568#0" expanded="true" />
           </folding>
         </state>
       </provider>
