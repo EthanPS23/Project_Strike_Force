@@ -423,6 +423,9 @@ public class Controller implements Initializable {
         else if (btnAddEditPkg.getText().equals("Update Package")) {
             updatePackage();
         }
+        else if (btnAddEditPkg.getText().equals("Delete Package")) {
+            deletePackage();
+        }
 
 
        /* String pkgName = txtPackageName.getText();
@@ -463,6 +466,8 @@ public class Controller implements Initializable {
         int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 pnlPackages.toFront();
+                activePkg();
+                btnClearPkg.setVisible(true);
                 txtPackageName.requestFocus();
                 btnAddEditPkg.setText("Save New Package");
             }
@@ -557,6 +562,18 @@ public class Controller implements Initializable {
     @FXML
     void onActionDeletePkg(ActionEvent event) {
 
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to delete package?", "Delete Package", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            selectedAgent();
+            pnlPackages.toFront();
+            //disablePkg();
+            btnAddEditPkg.setText("Delete Package");
+            btnClearPkg.setVisible(false);
+        }
+        else {
+            pnlPackagesOverview.toFront();
+            btnClearPkg.setVisible(true);
+        }
     }
 
     @FXML
@@ -566,9 +583,18 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionEditPkg(ActionEvent event) {
-        selectedAgent();
-        pnlPackages.toFront();
-        btnAddEditPkg.setText("Update Package");
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to update package?", "Update Package", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            selectedAgent();
+            btnClearPkg.setVisible(true);
+            pnlPackages.toFront();
+            activePkg();
+            btnAddEditPkg.setText("Update Package");
+        }
+        else {
+            pnlPackagesOverview.toFront();
+        }
+
     }
 
     @FXML
@@ -934,6 +960,7 @@ public class Controller implements Initializable {
         btnSettings.setVisible(false);
     }
 
+    // method to get all package data from the database and display it in the table view on overview page
     private void getPackages()
     {
         ObservableList<Package> packData = FXCollections.observableArrayList();
@@ -966,6 +993,7 @@ public class Controller implements Initializable {
         }
     }
 
+    // method to clear text fields on package page
     private void clear()
     {
         txtPackageName.clear();
@@ -976,6 +1004,7 @@ public class Controller implements Initializable {
         txtPkgAgencyCommission.clear();
     }
 
+    // method to save a new package
     private void saveNewPackage() {
         try
         {
@@ -1006,7 +1035,7 @@ public class Controller implements Initializable {
         }
     }
 
-
+    // method to update package
     private void updatePackage()
     {
         try
@@ -1036,6 +1065,36 @@ public class Controller implements Initializable {
         }
     }
 
+    private void deletePackage()
+    {
+        try
+        {
+            int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this package", "Delete Package", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+                String sql = "delete from Packages where PkgName=?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1,txtPackageName.getText());
+                JOptionPane.showMessageDialog( null,"Package deleted successfully.");
+                pnlPackagesOverview.toFront();
+                activePkg();
+                getPackages();
+            }
+            else {
+                pnlPackagesOverview.toFront();
+            }
+
+        }
+        catch(ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    // method to populate text fields on the packages page form select row on table view on overview page
     private void selectedAgent() {
         txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
         txtPkgStartDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgStartDate());
@@ -1045,6 +1104,28 @@ public class Controller implements Initializable {
         txtPkgAgencyCommission.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgAgencyCommission().toString());
     }
 
+
+    // method to set text fields of package page non-editable
+   /* private void disablePkg()
+    {
+        txtPackageName.setEditable(false);
+        txtPkgStartDate.setEditable(false);
+        txtPkgEndDate.setEditable(false);
+        txtPkgDesc.setEditable(false);
+        txtPkgBasePrice.setEditable(false);
+        txtPkgAgencyCommission.setEditable(false);
+    }*/
+
+    // method to set text fields of package page editable
+    private void activePkg()
+    {
+        txtPackageName.setEditable(true);
+        txtPkgStartDate.setEditable(true);
+        txtPkgEndDate.setEditable(true);
+        txtPkgDesc.setEditable(true);
+        txtPkgBasePrice.setEditable(true);
+        txtPkgAgencyCommission.setEditable(true);
+    }
 
 
 

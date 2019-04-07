@@ -134,17 +134,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3316">
-              <caret line="1016" column="67" selection-start-line="1016" selection-start-column="67" selection-end-line="1016" selection-end-column="67" />
+            <state relative-caret-position="304">
+              <caret line="1080" column="35" selection-start-line="1080" selection-start-column="35" selection-end-line="1080" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11304#11305#0" expanded="true" />
-                <element signature="e#11643#11644#0" expanded="true" />
-                <element signature="e#12068#12069#0" expanded="true" />
-                <element signature="e#12930#12931#0" expanded="true" />
-                <element signature="e#13160#13161#0" expanded="true" />
-                <element signature="e#13271#13272#0" expanded="true" />
-                <element signature="e#13567#13568#0" expanded="true" />
+                <element signature="e#11487#11488#0" expanded="true" />
+                <element signature="e#11826#11827#0" expanded="true" />
+                <element signature="e#12251#12252#0" expanded="true" />
+                <element signature="e#13989#13990#0" expanded="true" />
+                <element signature="e#14219#14220#0" expanded="true" />
+                <element signature="e#14330#14331#0" expanded="true" />
+                <element signature="e#14626#14627#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -255,9 +255,8 @@
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="2" />
-    <option name="y" value="1" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -444,18 +443,18 @@
       <workItem from="1554321133834" duration="2743000" />
       <workItem from="1554580818138" duration="4978000" />
       <workItem from="1554588797303" duration="2272000" />
-      <workItem from="1554650577850" duration="8195000" />
+      <workItem from="1554650577850" duration="11031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25166000" />
+    <option name="totallyTimeSpent" value="28002000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2" y="1" width="974" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15864332" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.077292114" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -465,7 +464,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2713348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26868907" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -698,17 +697,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3316">
-          <caret line="1016" column="67" selection-start-line="1016" selection-start-column="67" selection-end-line="1016" selection-end-column="67" />
+        <state relative-caret-position="304">
+          <caret line="1080" column="35" selection-start-line="1080" selection-start-column="35" selection-end-line="1080" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#11304#11305#0" expanded="true" />
-            <element signature="e#11643#11644#0" expanded="true" />
-            <element signature="e#12068#12069#0" expanded="true" />
-            <element signature="e#12930#12931#0" expanded="true" />
-            <element signature="e#13160#13161#0" expanded="true" />
-            <element signature="e#13271#13272#0" expanded="true" />
-            <element signature="e#13567#13568#0" expanded="true" />
+            <element signature="e#11487#11488#0" expanded="true" />
+            <element signature="e#11826#11827#0" expanded="true" />
+            <element signature="e#12251#12252#0" expanded="true" />
+            <element signature="e#13989#13990#0" expanded="true" />
+            <element signature="e#14219#14220#0" expanded="true" />
+            <element signature="e#14330#14331#0" expanded="true" />
+            <element signature="e#14626#14627#0" expanded="true" />
           </folding>
         </state>
       </provider>
