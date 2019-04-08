@@ -132,9 +132,6 @@ public class Controller implements Initializable {
     private JFXButton btnCancelLogin;
 
     @FXML
-    private JFXButton btnMainLogout;
-
-    @FXML
     private JFXPasswordField txtPassword;
 
     @FXML
@@ -364,9 +361,6 @@ public class Controller implements Initializable {
     private TableColumn<?, ?> colBkFeeId;
 
     @FXML
-    private JFXButton btnBkAdd;
-
-    @FXML
     private JFXButton btnBkEdit;
 
     @FXML
@@ -477,11 +471,6 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void onActionBkAdd(ActionEvent event) {
-
-    }
-
-    @FXML
     void onActionBkDelete(ActionEvent event) {
 
     }
@@ -588,10 +577,6 @@ public class Controller implements Initializable {
     void onActionLogout(ActionEvent event) {
         pnlLogin.toFront();
         btnLoginTab.setVisible(true);
-    }
-
-    @FXML
-    void onMainLogout(ActionEvent event) {
         Logout();
         DisableMenu();
     }
@@ -781,10 +766,6 @@ public class Controller implements Initializable {
         setBackgroundColour();
         setSecondaryColour();
         setTertiaryColour();
-
-
-
-
     }
 
     private String hexi(ColorPicker cp) {
@@ -798,11 +779,17 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setTextColour();
+        cpSettingsTextColour.setValue(Color.web(textColour));
+        cpSettingsBgColour.setValue(Color.web(backgroundColour));
+        cpSettingsMenuColour.setValue(Color.web(menuColour));
+        cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
+        cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+
+        /*setTextColour();
         setMenuColour();
         setBackgroundColour();
         setSecondaryColour();
-        setTertiaryColour();
+        setTertiaryColour();*/
 
         ObservableList<Customer> custData = FXCollections.observableArrayList();
 
@@ -852,6 +839,11 @@ public class Controller implements Initializable {
         // to load packages table
         getPackages();
 
+        setTextColour();
+        setMenuColour();
+        setBackgroundColour();
+        setSecondaryColour();
+        setTertiaryColour();
 
     }
     //this populates the Customer table on form load 1st step
@@ -873,7 +865,7 @@ public class Controller implements Initializable {
 
         } else {
             if (name.equals(user) && password.equals(passw)) {
-                lblPasswordMessage.setText("Successfully logged in");
+                //lblPasswordMessage.setText("Successfully logged in");
                 lblPasswordMessage.setTextFill(Color.rgb(21, 117, 84));
                 EnableMenu();
 
@@ -902,8 +894,8 @@ public class Controller implements Initializable {
 
 
     private void PromptTextLogin() {
-        txtUserName.setPromptText("Please enter your username");
-        txtPassword.setPromptText("Please enter your password");
+        txtUserName.setPromptText("");
+        txtPassword.setPromptText("");
     }
 
     private void EnableMenu() {
@@ -940,7 +932,7 @@ public class Controller implements Initializable {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
             String sql = "select * from Packages";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
