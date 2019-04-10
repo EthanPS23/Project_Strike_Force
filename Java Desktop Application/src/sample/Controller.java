@@ -39,6 +39,20 @@ public class Controller implements Initializable {
     final String user = "admin";
     final String passw = PasswordEncryption.MD5("password");
 
+    // ---------variables for bookings page----------
+    private int customerSelectedBookingDetailId;
+    LocalDate bookingStart;
+    LocalDate bookingEnd;
+    // bookings page observablelists
+    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+    private ObservableList<Region> regionData = FXCollections.observableArrayList();
+    private ObservableList<Class1> classData = FXCollections.observableArrayList();
+    private ObservableList<Fee> feeData = FXCollections.observableArrayList();
+    //objects
+    Booking customerSelectedBooking;
+
+
+
     public Controller() throws NoSuchAlgorithmException {
     }
 
@@ -516,9 +530,19 @@ public class Controller implements Initializable {
     @FXML
     void onActionBkSave(ActionEvent event) {
 
-        saveBookingDetails();
+        // if true, save booking and update booking tableview
+        boolean acceptableBookingDates = checkBookingDates();
+        if(acceptableBookingDates == true)
+        {
+            saveBookingDetails();
+            getCustomerBooking();
+        }
         getCustomerBooking();
-
+        clearBkControls();
+        bookingStart = null;
+        bookingEnd = null;
+        customerSelectedBooking = null;
+        txtBkSearch.setText("");
     }
 
     @FXML
@@ -706,8 +730,12 @@ public class Controller implements Initializable {
     @FXML
     void GetCustomerBookingDetails(MouseEvent event) {
 
+
         // this is a key line of code to allow me to get the data from the table view and put into object
         Booking customerSelectedBooking = gvBookings.getItems().get(gvBookings.getSelectionModel().getFocusedIndex());
+
+        bookingStart = customerSelectedBooking.getTripStart().toLocalDate();
+        bookingEnd = customerSelectedBooking.getTripEnd().toLocalDate();
 
         txtTripStart.setValue(customerSelectedBooking.getTripStart().toLocalDate());
         txtTripEnd.setValue(customerSelectedBooking.getTripStart().toLocalDate());
@@ -717,15 +745,24 @@ public class Controller implements Initializable {
         String bp = customerSelectedBooking.getBasePrice().indexOf(".") < 0 ? customerSelectedBooking.getBasePrice() : customerSelectedBooking.getBasePrice().replaceAll("0*$", "").replaceAll("\\.$", "");
         txtBasePrice.setText(bp);
         String ac = customerSelectedBooking.getAgencyComission().indexOf(".") < 0 ? customerSelectedBooking.getAgencyComission() : customerSelectedBooking.getAgencyComission().replaceAll("0*$", "").replaceAll("\\.$", "");
-
         txtAgencyCommission.setText(ac);
         autoSelectClass(customerSelectedBooking.getClassId());
         autoSelectRegion(customerSelectedBooking.getRegionId());
         autoSelectFee(customerSelectedBooking.getFeeId());
-        System.out.println(customerSelectedBooking.getBookingDetailId());
 
+        enableBkControls();
+        // set value in to variable so it can be used class wide
         customerSelectedBookingDetailId = customerSelectedBooking.getBookingDetailId();
+    }
 
+    //Ethan Shipley
+    //April 7, 2019
+    private void autoSelectRegion(String regionCode){
+        for (Region region : regionData){
+            if (region.getRegionName().equals(regionCode)){
+                cbRegionId.setValue(region);
+            }
+        }
     }
 
     //Ethan Shipley
@@ -734,18 +771,6 @@ public class Controller implements Initializable {
         for (Class1 class1 : classData){
             if (class1.getClassName().equals(classCode)){
                 cbClassId.setValue(class1);
-            }
-        }
-    }
-
-
-
-    //Ethan Shipley
-    //April 7, 2019
-    private void autoSelectRegion(String regionCode){
-        for (Region region : regionData){
-            if (region.getRegionName().equals(regionCode)){
-                cbRegionId.setValue(region);
             }
         }
     }
@@ -761,13 +786,6 @@ public class Controller implements Initializable {
     }
 
     private ObservableList<Package> data = FXCollections.observableArrayList();
-
-    // james's observablelists
-    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
-    private ObservableList<Region> regionData = FXCollections.observableArrayList();
-    private ObservableList<Class1> classData = FXCollections.observableArrayList();
-    private ObservableList<Fee> feeData = FXCollections.observableArrayList();
-    private int customerSelectedBookingDetailId;
 
 
     @FXML
@@ -879,6 +897,7 @@ public class Controller implements Initializable {
         setSecondaryColour();
         setTertiaryColour();
         getCustomerBooking();
+        clearBkControls();
 
     }
 
@@ -1196,18 +1215,69 @@ public class Controller implements Initializable {
             if (numRows == 0)
             {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
             }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update Successful");
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update Successful");
+            alert.showAndWait();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
+    private void clearBkControls()
+    {
+        //txtTripStart.getEditor().setDisable(true);
+        txtTripStart.hide();
+        txtTripStart.getEditor().clear();
+        //txtTripEnd.getEditor().setDisable(true);
+        txtTripEnd.hide();
+        txtTripEnd.getEditor().clear();
+        txtDescription.setDisable(true);
+        txtDescription.setText("");
+        txtDestination.setDisable(true);
+        txtDestination.setText("");
+        txtBasePrice.setDisable(true);
+        txtBasePrice.setText("");
+        txtAgencyCommission.setDisable(true);
+        txtAgencyCommission.setText("");
+        cbRegionId.setDisable(true);
+        cbRegionId.setValue(null);
+        cbClassId.setDisable(true);
+        cbClassId.setValue(null);
+        cbFeeId.setDisable(true);
+        cbFeeId.setValue(null);
+    }
 
+    public void enableBkControls()
+    {
+        txtDescription.setDisable(false);
+        txtDestination.setDisable(false);
+        txtBasePrice.setDisable(false);
+        txtAgencyCommission.setDisable(false);
+        cbRegionId.setDisable(false);
+        cbClassId.setDisable(false);
+        cbFeeId.setDisable(false);
+    }
 
+    //something is wrong with this code.
+    public boolean checkBookingDates()
+    {
+        boolean acceptableBookingDates;
+        if (bookingEnd.isEqual(bookingStart))
+        {
+            acceptableBookingDates = true;
+        }
+        else if (bookingEnd.isBefore(bookingStart))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Trip start date needs to be an earlier date than trip end date.");
+            alert.showAndWait();
+            acceptableBookingDates = false;
+        }
+        else
+        {
+            acceptableBookingDates = true;
+        }
+        return acceptableBookingDates;
+    }
 }
