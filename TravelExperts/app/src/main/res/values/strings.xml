@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Travel Experts</string>
     <string name="province">Province :</string>
     <string name="clear">Clear</string>
     <string name="home_phone">Home Phone :</string>
