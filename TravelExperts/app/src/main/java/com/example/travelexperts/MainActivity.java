@@ -38,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
     public void instagramOpen(View view){
         Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com"));
         startActivity(browserIntent);
