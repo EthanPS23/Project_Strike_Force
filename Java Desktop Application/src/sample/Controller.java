@@ -875,10 +875,7 @@ public class Controller implements Initializable {
                 lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
                 DisableMenu();
             }
-
         }
-
-
     }
 
     private void Logout ()
@@ -1036,9 +1033,4 @@ public class Controller implements Initializable {
         txtPkgBasePrice.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgBasePrice().toString());
         txtPkgAgencyCommission.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgAgencyCommission().toString());
     }
-
-
-
-
-
 }
