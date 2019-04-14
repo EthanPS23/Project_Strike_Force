@@ -68,6 +68,12 @@
     -fx-border-width: 2pt;
 }
 
+#apItems .table-cell:filled {
+    -fx-background-color: -secondary-bg-colour;
+    -fx-text-fill: -label-text-colour;
+    -fx-foreground-color: -label-text-colour;
+}
+
 #apItems .column-header{
     -fx-border-color: -btn-brdr-colour;
     -fx-border-width: 3pt;
