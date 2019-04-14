@@ -1,19 +1,18 @@
 package com.example.travelexperts;
 
-import android.content.Intent;
-import android.support.v4.view.ViewPager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 public class DetailPackageActivity extends AppCompatActivity {
-//    ViewPager viewPager;
+    // Button btnOrder, btnBack
+    // To do these methods need to be created to show the package details based on the JSON info
+    // Each img button will need a method or sql statement to call that specific package
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_package);
-
 
     }
 
