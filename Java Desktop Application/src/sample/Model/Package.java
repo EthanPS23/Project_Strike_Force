@@ -1,17 +1,18 @@
 package sample.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Package {
     private Integer packageId;
     private String pkgName;
-    private Date pkgStartDate;
-    private Date pkgEndDate;
+    private LocalDate pkgStartDate;
+    private LocalDate pkgEndDate;
     private String pkgDesc;
     private Float pkgBasePrice;
     private Float pkgAgencyCommission;
 
-    public Package(Integer packageId, String pkgName, Date pkgStartDate, Date pkgEndDate, String pkgDesc, Float pkgBasePrice, Float pkgAgencyCommission) {
+    public Package(Integer packageId, String pkgName, LocalDate pkgStartDate, LocalDate pkgEndDate, String pkgDesc, Float pkgBasePrice, Float pkgAgencyCommission) {
         this.packageId = packageId;
         this.pkgName = pkgName;
         this.pkgStartDate = pkgStartDate;
@@ -37,19 +38,19 @@ public class Package {
         this.pkgName = pkgName;
     }
 
-    public Date getPkgStartDate() {
+    public LocalDate getPkgStartDate() {
         return pkgStartDate;
     }
 
-    public void setPkgStartDate(Date pkgStartDate) {
+    public void setPkgStartDate(LocalDate pkgStartDate) {
         this.pkgStartDate = pkgStartDate;
     }
 
-    public Date getPkgEndDate() {
+    public LocalDate getPkgEndDate() {
         return pkgEndDate;
     }
 
-    public void setPkgEndDate(Date pkgEndDate) {
+    public void setPkgEndDate(LocalDate pkgEndDate) {
         this.pkgEndDate = pkgEndDate;
     }
 

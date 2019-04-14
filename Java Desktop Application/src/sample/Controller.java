@@ -21,9 +21,9 @@ import java.lang.Class;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -148,9 +148,6 @@ public class Controller implements Initializable {
     private JFXButton btnCancelLogin;
 
     @FXML
-    private JFXButton btnMainLogout;
-
-    @FXML
     private JFXPasswordField txtPassword;
 
     @FXML
@@ -232,10 +229,10 @@ public class Controller implements Initializable {
     private TableColumn<Package, String> colPkgPkgName;
 
     @FXML
-    private TableColumn<Package, Date> colPkgPkgStartDate;
+    private TableColumn<Package, LocalDate> colPkgPkgStartDate;
 
     @FXML
-    private TableColumn<Package, Date> colPkgPkgEndDate;
+    private TableColumn<Package, LocalDate> colPkgPkgEndDate;
 
     @FXML
     private TableColumn<Package, String> colPkgPkgDesc;
@@ -393,9 +390,6 @@ public class Controller implements Initializable {
     private TableColumn<Booking, String> colBkFeeId;
 
     @FXML
-    private JFXButton btnBkAdd;
-
-    @FXML
     private JFXButton btnBkEdit;
 
     @FXML
@@ -464,7 +458,15 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionAddEditPkg(ActionEvent event) {
-        String pkgName = txtPackageName.getText();
+        if (btnAddEditPkg.getText().equals("Save New Package")) {
+            saveNewPackage();
+        }
+        else if (btnAddEditPkg.getText().equals("Update Package")) {
+            updatePackage();
+        }
+
+
+       /* String pkgName = txtPackageName.getText();
         String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String pkgDesc = txtPkgDesc.getText();
@@ -483,26 +485,31 @@ public class Controller implements Initializable {
 
             JOptionPane.showMessageDialog( null,"New Package Added");
 
+            clear();
+
+            pnlPackagesOverview.toFront();
+
             getPackages();
         }
         catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
-        }
+        }*/
 
-        txtPackageName.clear();
-        txtPkgStartDate.setValue(null);
-        txtPkgEndDate.setValue(null);
-        txtPkgDesc.clear();
-        txtPkgBasePrice.clear();
-        txtPkgAgencyCommission.clear();
-
-        txtPackageName.requestFocus();
     }
 
     @FXML
     void onActionAddPkg(ActionEvent event) {
 
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                pnlPackages.toFront();
+                txtPackageName.requestFocus();
+                btnAddEditPkg.setText("Save New Package");
+            }
+            else {
+                pnlPackagesOverview.toFront();
+            }
     }
 
     @FXML
@@ -581,7 +588,9 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionClearPkg(ActionEvent event) {
+        clear();
 
+        txtPackageName.requestFocus();
     }
 
     @FXML
@@ -631,7 +640,9 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionEditPkg(ActionEvent event) {
-
+        selectedAgent();
+        pnlPackages.toFront();
+        btnAddEditPkg.setText("Update Package");
     }
 
     @FXML
@@ -651,10 +662,6 @@ public class Controller implements Initializable {
     void onActionLogout(ActionEvent event) {
         pnlLogin.toFront();
         btnLoginTab.setVisible(true);
-    }
-
-    @FXML
-    void onMainLogout(ActionEvent event) {
         Logout();
         DisableMenu();
     }
@@ -929,15 +936,21 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setTextColour();
+        cpSettingsTextColour.setValue(Color.web(textColour));
+        cpSettingsBgColour.setValue(Color.web(backgroundColour));
+        cpSettingsMenuColour.setValue(Color.web(menuColour));
+        cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
+        cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
+
+        /*setTextColour();
         setMenuColour();
         setBackgroundColour();
         setSecondaryColour();
         setTertiaryColour();
-        getCustomerBooking();
+        getCustomerBooking();*/
 
         ObservableList<Customer> custData = FXCollections.observableArrayList();
-        ObservableList<Package> packData = FXCollections.observableArrayList();
+
 
 
         // sets the columns to the customer object properties
@@ -962,7 +975,7 @@ public class Controller implements Initializable {
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select * from customers");
-            //ResultSet rsp = stmt.executeQuery("select * from Packages");
+
             while (rs.next()) {
                 custData.add(new Customer(rs.getString(2),
                         rs.getString(3), rs.getString(4),
@@ -971,13 +984,11 @@ public class Controller implements Initializable {
                         rs.getString(9), rs.getString(10),
                         rs.getString(11)));
 
-               // packData.add(new Package(rsp.getInt(1), rsp.getString(2), rsp.getDate(3),
-                       // rsp.getDate(4), rsp.getString(5), rsp.getFloat(6),
-                       // rsp.getFloat(7)));
+
 
             }
             gvCustomer.setItems(custData);
-            //tblPackages.setItems(packData);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -986,6 +997,11 @@ public class Controller implements Initializable {
         // to load packages table
         getPackages();
 
+        setTextColour();
+        setMenuColour();
+        setBackgroundColour();
+        setSecondaryColour();
+        setTertiaryColour();
 
     }
     //this populates the Customer table on form load 1st step
@@ -1007,7 +1023,7 @@ public class Controller implements Initializable {
 
         } else {
             if (name.equals(user) && password.equals(passw)) {
-                lblPasswordMessage.setText("Successfully logged in");
+                //lblPasswordMessage.setText("Successfully logged in");
                 lblPasswordMessage.setTextFill(Color.rgb(21, 117, 84));
                 EnableMenu();
 
@@ -1017,7 +1033,6 @@ public class Controller implements Initializable {
                 lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
                 DisableMenu();
             }
-
         }
     }
 
@@ -1034,8 +1049,8 @@ public class Controller implements Initializable {
 
 
     private void PromptTextLogin() {
-        txtUserName.setPromptText("Please enter your username");
-        txtPassword.setPromptText("Please enter your password");
+        txtUserName.setPromptText("");
+        txtPassword.setPromptText("");
     }
 
     private void EnableMenu() {
@@ -1078,14 +1093,14 @@ public class Controller implements Initializable {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
             {
-                packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3),
-                        rs.getDate(4), rs.getString(5), rs.getFloat(6),
+                packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3).toLocalDate(),
+                        rs.getDate(4).toLocalDate(), rs.getString(5), rs.getFloat(6),
                         rs.getFloat(7)));
             }
 
             colPkgPkgName.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgName"));
-            colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, java.util.Date>("pkgStartDate"));
-            colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, Date>("pkgEndDate"));
+            colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgStartDate"));
+            colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgEndDate"));
             colPkgPkgDesc.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgDesc"));
             colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgBasePrice"));
             colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
@@ -1202,6 +1217,42 @@ public class Controller implements Initializable {
             cbFeeId.setItems(feeData);
             conn.close();
         } catch (SQLException e) {
+    private void clear()
+    {
+        txtPackageName.clear();
+        txtPkgStartDate.setValue(null);
+        txtPkgEndDate.setValue(null);
+        txtPkgDesc.clear();
+        txtPkgBasePrice.clear();
+        txtPkgAgencyCommission.clear();
+    }
+
+    private void saveNewPackage() {
+        try
+        {
+            String pkgName = txtPackageName.getText();
+            String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String pkgDesc = txtPkgDesc.getText();
+            Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
+            Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
+                    "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
+
+            JOptionPane.showMessageDialog( null,"New Package Added");
+
+            clear();
+
+            pnlPackagesOverview.toFront();
+
+            getPackages();
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
             e.printStackTrace();
         }
     }
@@ -1327,4 +1378,42 @@ public class Controller implements Initializable {
          }
          return result;
      }
+
+    private void updatePackage()
+    {
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            String sql = "update Packages set PkgName=?, PkgStartDate=?, PkgEndDate=?," +
+                    "PkgDesc=?,PkgBasePrice=?,PkgAgencyCommission=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,txtPackageName.getText());
+            stmt.setDate(2, Date.valueOf(txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+            stmt.setDate(3, Date.valueOf(txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+            stmt.setString(4, txtPkgDesc.getText());
+            stmt.setFloat(5,Float.valueOf(txtPkgBasePrice.getText()));
+            stmt.setFloat(6,Float.valueOf(txtPkgAgencyCommission.getText()));
+
+            JOptionPane.showMessageDialog( null,"Package Updated");
+
+            pnlPackagesOverview.toFront();
+
+            getPackages();
+
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void selectedAgent() {
+        txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
+        txtPkgStartDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgStartDate());
+        txtPkgEndDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgEndDate());
+        txtPkgDesc.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgDesc());
+        txtPkgBasePrice.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgBasePrice().toString());
+        txtPkgAgencyCommission.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgAgencyCommission().toString());
+    }
 }
