@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Travel Experts</string>
+    <string name="province">Province :</string>
+    <string name="clear">Clear</string>
+    <string name="home_phone">Home Phone :</string>
+    <string name="create">Create</string>
+    <string name="first_name">First Name :</string>
+    <string name="last_name">Last Name :</string>
+    <string name="address">Address :</string>
+    <string name="city">City :</string>
+    <string name="postal_code">Postal Code :</string>
+    <string name="country">Country :</string>
+    <string name="business_phone">Business Phone :</string>
+    <string name="email">Email :</string>
+    <string name="customer_registration">Customer Registration</string>
 </resources>
