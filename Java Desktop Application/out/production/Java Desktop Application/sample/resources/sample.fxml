@@ -274,9 +274,9 @@
                </children></Pane>
             <Pane fx:id="pnlBookings" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
                <children>
-                  <JFXTextField fx:id="txtBkSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionBkSearch" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtBkSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onAction="#onActionBkSearch" onKeyPressed="#onKeyPressedBkSearch" onKeyTyped="#onKeyTypedBkSearch" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                   <Label fx:id="lblBkSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
-                  <TableView fx:id="gvBookings" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
+                  <TableView fx:id="gvBookings" layoutX="64.0" layoutY="93.0" onMouseClicked="#GetCustomerBookingDetails" prefHeight="200.0" prefWidth="796.0">
                      <columns>
                         <TableColumn fx:id="colBkTripStart" prefWidth="75.0" text="Trip Start" />
                         <TableColumn fx:id="colBkTripEnd" prefWidth="75.0" text="Trip End" />
