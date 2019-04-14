@@ -10,7 +10,7 @@ public class Fee {
 
     private String FeeId;
     private String FeeName;
-    private double  FeeAmt;
+    private double FeeAmt;
     private String FeeDesc;
 
     public Fee(String feeId, String feeName, double feeAmt, String feeDesc) {
