@@ -6,16 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import sample.Model.Customer;
+import sample.Model.*;
 import sample.Model.Package;
-import sample.Model.PasswordEncryption;
 
 import javax.swing.*;
+import java.lang.Class;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -36,6 +38,20 @@ public class Controller implements Initializable {
 
     final String user = "admin";
     final String passw = PasswordEncryption.MD5("password");
+
+    // ---------variables for bookings page----------
+    private int customerSelectedBookingDetailId;
+    LocalDate bookingStart;
+    LocalDate bookingEnd;
+    // bookings page observablelists
+    private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
+    private ObservableList<Region> regionData = FXCollections.observableArrayList();
+    private ObservableList<Class1> classData = FXCollections.observableArrayList();
+    private ObservableList<Fee> feeData = FXCollections.observableArrayList();
+    //objects
+    Booking customerSelectedBooking = null;
+
+
 
     public Controller() throws NoSuchAlgorithmException {
     }
@@ -320,45 +336,58 @@ public class Controller implements Initializable {
 
     //End of Customer Pane
 
-    @FXML
+    // Beginning of Booking Pane
 
+    @FXML
     private Pane pnlBookings;
 
     @FXML
     private JFXTextField txtBkSearch;
 
     @FXML
+    private JFXTextField txtDescription;
+
+    @FXML
+    private JFXTextField txtDestination;
+
+    @FXML
+    private JFXTextField txtBasePrice;
+
+    @FXML
+    private JFXTextField txtAgencyCommission;
+
+    @FXML
     private Label lblBkSearch;
 
     @FXML
-    private TableView<?> gvBookings;
+    private TableView<Booking> gvBookings;
 
     @FXML
-    private TableColumn<?, ?> colBkTripStart;
+    private TableColumn<Booking, Date> colBkTripStart;
 
     @FXML
-    private TableColumn<?, ?> colBkTripEnd;
+    private TableColumn<Booking, Date> colBkTripEnd;
 
     @FXML
-    private TableColumn<?, ?> colBkDescription;
+    private TableColumn<Booking, String> colBkDescription;
 
     @FXML
-    private TableColumn<?, ?> colBkDestination;
+    private TableColumn<Booking, String> colBkDestination;
 
     @FXML
-    private TableColumn<?, ?> colBkBasePrice;
+    private TableColumn<Booking, String> colBkBasePrice;
 
     @FXML
-    private TableColumn<?, ?> colBkAgencyCommission;
+    private TableColumn<Booking, String> colBkAgencyCommission;
 
     @FXML
-    private TableColumn<?, ?> colBkRegionId;
+    private TableColumn<Booking, String> colBkRegionId;
 
     @FXML
-    private TableColumn<?, ?> colBkClassId;
+    private TableColumn<Booking, String> colBkClassId;
 
     @FXML
-    private TableColumn<?, ?> colBkFeeId;
+    private TableColumn<Booking, String> colBkFeeId;
 
     @FXML
     private JFXButton btnBkEdit;
@@ -368,6 +397,24 @@ public class Controller implements Initializable {
 
     @FXML
     private JFXButton btnBkSave;
+
+    @FXML
+    private ComboBox<Region> cbRegionId;
+
+    @FXML
+    private ComboBox<Class1> cbClassId;
+
+    @FXML
+    private ComboBox<Fee> cbFeeId;
+
+    @FXML
+    private JFXDatePicker txtTripStart;
+
+    @FXML
+    private JFXDatePicker txtTripEnd;
+
+
+    // End of Booking Pane
 
     @FXML
     private JFXColorPicker cpSettingsTextColour;
@@ -431,7 +478,7 @@ public class Controller implements Initializable {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
                     "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
@@ -471,6 +518,13 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void onActionBkAdd(ActionEvent event) {
+
+        //getCustomerBooking();
+
+    }
+
+    @FXML
     void onActionBkDelete(ActionEvent event) {
 
     }
@@ -480,14 +534,45 @@ public class Controller implements Initializable {
 
     }
 
+    //save event for bookings page
+    // James Cockriell, April 10/19
     @FXML
     void onActionBkSave(ActionEvent event) {
 
+        bookingStart = txtTripStart.getValue();
+        bookingEnd = txtTripEnd.getValue();
+
+
+        if(txtBkSearch.getText().equals(""))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You haven't searched for a customer");
+            alert.showAndWait();
+        }
+        else if(checkBookingDates(bookingStart, bookingEnd) == false)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Trip start date needs to be an earlier date than trip end date.");
+            alert.showAndWait();
+        }
+        else if(txtDescription.getText().equals("") || txtDestination.getText().equals("") || txtBasePrice.getText().equals("") || txtAgencyCommission.getText().equals(""))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            alert.showAndWait();
+        }
+        else if(bkTextIsNonNegativeDouble(txtBasePrice.getText()) == false || bkTextIsNonNegativeDouble(txtAgencyCommission.getText()) == false)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        }
+        else
+        {
+            saveBookingDetails();
+            getCustomerBooking();
+        }
     }
 
     @FXML
     void onActionBkSearch(ActionEvent event) {
-
+        /*getCustomerBooking();*/
     }
 
     @FXML
@@ -656,7 +741,76 @@ public class Controller implements Initializable {
         setTextColour();
     }
 
+    @FXML
+    void onKeyPressedBkSearch(KeyEvent event) {
+        //getCustomerBooking();
+    }
+
+    @FXML
+    void onKeyTypedBkSearch(KeyEvent event) {
+        getCustomerBooking();
+
+    }
+
+    // on mouse event for when user clicks on bookings tableview
+    //Author James Cockriell, April 8/19
+    @FXML
+    void GetCustomerBookingDetails(MouseEvent event) {
+
+
+        // this is a key line of code to allow me to get the data from the table view and put into object
+        customerSelectedBooking = gvBookings.getItems().get(gvBookings.getSelectionModel().getFocusedIndex());
+
+        txtTripStart.setValue(customerSelectedBooking.getTripStart().toLocalDate());
+        txtTripEnd.setValue(customerSelectedBooking.getTripEnd().toLocalDate());
+        txtDescription.setText(customerSelectedBooking.getDescription());
+        txtDestination.setText(customerSelectedBooking.getDestination());
+
+        String bp = customerSelectedBooking.getBasePrice().indexOf(".") < 0 ? customerSelectedBooking.getBasePrice() : customerSelectedBooking.getBasePrice().replaceAll("0*$", "").replaceAll("\\.$", "");
+        txtBasePrice.setText(bp);
+        String ac = customerSelectedBooking.getAgencyComission().indexOf(".") < 0 ? customerSelectedBooking.getAgencyComission() : customerSelectedBooking.getAgencyComission().replaceAll("0*$", "").replaceAll("\\.$", "");
+        txtAgencyCommission.setText(ac);
+        autoSelectClass(customerSelectedBooking.getClassId());
+        autoSelectRegion(customerSelectedBooking.getRegionId());
+        autoSelectFee(customerSelectedBooking.getFeeId());
+
+        enableBkControls();
+        // set value in to variable so it can be used class wide
+        customerSelectedBookingDetailId = customerSelectedBooking.getBookingDetailId();
+    }
+
+    //Ethan Shipley
+    //April 7, 2019
+    private void autoSelectRegion(String regionCode){
+        for (Region region : regionData){
+            if (region.getRegionName().equals(regionCode)){
+                cbRegionId.setValue(region);
+            }
+        }
+    }
+
+    //Ethan Shipley
+    //April 7, 2019
+    private void autoSelectClass(String classCode){
+        for (Class1 class1 : classData){
+            if (class1.getClassName().equals(classCode)){
+                cbClassId.setValue(class1);
+            }
+        }
+    }
+
+    //Ethan Shipley
+    //April 7, 2019
+    private void autoSelectFee(String feeCode){
+        for (Fee fee : feeData){
+            if (fee.getFeeName().equals(feeCode)){
+                cbFeeId.setValue(fee);
+            }
+        }
+    }
+
     private ObservableList<Package> data = FXCollections.observableArrayList();
+
 
     @FXML
     void initialize() {
@@ -766,6 +920,9 @@ public class Controller implements Initializable {
         setBackgroundColour();
         setSecondaryColour();
         setTertiaryColour();
+        getCustomerBooking();
+        clearBkControls();
+
     }
 
     private String hexi(ColorPicker cp) {
@@ -789,7 +946,8 @@ public class Controller implements Initializable {
         setMenuColour();
         setBackgroundColour();
         setSecondaryColour();
-        setTertiaryColour();*/
+        setTertiaryColour();
+        getCustomerBooking();*/
 
         ObservableList<Customer> custData = FXCollections.observableArrayList();
 
@@ -955,6 +1113,110 @@ public class Controller implements Initializable {
         }
     }
 
+
+    // method to get booking details of specific customer by last name,
+    // txtBkSearch TextField input string value, and return bookingData ObservableList object
+    // Author: James Cockriell, Date April 1, 2019
+    private void getCustomerBooking() {
+        gvBookings.getItems().clear();
+        String lname = txtBkSearch.getText();
+        Connection conn = DBConnect.getConnection();
+        String sql = "SELECT BookingDetailId, TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as AgencyCommission, RegionName, ClassName, FeeName " +
+                "from (((((bookingDetails " +
+                "Inner Join Bookings on BookingDetails.BookingId = Bookings.BookingId) " +
+                "Inner Join Customers on Bookings.CustomerId = Customers.CustomerId) " +
+                "Inner Join Regions on BookingDetails.RegionId = Regions.RegionId) " +
+                "Inner Join Classes on BookingDetails.ClassId = Classes.ClassId) " +
+                "Inner Join Fees on BookingDetails.FeeId = Fees.FeeId) " +
+                "where Customers.CustLastName LIKE '%" + lname + "%' " +
+                "order by TripStart DESC;";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+
+                Booking booking = new Booking(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+
+                bookingData.add(booking);
+            }
+
+            colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
+            colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
+            colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
+            colBkDestination.setCellValueFactory(new PropertyValueFactory<Booking, String>("destination"));
+            colBkBasePrice.setCellValueFactory(new PropertyValueFactory<Booking, String>("basePrice"));
+            colBkAgencyCommission.setCellValueFactory(new PropertyValueFactory<Booking, String>("agencyComission"));
+            colBkRegionId.setCellValueFactory(new PropertyValueFactory<Booking, String>("regionId"));
+            colBkClassId.setCellValueFactory(new PropertyValueFactory<Booking, String>("classId"));
+            colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
+
+            gvBookings.setItems(bookingData);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        loadcbRegionId();
+        loadcbClassId();
+        loadcbFeeId();
+    }
+
+    // James Cockriell, April 05/19
+    private void loadcbRegionId() {
+        regionData.clear();
+        Connection conn = DBConnect.getConnection();
+        String sql = "select * from Regions";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                regionData.add(new Region(rs.getString(1), rs.getString(2)));
+            }
+
+
+            cbRegionId.setItems(regionData);
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // James Cockriell, April 05/19
+    private void loadcbClassId() {
+        classData.clear();
+        Connection conn = DBConnect.getConnection();
+        String sql = "select ClassId, ClassName from Classes";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                classData.add(new Class1(rs.getString(1), rs.getString(2)));
+                /*Class1 class1 = new Class1(rs.getString(1), rs.getString(2), rs.getString(3));
+                classData.add(class1.getClassName());*/
+            }
+
+            cbClassId.setItems(classData);
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // James Cockriell, April 05/19
+    private void loadcbFeeId() {
+        feeData.clear();
+        Connection conn = DBConnect.getConnection();
+        String sql = "select * from fees";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                feeData.add(new Fee(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4)));
+            }
+            cbFeeId.setItems(feeData);
+            conn.close();
+        } catch (SQLException e) {
     private void clear()
     {
         txtPackageName.clear();
@@ -995,6 +1257,127 @@ public class Controller implements Initializable {
         }
     }
 
+    // class to get all of the booking details
+    // Author: James Cockriell, Date: April 05/19
+    private void saveBookingDetails()
+    {
+        String TripStart = txtTripStart.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String TripEnd = txtTripEnd.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String Description = txtDescription.getText();
+        String Destination = txtDestination.getText();
+        String BasePrice = txtBasePrice.getText();
+        String AgencyCommission = txtAgencyCommission.getText();
+        String RegionId = cbRegionId.getSelectionModel().getSelectedItem().getRegionId();
+        String ClassId = cbClassId.getSelectionModel().getSelectedItem().getClassId();
+        String FeeId = cbFeeId.getSelectionModel().getSelectedItem().getFeeId();
+
+        Connection conn = DBConnect.getConnection();
+        String sql = "update bookingDetails set TripStart=" + "'" + TripStart + "'" + ", TripEnd=" + "'" + TripEnd + "'" + ", Description=" + "'" + Description + "'" + ", Destination=" + "'" + Destination + "'" + ", BasePrice=" + "'" + BasePrice + "'" + ", AgencyCommission= " + "'" + AgencyCommission + "'" + ", RegionId=" + "'" + RegionId + "'" + ", ClassId=" + "'" + ClassId + "'" + ", FeeId=" + "'" + FeeId + "'" + " where BookingDetailId=" + "'" + customerSelectedBookingDetailId + "'";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            int numRows = stmt.executeUpdate();
+            if (numRows == 0)
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update Successful");
+            alert.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // change state of booking tab after saving
+        getCustomerBooking();
+        clearBkControls();
+        bookingStart = null;
+        bookingEnd = null;
+        customerSelectedBooking = null;
+        txtBkSearch.setText("");
+    }
+
+    private void clearBkControls()
+    {
+        txtTripStart.getEditor().setDisable(true);
+        //txtTripStart.hide();
+        txtTripStart.getEditor().clear();
+        txtTripEnd.getEditor().setDisable(true);
+        //txtTripEnd.hide();
+        txtTripEnd.getEditor().clear();
+        txtDescription.setDisable(true);
+        txtDescription.setText("");
+        txtDestination.setDisable(true);
+        txtDestination.setText("");
+        txtBasePrice.setDisable(true);
+        txtBasePrice.setText("");
+        txtAgencyCommission.setDisable(true);
+        txtAgencyCommission.setText("");
+        cbRegionId.setDisable(true);
+        cbRegionId.setValue(null);
+        cbClassId.setDisable(true);
+        cbClassId.setValue(null);
+        cbFeeId.setDisable(true);
+        cbFeeId.setValue(null);
+    }
+
+    public void enableBkControls()
+    {
+        txtTripStart.getEditor().setDisable(false);
+        txtTripEnd.getEditor().setDisable(false);
+        txtDescription.setDisable(false);
+        txtDestination.setDisable(false);
+        txtBasePrice.setDisable(false);
+        txtAgencyCommission.setDisable(false);
+        cbRegionId.setDisable(false);
+        cbClassId.setDisable(false);
+        cbFeeId.setDisable(false);
+    }
+
+    // code to check if booking start date is not later than booking end date.
+    //James Cockriell April 10/19
+    public boolean checkBookingDates(LocalDate bkStart, LocalDate bkEnd)
+    {
+        boolean acceptableBookingDates;
+        if (bkEnd.isEqual(bkStart))
+        {
+            acceptableBookingDates = true;
+        }
+        else if (bkEnd.isBefore(bkStart))
+        {
+            acceptableBookingDates = false;
+        }
+        else
+        {
+            acceptableBookingDates = true;
+        }
+        return acceptableBookingDates;
+    }
+
+    // code to verify that text fields have non negative number values.
+    // james cockriell, April 12/19
+     public boolean bkTextIsNonNegativeDouble(String value) {
+         boolean result = true;
+         double numberValue = 0;
+         try {
+             numberValue = Double.parseDouble(value);
+         }
+         catch(NumberFormatException e)
+         {
+             result = false;
+         }
+
+         if (result == true)
+         {
+             if (numberValue < 0)
+             {
+                 result = false;
+
+             }
+         }
+         return result;
+     }
 
     private void updatePackage()
     {
