@@ -1,30 +1,30 @@
 package sample;
 
-import com.jfoenix.controls.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.input.*;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import sample.Model.*;
-import sample.Model.Package;
+        import com.jfoenix.controls.*;
+        import javafx.collections.FXCollections;
+        import javafx.collections.ObservableList;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.fxml.Initializable;
+        import javafx.scene.input.*;
+        import javafx.scene.control.*;
+        import javafx.scene.control.cell.PropertyValueFactory;
+        import javafx.scene.input.MouseEvent;
+        import javafx.scene.layout.AnchorPane;
+        import javafx.scene.layout.Pane;
+        import javafx.scene.paint.Color;
+        import sample.Model.*;
+        import sample.Model.Package;
 
-import javax.swing.*;
-import java.lang.Class;
-import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
+        import javax.swing.*;
+        import java.lang.Class;
+        import java.net.URL;
+        import java.security.NoSuchAlgorithmException;
+        import java.sql.*;
+        import java.text.DateFormat;
+        import java.time.LocalDate;
+        import java.time.format.DateTimeFormatter;
+        import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
@@ -50,7 +50,6 @@ public class Controller implements Initializable {
     private ObservableList<Fee> feeData = FXCollections.observableArrayList();
     //objects
     Booking customerSelectedBooking = null;
-
 
 
     public Controller() throws NoSuchAlgorithmException {
@@ -460,8 +459,7 @@ public class Controller implements Initializable {
     void onActionAddEditPkg(ActionEvent event) {
         if (btnAddEditPkg.getText().equals("Save New Package")) {
             saveNewPackage();
-        }
-        else if (btnAddEditPkg.getText().equals("Update Package")) {
+        } else if (btnAddEditPkg.getText().equals("Update Package")) {
             updatePackage();
         }
 
@@ -501,15 +499,14 @@ public class Controller implements Initializable {
     @FXML
     void onActionAddPkg(ActionEvent event) {
 
-        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
-            if (reply == JOptionPane.YES_OPTION) {
-                pnlPackages.toFront();
-                txtPackageName.requestFocus();
-                btnAddEditPkg.setText("Save New Package");
-            }
-            else {
-                pnlPackagesOverview.toFront();
-            }
+        int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            pnlPackages.toFront();
+            txtPackageName.requestFocus();
+            btnAddEditPkg.setText("Save New Package");
+        } else {
+            pnlPackagesOverview.toFront();
+        }
     }
 
     @FXML
@@ -543,28 +540,19 @@ public class Controller implements Initializable {
         bookingEnd = txtTripEnd.getValue();
 
 
-        if(txtBkSearch.getText().equals(""))
-        {
+        if (txtBkSearch.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "You haven't searched for a customer");
             alert.showAndWait();
-        }
-        else if(checkBookingDates(bookingStart, bookingEnd) == false)
-        {
+        } else if (checkBookingDates(bookingStart, bookingEnd) == false) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Trip start date needs to be an earlier date than trip end date.");
             alert.showAndWait();
-        }
-        else if(txtDescription.getText().equals("") || txtDestination.getText().equals("") || txtBasePrice.getText().equals("") || txtAgencyCommission.getText().equals(""))
-        {
+        } else if (txtDescription.getText().equals("") || txtDestination.getText().equals("") || txtBasePrice.getText().equals("") || txtAgencyCommission.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
             alert.showAndWait();
-        }
-        else if(bkTextIsNonNegativeDouble(txtBasePrice.getText()) == false || bkTextIsNonNegativeDouble(txtAgencyCommission.getText()) == false)
-        {
+        } else if (bkTextIsNonNegativeDouble(txtBasePrice.getText()) == false || bkTextIsNonNegativeDouble(txtAgencyCommission.getText()) == false) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
             alert.showAndWait();
-        }
-        else
-        {
+        } else {
             saveBookingDetails();
             getCustomerBooking();
         }
@@ -781,9 +769,9 @@ public class Controller implements Initializable {
 
     //Ethan Shipley
     //April 7, 2019
-    private void autoSelectRegion(String regionCode){
-        for (Region region : regionData){
-            if (region.getRegionName().equals(regionCode)){
+    private void autoSelectRegion(String regionCode) {
+        for (Region region : regionData) {
+            if (region.getRegionName().equals(regionCode)) {
                 cbRegionId.setValue(region);
             }
         }
@@ -791,9 +779,9 @@ public class Controller implements Initializable {
 
     //Ethan Shipley
     //April 7, 2019
-    private void autoSelectClass(String classCode){
-        for (Class1 class1 : classData){
-            if (class1.getClassName().equals(classCode)){
+    private void autoSelectClass(String classCode) {
+        for (Class1 class1 : classData) {
+            if (class1.getClassName().equals(classCode)) {
                 cbClassId.setValue(class1);
             }
         }
@@ -801,9 +789,9 @@ public class Controller implements Initializable {
 
     //Ethan Shipley
     //April 7, 2019
-    private void autoSelectFee(String feeCode){
-        for (Fee fee : feeData){
-            if (fee.getFeeName().equals(feeCode)){
+    private void autoSelectFee(String feeCode) {
+        for (Fee fee : feeData) {
+            if (fee.getFeeName().equals(feeCode)) {
                 cbFeeId.setValue(fee);
             }
         }
@@ -952,7 +940,6 @@ public class Controller implements Initializable {
         ObservableList<Customer> custData = FXCollections.observableArrayList();
 
 
-
         // sets the columns to the customer object properties
 
         colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
@@ -985,7 +972,6 @@ public class Controller implements Initializable {
                         rs.getString(11)));
 
 
-
             }
             gvCustomer.setItems(custData);
 
@@ -1007,12 +993,11 @@ public class Controller implements Initializable {
     //this populates the Customer table on form load 1st step
 
 
-
     //this is the login method
     private void Login() throws NoSuchAlgorithmException {
 
         String name = txtUserName.getText();
-        String password =  PasswordEncryption.MD5(txtPassword.getText());
+        String password = PasswordEncryption.MD5(txtPassword.getText());
 
 
         if (name.isEmpty() || password.isEmpty()) {
@@ -1036,8 +1021,7 @@ public class Controller implements Initializable {
         }
     }
 
-    private void Logout ()
-    {
+    private void Logout() {
         btnLogin.setDisable(false);
         btnLogout.setDisable(false);
         txtPassword.setText("");
@@ -1081,18 +1065,15 @@ public class Controller implements Initializable {
         btnSettings.setVisible(false);
     }
 
-    private void getPackages()
-    {
+    private void getPackages() {
         ObservableList<Package> packData = FXCollections.observableArrayList();
-        try
-        {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
             String sql = "select * from Packages";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next())
-            {
+            while (rs.next()) {
                 packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3).toLocalDate(),
                         rs.getDate(4).toLocalDate(), rs.getString(5), rs.getFloat(6),
                         rs.getFloat(7)));
@@ -1106,9 +1087,7 @@ public class Controller implements Initializable {
             colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
 
             tblPackages.setItems(packData);
-        }
-        catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -1217,8 +1196,12 @@ public class Controller implements Initializable {
             cbFeeId.setItems(feeData);
             conn.close();
         } catch (SQLException e) {
-    private void clear()
-    {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void clear() {
         txtPackageName.clear();
         txtPkgStartDate.setValue(null);
         txtPkgEndDate.setValue(null);
@@ -1228,8 +1211,7 @@ public class Controller implements Initializable {
     }
 
     private void saveNewPackage() {
-        try
-        {
+        try {
             String pkgName = txtPackageName.getText();
             String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -1241,26 +1223,23 @@ public class Controller implements Initializable {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
-                    "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
+                    "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
 
-            JOptionPane.showMessageDialog( null,"New Package Added");
+            JOptionPane.showMessageDialog(null, "New Package Added");
 
             clear();
 
             pnlPackagesOverview.toFront();
 
             getPackages();
-        }
-        catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
     // class to get all of the booking details
     // Author: James Cockriell, Date: April 05/19
-    private void saveBookingDetails()
-    {
+    private void saveBookingDetails() {
         String TripStart = txtTripStart.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String TripEnd = txtTripEnd.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String Description = txtDescription.getText();
@@ -1277,8 +1256,7 @@ public class Controller implements Initializable {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             int numRows = stmt.executeUpdate();
-            if (numRows == 0)
-            {
+            if (numRows == 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
                 alert.showAndWait();
             }
@@ -1298,8 +1276,7 @@ public class Controller implements Initializable {
         txtBkSearch.setText("");
     }
 
-    private void clearBkControls()
-    {
+    private void clearBkControls() {
         txtTripStart.getEditor().setDisable(true);
         //txtTripStart.hide();
         txtTripStart.getEditor().clear();
@@ -1322,8 +1299,7 @@ public class Controller implements Initializable {
         cbFeeId.setValue(null);
     }
 
-    public void enableBkControls()
-    {
+    public void enableBkControls() {
         txtTripStart.getEditor().setDisable(false);
         txtTripEnd.getEditor().setDisable(false);
         txtDescription.setDisable(false);
@@ -1337,19 +1313,13 @@ public class Controller implements Initializable {
 
     // code to check if booking start date is not later than booking end date.
     //James Cockriell April 10/19
-    public boolean checkBookingDates(LocalDate bkStart, LocalDate bkEnd)
-    {
+    public boolean checkBookingDates(LocalDate bkStart, LocalDate bkEnd) {
         boolean acceptableBookingDates;
-        if (bkEnd.isEqual(bkStart))
-        {
+        if (bkEnd.isEqual(bkStart)) {
             acceptableBookingDates = true;
-        }
-        else if (bkEnd.isBefore(bkStart))
-        {
+        } else if (bkEnd.isBefore(bkStart)) {
             acceptableBookingDates = false;
-        }
-        else
-        {
+        } else {
             acceptableBookingDates = true;
         }
         return acceptableBookingDates;
@@ -1357,53 +1327,45 @@ public class Controller implements Initializable {
 
     // code to verify that text fields have non negative number values.
     // james cockriell, April 12/19
-     public boolean bkTextIsNonNegativeDouble(String value) {
-         boolean result = true;
-         double numberValue = 0;
-         try {
-             numberValue = Double.parseDouble(value);
-         }
-         catch(NumberFormatException e)
-         {
-             result = false;
-         }
+    public boolean bkTextIsNonNegativeDouble(String value) {
+        boolean result = true;
+        double numberValue = 0;
+        try {
+            numberValue = Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            result = false;
+        }
 
-         if (result == true)
-         {
-             if (numberValue < 0)
-             {
-                 result = false;
+        if (result == true) {
+            if (numberValue < 0) {
+                result = false;
 
-             }
-         }
-         return result;
-     }
+            }
+        }
+        return result;
+    }
 
-    private void updatePackage()
-    {
-        try
-        {
+    private void updatePackage() {
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
             String sql = "update Packages set PkgName=?, PkgStartDate=?, PkgEndDate=?," +
                     "PkgDesc=?,PkgBasePrice=?,PkgAgencyCommission=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,txtPackageName.getText());
+            stmt.setString(1, txtPackageName.getText());
             stmt.setDate(2, Date.valueOf(txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             stmt.setDate(3, Date.valueOf(txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             stmt.setString(4, txtPkgDesc.getText());
-            stmt.setFloat(5,Float.valueOf(txtPkgBasePrice.getText()));
-            stmt.setFloat(6,Float.valueOf(txtPkgAgencyCommission.getText()));
+            stmt.setFloat(5, Float.valueOf(txtPkgBasePrice.getText()));
+            stmt.setFloat(6, Float.valueOf(txtPkgAgencyCommission.getText()));
 
-            JOptionPane.showMessageDialog( null,"Package Updated");
+            JOptionPane.showMessageDialog(null, "Package Updated");
 
             pnlPackagesOverview.toFront();
 
             getPackages();
 
-        }
-        catch (ClassNotFoundException | SQLException e)
-        {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
