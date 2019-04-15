@@ -30,7 +30,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img
+					<a class="navbar-brand logo_h" href="index.jsp"><img
 						src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
@@ -43,27 +43,27 @@
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="packages.html">Packages</a></li>
+								href="packages.jsp">Packages</a></li>
 							<li class="nav-item submenu dropdown active"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link"
-										href="about-us.html">About</a></li>
+										href="about-us.jsp">About</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="book-trip.html">Book trip</a></li>
+										href="book-trip.jsp">Book trip</a></li>
 								</ul></li>
 							<li class="nav-item submenu dropdown"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="blog.jsp">Blog</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="single-blog.html">Blog Details</a></li>
+										href="single-blog.jsp">Blog Details</a></li>
 								</ul></li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item"><a href="#" class="primary-btn">Book
@@ -98,7 +98,7 @@
 			<div class="container">
 				<div class="banner_content">
 					<div class="page_link">
-						<a href="index.html">Home</a> <a href="book-trip.html">Book a
+						<a href="index.jsp">Home</a> <a href="book-trip.jsp">Book a
 							Trip</a>
 					</div>
 					<h2>Book a Trip</h2>
@@ -118,7 +118,7 @@
 							Book a Trip <br> for your next Tour
 						</h1>
 						<form class="trip-form-area trip-page-form trip-form text-right"
-							id="myForm" action="mail.html" method="post">
+							id="myForm" action="mail.jsp" method="post">
 							<div class="form-group col-md-12">
 								<div class="form-select">
 									<select>
