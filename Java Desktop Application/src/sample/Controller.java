@@ -582,7 +582,6 @@ public class Controller implements Initializable {
     @FXML
     void onActionClearPkg(ActionEvent event) {
         clear();
-
         txtPackageName.requestFocus();
     }
 
@@ -974,7 +973,6 @@ public class Controller implements Initializable {
 
         } else {
             if (name.equals(user) && password.equals(passw)) {
-                //lblPasswordMessage.setText("Successfully logged in");
                 lblPasswordMessage.setTextFill(Color.rgb(21, 117, 84));
                 EnableMenu();
 
