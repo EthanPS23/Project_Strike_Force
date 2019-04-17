@@ -163,8 +163,10 @@
 						<h1>
 							Register <br> for your next Tour
 						</h1>
-						<form class="trip-form-area trip-page-form trip-form text-right"
-							id="myForm" action="mail.jsp" method="post">
+						<!-- <form class="trip-form-area trip-page-form trip-form text-right"
+							id="myForm" action="mail.jsp" method="get"> -->
+						<Form class="trip-form-area trip-page-form trip-form text-right"
+							id="myForm" action="RegistrationServlet" method="post">
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustFirstName" name="CustFirstName"
 									placeholder="First Name" onfocus="this.placeholder = ''"
@@ -226,6 +228,12 @@
 									onblur="this.placeholder = 'Email'">
 							</div>
 							<div class="form-group col-md-12">
+								<input type="password" class="form-control" id="CustPassword"
+									name="CustPassword" placeholder="Password"
+									onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="AgentID"
 									name="AgentID" placeholder="Agent ID"
 									onfocus="this.placeholder = ''"
@@ -233,8 +241,156 @@
 							</div>
 							<div class="col-lg-12 text-center">
 								<button class="primary-btn text-uppercase">Register</button>
+								<%
+									if (request.getParameter("submit") != null)
+									{
+										String [] customer = new String[11];
+										customer[0] = (String)request.getParameter("CustFirstName");
+										customer[1] = (String)request.getParameter("CustLastName");
+										customer[2]= (String)request.getParameter("CustAddress");
+										customer[3]= (String)request.getParameter("CustCity");
+										customer[4] = (String)request.getParameter("CustProv");
+										customer[5] = (String)request.getParameter("CustCountry");
+										customer[6] = (String)request.getParameter("CustPostal");
+										customer[7] = (String)request.getParameter("CustHomePhone");
+										customer[8] = (String)request.getParameter("CustBusPhone");
+										customer[9] = (String)request.getParameter("CustEmail");
+										customer[10] = (String)request.getParameter("AgentID");
+								
+										//pass data to validation function
+										String message = validate(customer);
+										if (message.equals(""))
+										{
+											//if not valid set error message and redisplay form
+											out.print("<h4 style='color:crimson'>" + createCustomer(customer) + "</h4>");
+											
+											//after writing customer data empty the array so form will be empty
+											
+												customer[0] = "";
+												customer[1] = "";
+												customer[2] = "";
+												customer[3] = "";
+												customer[4] = "";
+												customer[5] = "";
+												customer[6] = "";
+												customer[7] = "";
+												customer[8] = "";
+												customer[9] = "";
+												customer[10] = "";
+										
+											
+											/* displayForm(customer, out); */
+										} else
+										{
+										   out.print("<h4 style='color:crimson'>" + message + "</h4>");
+										   /* displayForm(customer, out); */
+									    }
+									}
+									else
+									{
+										//display form
+										String [] customer = {"","","","","","","","","","",""};
+										/* displayForm(customer, out); */
+									}
+								%>
 							</div>
-						</form>
+						</Form>
+						<%!
+							public String validate(String [] customerData)
+							{
+								for (int i=0; i<customerData.length; i++)
+								{
+									if (customerData[i].equals(""))
+									{
+										switch(i)
+										{
+											case 0:
+												return "**First name must have a value!**";
+											
+											case 1:
+												return "**Last name must have a value!**";
+											
+											case 2:
+												break;						
+											
+											case 3:
+												return "**You must include your city name!**";
+												
+											case 4:
+												return "**You must include your province or state name!**";
+												
+											case 5:
+												return "**You must include your country name!**";
+												
+											case 6:
+												return "**You must include your postal or zip code!**";
+												
+											case 7:
+												return "**Please provide your home phone number!**";
+												
+											case 8:
+												break;
+												
+											case 9:
+	
+												break;
+											
+											default:
+											return "field must have a value.";
+										}
+									}
+								}
+								return "";
+							}
+						
+							public String createCustomer(String [] customerArray)
+							{
+								String sql = "INSERT INTO customers ("
+									+ "CustomerID, CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustCountry, CustPostal, CustHomePhone, CustBusPhone, CustEmail, AgentID"
+								    + ") values (S_101_1_CUSTOMERS.NEXTVAL, "
+									+ "'" + customerArray[0] + "'," 
+									+ " '" + customerArray[1] + "',"
+									+ " '" + customerArray[2] + "',"
+									+ " '" + customerArray[3] + "',"
+									+ " '" + customerArray[4] + "',"
+									+ " '" + customerArray[5] + "',"
+									+ " '" + customerArray[6] + "',"
+									+ " '" + customerArray[7] + "',"
+									+ " '" + customerArray[8] + "',"
+									+ " '" + customerArray[9] + "',"
+									+ " " + customerArray[10] + ")";
+	
+	
+							    try
+							    {
+							        //Class.forName("com.mysql.jdbc.Driver");
+									Class.forName("oracle.jdbc.driver.OracleDriver");
+							        //Connection dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","root","password");
+							        Connection dbConn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orant11g", "ictoosd", "ictoosd");
+	
+							        Statement stmt = dbConn.createStatement();
+	
+							        int rows = stmt.executeUpdate(sql);
+	
+							        // Cleanup
+							        dbConn.close();  // close the connection
+							        
+									if (rows == 1)
+									{
+										return "Your registration was a success. Thank you for joining The Travel Experts.";
+									}
+									else
+									{
+										return "Insert was NOT successful";
+									}
+							    }
+							    catch (Exception excp)
+							    {
+							        excp.printStackTrace();
+							    }
+								return "";
+							}
+						%>
 					</div>
 				</div>
 			</div>
@@ -367,7 +523,7 @@
 	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
 	<script src="js/owl-carousel-thumb.min.js"></script>
 	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/mail-script.js"></script>
+	<!-- <script src="js/mail-script.js"></script>-->
 	<!--gmaps Js-->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
