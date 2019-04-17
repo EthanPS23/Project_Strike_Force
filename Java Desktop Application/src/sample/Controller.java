@@ -36,13 +36,18 @@ public class Controller implements Initializable {
     String secondaryColour = "#1E88E5";
     String tertiaryColour = "#5E35B1";
 
+    // Vars for Login page
     final String user = "admin";
     final String passw = PasswordEncryption.MD5("password");
+
+    // customer page observable list
+    private ObservableList<Customer> custData = FXCollections.observableArrayList();
 
     // ---------variables for bookings page----------
     private int customerSelectedBookingDetailId;
     LocalDate bookingStart;
     LocalDate bookingEnd;
+
     // bookings page observablelists
     private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     private ObservableList<Region> regionData = FXCollections.observableArrayList();
@@ -937,51 +942,11 @@ public class Controller implements Initializable {
         setTertiaryColour();
         getCustomerBooking();*/
 
-        ObservableList<Customer> custData = FXCollections.observableArrayList();
-
-
-        // sets the columns to the customer object properties
-
-        colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-        colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
-        colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-        colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
-        colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
-        colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
-        colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
-        colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
-        colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
-        colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
-
-
-        try {
-//                Class.forName("com.mysql.jdbc.Driver");
-
-//                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
-//                        "Chris", "password");// this is temporary till tomorrow until I can bring in Harv's Travel Experts
-            Connection conn = DBConnect.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from customers");
-
-            while (rs.next()) {
-                custData.add(new Customer(rs.getString(2),
-                        rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10),
-                        rs.getString(11)));
-
-
-            }
-            gvCustomer.setItems(custData);
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         // to load packages table
         getPackages();
+
+        // load the customer table
+        getCustomerDetails();
 
         setTextColour();
         setMenuColour();
@@ -995,6 +960,7 @@ public class Controller implements Initializable {
 
     //this is the login method
     private void Login() throws NoSuchAlgorithmException {
+        // to do switch
 
         String name = txtUserName.getText();
         String password = PasswordEncryption.MD5(txtPassword.getText());
@@ -1065,6 +1031,54 @@ public class Controller implements Initializable {
         btnSettings.setVisible(false);
     }
 
+    // this is the start of the customers pane, Chris' work
+    // next step initialize search function on the table view
+
+    private void getCustomerDetails()
+    {
+        gvCustomer.getItems().clear(); // this clears the table view before the search field is used
+
+        String lastName = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
+
+        try {
+//
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            String sql = "Select * from Customers" + "where CustLastName LIKE '%" + lastName + "%' " +
+                    "order by CustLastName DESC;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                custData.add(new Customer(rs.getString(2),
+                        rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10),
+                        rs.getString(11)));
+
+            }
+
+            colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
+            colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
+            colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
+            colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
+            colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
+            colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
+            colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
+            colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
+            colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
+            colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
+
+            gvCustomer.setItems(custData);
+            conn.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // this is the start of the packages pane, Brando's work
     private void getPackages() {
         ObservableList<Package> packData = FXCollections.observableArrayList();
         try {
@@ -1130,7 +1144,7 @@ public class Controller implements Initializable {
             colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
 
             gvBookings.setItems(bookingData);
-            conn.close();
+            conn.close(); // connection close
         } catch (SQLException e) {
             e.printStackTrace();
         }
