@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="apEverything" fx:id="apEverything" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane id="apEverything" fx:id="apEverything" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <AnchorPane fx:id="apMenu" layoutY="30.0" prefHeight="618.0" prefWidth="135.0" styleClass="menuBar">
          <children>
@@ -266,9 +266,9 @@
                <children>
                   <JFXButton fx:id="btnLogout" layoutX="174.0" layoutY="159.0" onAction="#onActionLogout" prefHeight="47.0" prefWidth="97.0" text="Logout" />
                </children></Pane>
-            <Pane id="pItems" fx:id="pnlCustomers" onKeyPressed="#onKeyPressedCustSearch" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
+            <Pane id="pItems" fx:id="pnlCustomers" prefHeight="618.0" prefWidth="1017.0" style="-fx-background-color: #0772ff;">
                <children>
-                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
+                  <JFXTextField fx:id="txtCustSearch" focusColor="#0772ffc9" layoutX="339.0" layoutY="36.0" onKeyTyped="#onKeyTypedCustSearch" prefHeight="37.0" prefWidth="356.0" style="-fx-background-radius: 0;" unFocusColor="#4d4d4d00" />
                   <Label fx:id="lblCustSearch" layoutX="226.0" layoutY="46.0" text="Search:" />
                   <TableView fx:id="gvCustomer" layoutX="64.0" layoutY="93.0" prefHeight="200.0" prefWidth="796.0">
                     <columns>

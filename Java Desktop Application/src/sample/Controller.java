@@ -521,8 +521,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkAdd(ActionEvent event) {
-
-        //getCustomerBooking();
+        
 
     }
 
@@ -565,7 +564,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkSearch(ActionEvent event) {
-        /*getCustomerBooking();*/
+
     }
 
     @FXML
@@ -734,19 +733,13 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void onKeyPressedBkSearch(KeyEvent event) {
-        //getCustomerBooking();
-    }
-
-    @FXML
     void onKeyTypedBkSearch(KeyEvent event) {
         getCustomerBooking();
 
     }
 
-    // key pressed event for when user enters a name into the search bar
     @FXML
-    void onKeyPressedCustSearch(KeyEvent event) {
+    void onKeyTypedCustSearch(KeyEvent event) {
         getCustomerDetails();
 
     }
