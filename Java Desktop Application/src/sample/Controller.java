@@ -744,6 +744,12 @@ public class Controller implements Initializable {
 
     }
 
+    // key pressed event for when user enters a name into the search bar
+    @FXML
+    void onKeyPressedCustSearch(KeyEvent event) {
+
+    }
+
     // on mouse event for when user clicks on bookings tableview
     //Author James Cockriell, April 8/19
     @FXML
