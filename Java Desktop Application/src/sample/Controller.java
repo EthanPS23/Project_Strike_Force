@@ -732,11 +732,11 @@ public class Controller implements Initializable {
         textColour = hexi(cpSettingsTextColour);
         setTextColour();
     }
-
-    @FXML
-    void onKeyPressedBkSearch(KeyEvent event) {
-        //getCustomerBooking();
-    }
+//
+//    @FXML
+//    void onKeyPressedBkSearch(KeyEvent event) {
+//        //getCustomerBooking();
+//    }
 
     @FXML
     void onKeyTypedBkSearch(KeyEvent event) {
@@ -747,6 +747,7 @@ public class Controller implements Initializable {
     // key pressed event for when user enters a name into the search bar
     @FXML
     void onKeyPressedCustSearch(KeyEvent event) {
+        getCustomerDetails();
 
     }
 
@@ -951,7 +952,7 @@ public class Controller implements Initializable {
         getPackages();
 
         // load the customer table
-        getCustomerDetails();
+//        getCustomerDetails();
 
         setTextColour();
         setMenuColour();
@@ -1043,13 +1044,12 @@ public class Controller implements Initializable {
         gvCustomer.getItems().clear(); // this clears the table view before the search field is used
 
         String lastName = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
-
         try {
 //
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "Select * from Customers" + "where CustLastName LIKE '%" + lastName + "%' " +
-                    "order by CustLastName DESC;";
+            String sql = "SELECT * from Customers WHERE CustLastName LIKE '%" + lastName + "%' " +
+                    "ORDER BY CustLastName DESC;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -1059,7 +1059,6 @@ public class Controller implements Initializable {
                         rs.getString(7), rs.getString(8),
                         rs.getString(9), rs.getString(10),
                         rs.getString(11)));
-
             }
 
             colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
