@@ -125,8 +125,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="744" column="5" lean-forward="true" selection-start-line="744" selection-start-column="5" selection-end-line="744" selection-end-column="5" />
+            <state relative-caret-position="232">
+              <caret line="948" lean-forward="true" selection-start-line="948" selection-end-line="948" />
             </state>
           </provider>
         </entry>
@@ -212,6 +212,7 @@
       <find>selectedAgent</find>
       <find>load</find>
       <find>bookingData</find>
+      <find>getCustomerBooking</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -707,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="744" column="5" lean-forward="true" selection-start-line="744" selection-start-column="5" selection-end-line="744" selection-end-column="5" />
+        <state relative-caret-position="232">
+          <caret line="948" lean-forward="true" selection-start-line="948" selection-end-line="948" />
         </state>
       </provider>
     </entry>

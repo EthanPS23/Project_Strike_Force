@@ -732,11 +732,11 @@ public class Controller implements Initializable {
         textColour = hexi(cpSettingsTextColour);
         setTextColour();
     }
-//
-//    @FXML
-//    void onKeyPressedBkSearch(KeyEvent event) {
-//        //getCustomerBooking();
-//    }
+
+    @FXML
+    void onKeyPressedBkSearch(KeyEvent event) {
+        //getCustomerBooking();
+    }
 
     @FXML
     void onKeyTypedBkSearch(KeyEvent event) {
@@ -946,7 +946,9 @@ public class Controller implements Initializable {
         setBackgroundColour();
         setSecondaryColour();
         setTertiaryColour();
-        getCustomerBooking();*/
+
+         */
+        getCustomerBooking();
 
         // to load packages table
         getPackages();
