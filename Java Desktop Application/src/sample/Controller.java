@@ -43,6 +43,9 @@ public class Controller implements Initializable {
     // customer page observable list
     private ObservableList<Customer> custData = FXCollections.observableArrayList();
 
+    // variables for CustomerDetails Pane that populates the textfields after a mouse event from the table view
+    Customer customerSelectedDetails;
+
     // ---------variables for bookings page----------
     private int customerSelectedBookingDetailId;
     LocalDate bookingStart;
@@ -141,9 +144,6 @@ public class Controller implements Initializable {
 
     @FXML
     private Label lblLoginPassword;
-
-    @FXML
-    private Label lblPasswordMessage;
 
     @FXML
     private JFXButton btnLogin;
@@ -521,7 +521,8 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkAdd(ActionEvent event) {
-        
+
+        //getCustomerBooking();
 
     }
 
@@ -564,7 +565,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkSearch(ActionEvent event) {
-
+        /*getCustomerBooking();*/
     }
 
     @FXML
@@ -615,6 +616,37 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private JFXTextField txtCustFirstName;
+
+    @FXML
+    private JFXTextField txtCustLastName;
+
+    @FXML
+    private JFXTextField txtCustAddress;
+
+    @FXML
+    private JFXTextField txtCustCity;
+
+    @FXML
+    private JFXTextField txtCustProv;
+
+    @FXML
+    private JFXTextField txtCustPostal;
+
+    @FXML
+    private JFXTextField txtCustCountry;
+
+    @FXML
+    private JFXTextField txtCustHomePhone;
+
+    @FXML
+    private JFXTextField txtCustBusPhone;
+
+    @FXML
+    private JFXTextField txtCustEmail;
+
+
+    @FXML
     void onActionCustomers(ActionEvent event) {
         pnlCustomers.toFront();
     }
@@ -645,8 +677,6 @@ public class Controller implements Initializable {
     @FXML
     void onActionLoginTab(ActionEvent event) {
         pnlLogin.toFront();
-        PromptTextLogin();
-
     }
 
     @FXML
@@ -733,6 +763,11 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void onKeyPressedBkSearch(KeyEvent event) {
+        //getCustomerBooking();
+    }
+
+    @FXML
     void onKeyTypedBkSearch(KeyEvent event) {
         getCustomerBooking();
 
@@ -740,9 +775,9 @@ public class Controller implements Initializable {
 
     @FXML
     void onKeyTypedCustSearch(KeyEvent event) {
-        getCustomerDetails();
-
+        getCustomer();
     }
+
 
     // on mouse event for when user clicks on bookings tableview
     //Author James Cockriell, April 8/19
@@ -769,6 +804,28 @@ public class Controller implements Initializable {
         enableBkControls();
         // set value in to variable so it can be used class wide
         customerSelectedBookingDetailId = customerSelectedBooking.getBookingDetailId();
+    }
+
+    @FXML
+    void getCustomerDetails(MouseEvent event) {
+        populateCustomerDetails();
+    }
+
+    private void populateCustomerDetails ()
+    {
+        customerSelectedDetails = gvCustomer.getItems().get(gvCustomer.getSelectionModel().getFocusedIndex());
+
+        txtCustFirstName.setText(customerSelectedDetails.getCustFirstName());
+        txtCustLastName.setText(customerSelectedDetails.getCustLastName());
+        txtCustAddress.setText(customerSelectedDetails.getCustAddress());
+        txtCustCity.setText(customerSelectedDetails.getCustCity());
+        txtCustProv.setText(customerSelectedDetails.getCustProv());
+        txtCustPostal.setText(customerSelectedDetails.getCustPostal());
+        txtCustCountry.setText(customerSelectedDetails.getCustCountry());
+        txtCustHomePhone.setText(customerSelectedDetails.getCustHomePhone());
+        txtCustBusPhone.setText(customerSelectedDetails.getCustFirstName());
+        txtCustEmail.setText(customerSelectedDetails.getCustEmail());
+
     }
 
     //Ethan Shipley
@@ -915,6 +972,8 @@ public class Controller implements Initializable {
         getCustomerBooking();
         clearBkControls();
 
+
+
     }
 
     private String hexi(ColorPicker cp) {
@@ -941,6 +1000,7 @@ public class Controller implements Initializable {
         setTertiaryColour();
 
          */
+
         getCustomerBooking();
 
         // to load packages table
@@ -960,28 +1020,24 @@ public class Controller implements Initializable {
 
 
     //this is the login method
+
     private void Login() throws NoSuchAlgorithmException {
         // to do switch
 
         String name = txtUserName.getText();
         String password = PasswordEncryption.MD5(txtPassword.getText());
 
-
         if (name.isEmpty() || password.isEmpty()) {
-            PromptTextLogin();
-            lblPasswordMessage.setText("All fields are required");
-            lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
+            InvalidateLogin();
             DisableMenu();
 
         } else {
             if (name.equals(user) && password.equals(passw)) {
-                lblPasswordMessage.setTextFill(Color.rgb(21, 117, 84));
+                ValidateLogin();
                 EnableMenu();
 
             } else {
-                PromptTextLogin();
-                lblPasswordMessage.setText("Incorrect login information");
-                lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
+                InvalidateLogin();
                 DisableMenu();
             }
         }
@@ -992,25 +1048,13 @@ public class Controller implements Initializable {
         btnLogout.setDisable(false);
         txtPassword.setText("");
         txtUserName.setText("");
-        lblPasswordMessage.setText("");
         pnlLogin.toFront();
-        PromptTextLogin();
     }
 
-
-    private void PromptTextLogin() {
-        txtUserName.setPromptText("");
-        txtPassword.setPromptText("");
-    }
 
     private void EnableMenu() {
 
         pnlMainMenu.toFront();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText("You are now successfully logged in");
-        alert.showAndWait();
-
         pnlLogin.toBack();
         btnLoginTab.setVisible(false);
         btnMainMenu.setVisible(true);
@@ -1021,8 +1065,17 @@ public class Controller implements Initializable {
         btnSettings.setVisible(true);
     }
 
+    private void ValidateLogin (){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Authentication Validated");
+        alert.setHeaderText(null);
+        alert.setContentText("You are now successfully logged in");
+        alert.showAndWait();
+
+    }
 
     private void DisableMenu() {
+
         btnMainMenu.setVisible(false);
         btnPackagesOverview.setVisible(false);
         btnPackages.setVisible(false);
@@ -1031,10 +1084,18 @@ public class Controller implements Initializable {
         btnSettings.setVisible(false);
     }
 
+    private void InvalidateLogin (){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Authentication Error");
+        alert.setHeaderText("Please check your login details");
+        alert.showAndWait();
+    }
+
+
     // this is the start of the customers pane, Chris' work
     // next step initialize search function on the table view
 
-    private void getCustomerDetails()
+    private void getCustomer()
     {
         gvCustomer.getItems().clear(); // this clears the table view before the search field is used
 
