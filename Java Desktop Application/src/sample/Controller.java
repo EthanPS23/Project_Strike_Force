@@ -25,6 +25,8 @@ package sample;
         import java.time.LocalDate;
         import java.time.format.DateTimeFormatter;
         import java.util.ResourceBundle;
+        import java.util.regex.Matcher;
+        import java.util.regex.Pattern;
 
 public class Controller implements Initializable {
 
@@ -594,12 +596,30 @@ public class Controller implements Initializable {
         int addcustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
                 "Add a Customer", JOptionPane.YES_NO_OPTION);
 
-        if ((addcustomer == JOptionPane.YES_OPTION) && (txtCustFirstName.getText().equals("") || txtCustLastName.getText().equals("") ||
-                txtCustAddress.getText().equals("") || txtCustCity.getText().equals("") || txtCustProv.getText().equals("") ||
-                txtCustPostal.getText().equals("") || txtCustCountry.getText().equals("") || txtCustHomePhone.getText().equals("") ||
-                txtCustEmail.getText().equals("")))
+        if ((addcustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
+                valFields(txtCustAddress.getText()) || valFields(txtCustCity.getText()) || valFields(txtCustProv.getText())) ||
+                valFields(txtCustPostal.getText()) || valFields(txtCustCountry.getText()) || valFields(txtCustHomePhone.getText()) ||
+                valFields(txtCustBusPhone.getText()))
         {
             Alert alert = new Alert(Alert.AlertType.WARNING, "All of the Customer Information needs to be filled out");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valPhone(txtCustHomePhone.getText()) || ! valPhone(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The phone number entered needs to be in proper numeric format");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valEmail(txtCustEmail.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The customer email needs to be in proper format");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valPostalCode(txtCustPostal.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Postal code needs to be in a proper format");
             alert.showAndWait();
         }
 
@@ -607,7 +627,6 @@ public class Controller implements Initializable {
         {
             insertCustomer();
             getCustomerSearch();
-
         }
 
         else
@@ -641,7 +660,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionCustSave(ActionEvent event) {
-
+        saveCustomerDetails();
     }
 
     @FXML
@@ -848,7 +867,6 @@ public class Controller implements Initializable {
     private void populateCustomerDetails ()
     {
         customerSelectedDetails = gvCustomer.getItems().get(gvCustomer.getSelectionModel().getFocusedIndex());
-
         txtCustFirstName.setText(customerSelectedDetails.getCustFirstName());
         txtCustLastName.setText(customerSelectedDetails.getCustLastName());
         txtCustAddress.setText(customerSelectedDetails.getCustAddress());
@@ -1025,18 +1043,13 @@ public class Controller implements Initializable {
         cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
         cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
 
-        /*setTextColour();
-        setMenuColour();
-        setBackgroundColour();
-        setSecondaryColour();
-        setTertiaryColour();
-
-         */
 
         getCustomerBooking();
 
         // to load packages table
         getPackages();
+
+//        getCustomerSearch();
 
         // load the customer table
 //        getCustomerDetails();
@@ -1097,36 +1110,6 @@ public class Controller implements Initializable {
         btnSettings.setVisible(true);
     }
 
-    private void DisableFields()
-    {
-        txtCustFirstName.setDisable(true);
-        txtCustLastName.setDisable(true);
-        txtCustAddress.setDisable(true);
-        txtCustCity.setDisable(true);
-        txtCustProv.setDisable(true);
-        txtCustPostal.setDisable(true);
-        txtCustCountry.setDisable(true);
-        txtCustHomePhone.setDisable(true);
-        txtCustBusPhone.setDisable(true);
-        txtCustEmail.setDisable(true);
-
-    }
-
-    private void EnableFields()
-    {
-        txtCustFirstName.setDisable(false);
-        txtCustLastName.setDisable(false);
-        txtCustAddress.setDisable(false);
-        txtCustCity.setDisable(false);
-        txtCustProv.setDisable(false);
-        txtCustPostal.setDisable(false);
-        txtCustCountry.setDisable(false);
-        txtCustHomePhone.setDisable(false);
-        txtCustBusPhone.setDisable(false);
-        txtCustEmail.setDisable(false);
-
-    }
-
     private void ValidateLogin (){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Authentication Validated");
@@ -1154,7 +1137,9 @@ public class Controller implements Initializable {
     }
 
     // this is the start of the customers pane Chris' work
-    // next step initialize search function on the table view
+    // customer search done
+    // inserting of customer is done
+    // to do save
 
     private void getCustomerSearch()
     {
@@ -1222,8 +1207,7 @@ public class Controller implements Initializable {
 
             JOptionPane.showMessageDialog(null, "New Customer Record Added");
             clear();
-
-//            getCustomerSearch();
+            getCustomerSearch();
 
         }
         catch (SQLException e)
@@ -1231,6 +1215,101 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    private void saveCustomerDetails()
+    {
+        try {
+
+            Connection conn = DBConnect.getConnection();
+
+            String sql = "update Customers set CustFirstName=?, CustLastName=?, CustAddress=?, CustCity=?, CustProv=?, CustPostal=?," +
+                    "CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, txtCustFirstName.getText());
+            stmt.setString(2, txtCustLastName.getText());
+            stmt.setString(3, txtCustAddress.getText());
+            stmt.setString(4, txtCustCity.getText());
+            stmt.setString(5, txtCustProv.getText());
+            stmt.setString(6, txtCustPostal.getText());
+            stmt.setString(7, txtCustCountry.getText());
+            stmt.setString(8, txtCustHomePhone.getText());
+            stmt.setString(9, txtCustBusPhone.getText());
+            stmt.setString(10, txtCustEmail.getText());
+
+            JOptionPane.showMessageDialog(null, "Customer information updated");
+
+            getCustomerSearch();
+            clear();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // this is added functionality for the search button and edit button to work together
+
+    private void DisableFields()
+    {
+        txtCustFirstName.setDisable(true);
+        txtCustLastName.setDisable(true);
+        txtCustAddress.setDisable(true);
+        txtCustCity.setDisable(true);
+        txtCustProv.setDisable(true);
+        txtCustPostal.setDisable(true);
+        txtCustCountry.setDisable(true);
+        txtCustHomePhone.setDisable(true);
+        txtCustBusPhone.setDisable(true);
+        txtCustEmail.setDisable(true);
+
+    }
+
+    private void EnableFields()
+    {
+        txtCustFirstName.setDisable(false);
+        txtCustLastName.setDisable(false);
+        txtCustAddress.setDisable(false);
+        txtCustCity.setDisable(false);
+        txtCustProv.setDisable(false);
+        txtCustPostal.setDisable(false);
+        txtCustCountry.setDisable(false);
+        txtCustHomePhone.setDisable(false);
+        txtCustBusPhone.setDisable(false);
+        txtCustEmail.setDisable(false);
+
+    }
+
+    // this is the start of the validation for the fields in the Customer table ie. Tel number and email, and fields required.
+
+    private boolean valFields (String input)
+    {
+        return input.equals("");
+    }
+
+    private boolean valPhone (String input)
+    {
+        return input.length() == 10 && input.matches("[0-9]+");
+    }
+
+    private boolean valEmail (String email)
+    {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPat.matcher(email);
+        return matcher.find();
+    }
+
+    private boolean valPostalCode (String postalcode)
+    {
+        String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
+        Pattern pc = Pattern.compile(regex);
+        Matcher matcher = pc.matcher(postalcode);
+        boolean result = matcher.find();
+        return result;
+        // this matcher.find will return a true or false
     }
 
     // this is the start of the packages pane, Brando's work
@@ -1368,7 +1447,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     private void clear() {
         txtPackageName.clear();
         txtPkgStartDate.setValue(null);
@@ -1485,11 +1563,7 @@ public class Controller implements Initializable {
         boolean acceptableBookingDates;
         if (bkEnd.isEqual(bkStart)) {
             acceptableBookingDates = true;
-        } else if (bkEnd.isBefore(bkStart)) {
-            acceptableBookingDates = false;
-        } else {
-            acceptableBookingDates = true;
-        }
+        } else acceptableBookingDates = !bkEnd.isBefore(bkStart);
         return acceptableBookingDates;
     }
 
