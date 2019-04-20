@@ -1,9 +1,11 @@
 package sample.Model;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Customer  {
 
+    private SimpleIntegerProperty CustomerId;
     private SimpleStringProperty CustFirstName;
     private SimpleStringProperty CustLastName;
     private SimpleStringProperty CustAddress;
@@ -15,13 +17,14 @@ public class Customer  {
     private SimpleStringProperty CustBusPhone;
     private SimpleStringProperty CustEmail;
 
-    public Customer(String custFirstName, String custLastName,
+    public Customer(Integer custId, String custFirstName, String custLastName,
                     String custAddress, String custCity,
                     String custProv, String custPostal,
                     String custCountry,
                     String custHomePhone, String custBusPhone,
                     String custEmail) {
 
+        this.CustomerId = new SimpleIntegerProperty(custId);
         this.CustFirstName = new SimpleStringProperty(custFirstName);
         this.CustLastName = new SimpleStringProperty(custLastName);
         this.CustAddress = new SimpleStringProperty(custAddress);
@@ -32,6 +35,14 @@ public class Customer  {
         this.CustHomePhone = new SimpleStringProperty(custHomePhone);
         this.CustBusPhone = new SimpleStringProperty(custBusPhone);
         this.CustEmail = new SimpleStringProperty(custEmail);
+    }
+
+    public int getCustomerId() {
+        return CustomerId.get();
+    }
+
+    public void setCustomerId(int customerId) {
+        this.CustomerId.set(customerId);
     }
 
     public String getCustFirstName() {
