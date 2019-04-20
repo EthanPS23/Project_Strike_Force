@@ -44,7 +44,7 @@
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="about-us.jsp">About</a></li>
 									<li class="nav-item"><a class="nav-link" href="book-trip.jsp">Book trip</a></li>
-									<li class="nav-item"><a class="nav-link" href="Registration.jsp">Registration</a></li>
+									<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">

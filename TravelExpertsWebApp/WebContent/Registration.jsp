@@ -97,6 +97,10 @@
 							Register <br> for your next Tour
 						</h1>
 						<%
+							String b = (String)session.getAttribute("loggedin");
+							if (b =="true"){
+								response.sendRedirect("index.jsp");
+							}
 							String message = (String)session.getAttribute("message");
 							if ( message !=null && !message.equals("")){
 								/* out.print("<h4 style='color:crimson'>" + message + "</h4>"); */
