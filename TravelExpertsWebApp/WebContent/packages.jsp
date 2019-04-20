@@ -108,7 +108,7 @@
 			<div class="row d-flex justify-content-center">
 				<div class="ol-lg-12">
 					<div class="main_title">
-						<p>We’re Offering these Trip Packages</p>
+						<p>We're Offering these Trip Packages</p>
 						<h1>Famous Trips Packages</h1>
 						<span class="title-widget-bg"></span>
 					</div>
@@ -180,7 +180,7 @@
 			<div class="row d-flex justify-content-center">
 				<div class="col-lg-12">
 					<div class="main_title">
-						<p>We’re Offering these Trip Packages</p>
+						<p>We're Offering these Trip Packages</p>
 						<h1>Popular Places Around the World</h1>
 						<span class="title-widget-bg"></span>
 					</div>
@@ -254,7 +254,7 @@
 			<div class="row align-items-end justify-content-left">
 				<div class="col-lg-12">
 					<div class="main_title">
-						<p>We’re Offering these Popular Services</p>
+						<p>We're Offering these Popular Services</p>
 						<h1>Getting Adventure with Services</h1>
 						<span class="title-widget-bg"></span>
 					</div>
@@ -356,7 +356,7 @@
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget">
 							<h5 class="footer_title">About Agency</h5>
-							<p class="about-text">The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point where images and videos are used more to </p>
+							<p class="about-text">The world has become so fast paced that people don't want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point where images and videos are used more to </p>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-6 col-sm-6">

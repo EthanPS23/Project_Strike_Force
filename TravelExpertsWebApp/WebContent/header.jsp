@@ -20,14 +20,14 @@
 <!-- main css -->
 <link rel="stylesheet" href="css/style.css">
 </head>
-	<!--================ Start Header Menu Area =================-->
+<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img
-						src="img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="index.jsp"><img
+						src="img/clearLogo1.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -39,28 +39,29 @@
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link"
-								href="index.html">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="packages.html">Packages</a></li>
-							<li class="nav-item submenu dropdown"><a href="#"
+								href="packages.jsp">Packages</a></li>
+							<li class="nav-item submenu dropdown active"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link"
-										href="about-us.html">About</a></li>
+										href="about-us.jsp">About</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="book-trip.jsp">Book trip</a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="Registration.jsp">Registration</a></li>
 								</ul></li>
 							<li class="nav-item submenu dropdown"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="blog.jsp">Blog</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="single-blog.html">Blog Details</a></li>
+										href="single-blog.jsp">Blog Details</a></li>
 								</ul></li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item"><a href="#" class="primary-btn">Book
@@ -89,19 +90,22 @@
 	</header>
 	<!--================ End Header Menu Area =================-->
 	
-	<!--================Home Banner Area =================-->
-	<section class="banner_area ">
-		<div class="banner_inner overlay d-flex align-items-center">
-			<div class="container">
-				<div class="banner_content">
-					<div class="page_link">
-						<a href="index.html">Home</a> <a href="book-trip.jsp">Book a
-							Trip</a>
-					</div>
-					<h2>Book a Trip</h2>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--================End Home Banner Area =================-->
+		<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/stellar.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+	<script src="js/owl-carousel-thumb.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<!-- <script src="js/mail-script.js"></script>-->
+	<!--gmaps Js-->
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="js/gmaps.min.js"></script>
+	<script src="js/theme.js"></script>
+	
 </html>
