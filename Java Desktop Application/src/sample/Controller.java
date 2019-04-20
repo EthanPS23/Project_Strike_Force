@@ -217,21 +217,6 @@ public class Controller implements Initializable {
     private JFXButton btnClearPkg;
 
     @FXML
-    private JFXButton btnNewPkgProdSup;
-
-    @FXML
-    private JFXButton btnDeletePkgProdSup;
-
-    @FXML
-    private TableView<?> gvProdSup_pkg;
-
-    @FXML
-    private TableView<?> gvProdSup_all_pkgs;
-
-    @FXML
-    private JFXButton btnAddPkgProdSup;
-
-    @FXML
     private Pane pnlPackagesOverview;
 
     @FXML
@@ -254,9 +239,6 @@ public class Controller implements Initializable {
 
     @FXML
     private TableColumn<Package, Float> colPkgAgencyCommission;
-
-    @FXML
-    private TableView<?> tblExistProductsSuppliers;
 
     @FXML
     private TableColumn<?, ?> colPkgExistProdName;
@@ -284,12 +266,6 @@ public class Controller implements Initializable {
 
     @FXML
     private JFXButton btnSavePkg;
-
-    @FXML
-    private JFXButton btnProdSupRemove;
-
-    @FXML
-    private JFXButton btnProdSupAdd;
 
     // Start of Customer Pane
 
@@ -505,7 +481,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkAdd(ActionEvent event) {
-        //getCustomerBooking();
+
     }
 
     @FXML
@@ -546,7 +522,6 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkSearch(ActionEvent event) {
-        /*getCustomerBooking();*/
     }
 
     @FXML
@@ -618,16 +593,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionCustDelete(ActionEvent event) {
-        int deletecustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this customer record?",
-                "Delete a Customer", JOptionPane.YES_NO_OPTION);
-        if (deletecustomer == JOptionPane.YES_OPTION) {
-            pnlCustomers.toFront();
-            txtCustFirstName.requestFocus();
-
-        } else {
-            pnlCustomers.toFront();
-            txtCustSearch.requestFocus();
-        }
+        DeleteCustomer();
     }
 
     @FXML
@@ -725,7 +691,6 @@ public class Controller implements Initializable {
         if (reply == JOptionPane.YES_OPTION) {
             selectedPackage();
             pnlPackages.toFront();
-            //disablePkg();
             btnAddEditPkg.setText("Delete Package");
             btnClearPkg.setVisible(false);
         }
@@ -843,7 +808,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onKeyPressedBkSearch(KeyEvent event) {
-        //getCustomerBooking();
+
     }
 
     @FXML
@@ -984,11 +949,6 @@ public class Controller implements Initializable {
         assert txtPkgStartDate != null : "fx:id=\"txtPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnAddEditPkg != null : "fx:id=\"btnAddEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnClearPkg != null : "fx:id=\"btnClearPkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnNewPkgProdSup != null : "fx:id=\"btnNewPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnDeletePkgProdSup != null : "fx:id=\"btnDeletePkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
-        assert gvProdSup_pkg != null : "fx:id=\"gvProdSup_pkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert gvProdSup_all_pkgs != null : "fx:id=\"gvProdSup_all_pkgs\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnAddPkgProdSup != null : "fx:id=\"btnAddPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
         assert pnlPackagesOverview != null : "fx:id=\"pnlPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
         assert tblPackages != null : "fx:id=\"tblPackages\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgPkgName != null : "fx:id=\"colPkgPkgName\" was not injected: check your FXML file 'sample.fxml'.";
@@ -997,7 +957,6 @@ public class Controller implements Initializable {
         assert colPkgPkgDesc != null : "fx:id=\"colPkgPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgBasePrice != null : "fx:id=\"colPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgAgencyCommission != null : "fx:id=\"colPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
-        assert tblExistProductsSuppliers != null : "fx:id=\"tblExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgExistProdName != null : "fx:id=\"colPkgExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgExistSupName != null : "fx:id=\"colPkgExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
         assert tblNonExistProductsSuppliers != null : "fx:id=\"tblNonExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
@@ -1007,8 +966,6 @@ public class Controller implements Initializable {
         assert btnDeletePkg != null : "fx:id=\"btnDeletePkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnEditPkg != null : "fx:id=\"btnEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnSavePkg != null : "fx:id=\"btnSavePkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnProdSupRemove != null : "fx:id=\"btnProdSupRemove\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
         assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
         assert txtCustSearch != null : "fx:id=\"txtCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
         assert lblCustSearch != null : "fx:id=\"lblCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
@@ -1089,6 +1046,7 @@ public class Controller implements Initializable {
     //this populates the Customer table on form load 1st step
 
 
+    //Author: Christopher Potvin
     //this is the login method
 
     private void Login() throws NoSuchAlgorithmException {
@@ -1160,10 +1118,7 @@ public class Controller implements Initializable {
         alert.showAndWait();
     }
 
-    // this is the start of the customers pane Chris' work
-    // customer search done
-    // inserting of customer is done
-    // to do save
+    // Author: Christopher Potvin
 
     private void getCustomerSearch()
     {
@@ -1172,7 +1127,7 @@ public class Controller implements Initializable {
         String lastName = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
 
         try {
-//
+
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
             String sql = "SELECT * from Customers WHERE CustLastName LIKE '%" + lastName + "%' " +
@@ -1209,6 +1164,9 @@ public class Controller implements Initializable {
         }
     }
 
+    // Author: Christopher Potvin
+    // this method inserts a customer
+
     private void insertCustomer(){
 
         try {
@@ -1241,6 +1199,7 @@ public class Controller implements Initializable {
 
     }
 
+    //update method
     private void saveCustomerDetails()
     {
             String custFirstName = txtCustFirstName.getText();
@@ -1280,10 +1239,42 @@ public class Controller implements Initializable {
             populateCustomerDetails();
             txtCustSearch.setText("");
             clear();
+    }
 
+    //Author: Christopher Potvin
+    //This method will delete a customer record
+
+    private void DeleteCustomer ()
+    {
+        Connection conn = DBConnect.getConnection();
+        String sql = "delete from Customers where CustomerId=" + "'" +  customerSelectedDetailId + "'";
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+
+            int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this customer?", "Delete Customer", JOptionPane.YES_NO_OPTION);
+
+            if (reply == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog( null,"Customer deleted successfully.");
+
+                conn.close();
+            }
+            else {
+                pnlCustomers.toFront();
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        getCustomerSearch();
+        populateCustomerDetails();
     }
 
     // this is added functionality for the search button and edit button to work together
+    //Author: Christopher Potvin
 
     private void DisableFields()
     {
@@ -1316,6 +1307,7 @@ public class Controller implements Initializable {
     }
 
     // this is the start of the validation for the fields in the Customer table ie. Tel number and email, and fields required.
+    // Author: Christopher Potvin
 
     private boolean valFields (String input)
     {
@@ -1625,23 +1617,10 @@ public class Controller implements Initializable {
         return result;
     }
 
-    /*public boolean checkPackageDate(LocalDate pkStart, LocalDate pkEnd)
-    {
-        boolean goodDate = true;
-
-        if (pkEnd.isEqual(pkStart)) {
-            goodDate = true;
-        } else if (pkEnd.isBefore(pkStart)) {
-            goodDate = false;
-        } else {
-            goodDate = true;
-        }
-        return goodDate;
-    }*/
-
-
-
     private void updatePackage() {
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
+
         String pkgName = txtPackageName.getText();
         String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -1676,20 +1655,16 @@ public class Controller implements Initializable {
     // Brandon - method to delete package
     private void deletePackage()
     {
-        String pkgName = txtPackageName.getText();
-        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgDesc = txtPkgDesc.getText();
-        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
-        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
 
         Connection conn = DBConnect.getConnection();
-        String sql = "update Packages where PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + "PackageId=" + "'" + packId + "'";
+        String sql = "delete packages_products_suppliers, packages from packages_products_suppliers inner join packages where packages_products_suppliers.PackageId and packages.PackageId= " + "'" + packId + "'";
         try
         {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
             int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this package", "Delete Package", JOptionPane.YES_NO_OPTION);
-
            if (reply == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog( null,"Package deleted successfully.");
                 pnlPackagesOverview.toFront();
@@ -1706,9 +1681,9 @@ public class Controller implements Initializable {
         {
             e.printStackTrace();
         }
+
+
     }
-
-
 
     private void selectedPackage() {
         txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
