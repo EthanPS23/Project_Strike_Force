@@ -51,6 +51,11 @@ public class Controller implements Initializable {
     //objects
     Booking customerSelectedBooking = null;
 
+    ObservableList<Package> packData = FXCollections.observableArrayList();
+    Package selectedPackage = null;
+    private int packId;
+    LocalDate pStart;
+    LocalDate pEnd;
 
     public Controller() throws NoSuchAlgorithmException {
     }
@@ -457,42 +462,23 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionAddEditPkg(ActionEvent event) {
+
         if (btnAddEditPkg.getText().equals("Save New Package")) {
             saveNewPackage();
-        } else if (btnAddEditPkg.getText().equals("Update Package")) {
-            updatePackage();
-        }
-
-
-       /* String pkgName = txtPackageName.getText();
-        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgDesc = txtPkgDesc.getText();
-        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
-        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
-
-
-
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
-                    "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
-
-            JOptionPane.showMessageDialog( null,"New Package Added");
-
             clear();
-
             pnlPackagesOverview.toFront();
-
-            getPackages();
         }
-        catch (ClassNotFoundException | SQLException e)
-        {
-            e.printStackTrace();
-        }*/
+        else if (btnAddEditPkg.getText().equals("Update Package")) {
+            updatePackage();
+            clear();
+            pnlPackagesOverview.toFront();
+        }
+        else if (btnAddEditPkg.getText().equals("Delete Package")) {
+            deletePackage();
+            clear();
+            pnlPackagesOverview.toFront();
+        }
+
 
     }
 
@@ -618,7 +604,18 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionDeletePkg(ActionEvent event) {
-
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to delete package?", "Delete Package", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            selectedPackage();
+            pnlPackages.toFront();
+            //disablePkg();
+            btnAddEditPkg.setText("Delete Package");
+            btnClearPkg.setVisible(false);
+        }
+        else {
+            pnlPackagesOverview.toFront();
+            btnClearPkg.setVisible(true);
+        }
     }
 
     @FXML
@@ -628,7 +625,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionEditPkg(ActionEvent event) {
-        selectedAgent();
+        selectedPackage();
         pnlPackages.toFront();
         btnAddEditPkg.setText("Update Package");
     }
@@ -1087,9 +1084,13 @@ public class Controller implements Initializable {
             colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
 
             tblPackages.setItems(packData);
+            conn.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
     }
 
 
@@ -1220,7 +1221,7 @@ public class Controller implements Initializable {
             Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
                     "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
@@ -1232,6 +1233,7 @@ public class Controller implements Initializable {
             pnlPackagesOverview.toFront();
 
             getPackages();
+            conn.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -1345,32 +1347,92 @@ public class Controller implements Initializable {
         return result;
     }
 
-    private void updatePackage() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
-            String sql = "update Packages set PkgName=?, PkgStartDate=?, PkgEndDate=?," +
-                    "PkgDesc=?,PkgBasePrice=?,PkgAgencyCommission=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, txtPackageName.getText());
-            stmt.setDate(2, Date.valueOf(txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
-            stmt.setDate(3, Date.valueOf(txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
-            stmt.setString(4, txtPkgDesc.getText());
-            stmt.setFloat(5, Float.valueOf(txtPkgBasePrice.getText()));
-            stmt.setFloat(6, Float.valueOf(txtPkgAgencyCommission.getText()));
+    /*public boolean checkPackageDate(LocalDate pkStart, LocalDate pkEnd)
+    {
+        boolean goodDate = true;
 
-            JOptionPane.showMessageDialog(null, "Package Updated");
+        if (pkEnd.isEqual(pkStart)) {
+            goodDate = true;
+        } else if (pkEnd.isBefore(pkStart)) {
+            goodDate = false;
+        } else {
+            goodDate = true;
+        }
+        return goodDate;
+    }*/
+
+
+
+    private void updatePackage() {
+        String pkgName = txtPackageName.getText();
+        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgDesc = txtPkgDesc.getText();
+        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
+        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
+
+        Connection conn = DBConnect.getConnection();
+        String sql = "update Packages set PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + " where PackageId=" + "'" + packId + "'";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            int numRows = stmt.executeUpdate();
+            if (numRows == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update Successful");
+            alert.showAndWait();
 
             pnlPackagesOverview.toFront();
 
             getPackages();
+            conn.close();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void selectedAgent() {
+    // Brandon - method to delete package
+    private void deletePackage()
+    {
+        String pkgName = txtPackageName.getText();
+        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgDesc = txtPkgDesc.getText();
+        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
+        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
+
+        Connection conn = DBConnect.getConnection();
+        String sql = "update Packages where PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + "PackageId=" + "'" + packId + "'";
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this package", "Delete Package", JOptionPane.YES_NO_OPTION);
+
+           if (reply == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog( null,"Package deleted successfully.");
+                pnlPackagesOverview.toFront();
+                activePkg();
+                getPackages();
+                conn.close();
+            }
+            else {
+                pnlPackagesOverview.toFront();
+            }
+
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void selectedPackage() {
         txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
         txtPkgStartDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgStartDate());
         txtPkgEndDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgEndDate());
@@ -1378,4 +1440,67 @@ public class Controller implements Initializable {
         txtPkgBasePrice.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgBasePrice().toString());
         txtPkgAgencyCommission.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgAgencyCommission().toString());
     }
+
+    private void activePkg()
+    {
+        txtPackageName.setEditable(true);
+        txtPkgStartDate.setEditable(true);
+        txtPkgEndDate.setEditable(true);
+        txtPkgDesc.setEditable(true);
+        txtPkgBasePrice.setEditable(true);
+        txtPkgAgencyCommission.setEditable(true);
+    }
+
+    private boolean pkgValidateSave() {
+        pStart = txtPkgStartDate.getValue();
+        pEnd = txtPkgStartDate.getValue();
+        boolean result;
+
+        if (pEnd.isBefore(pStart)) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Package start date needs to be an earlier date than package end date.");
+            alert.showAndWait();
+        } else if (txtPkgDesc.getText().equals("") || txtPkgBasePrice.getText().equals("") || txtPkgAgencyCommission.getText().equals("") || txtPackageName.getText().equals("")) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            alert.showAndWait();
+        } else if (Float.valueOf(txtPkgBasePrice.getText()) < 0 || Float.valueOf(txtPkgAgencyCommission.getText()) < 0) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        } else {
+            result = true;
+            saveNewPackage();
+            getPackages();
+        }
+        return result;
+    }
+
+
+    private boolean pkgValidateUpdate() {
+        pStart = txtPkgStartDate.getValue();
+        pEnd = txtPkgStartDate.getValue();
+
+        boolean result;
+
+        if (pEnd.isBefore(pStart)) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Package start date needs to be an earlier date than package end date.");
+            alert.showAndWait();
+        } else if (txtPkgDesc.getText().equals("") || txtPkgBasePrice.getText().equals("") || txtPkgAgencyCommission.getText().equals("") || txtPackageName.getText().equals("")) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            alert.showAndWait();
+        } else if (Float.valueOf(txtPkgBasePrice.getText()) < 0 || Float.valueOf(txtPkgAgencyCommission.getText()) < 0) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        } else {
+            result = true;
+            updatePackage();
+            getPackages();
+        }
+        return result;
+    }
+
 }
