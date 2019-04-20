@@ -23,8 +23,8 @@
 </head>
 
 <body>
-
-	<!--================ Start Header Menu Area =================-->
+<%-- <%@ include file = "header.jsp" %> --%>
+ <!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
@@ -40,8 +40,7 @@
 							class="icon-bar"></span>
 					</button>
 					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse offset"
-						id="navbarSupportedContent">
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 							<li class="nav-item"><a class="nav-link"
@@ -66,8 +65,9 @@
 							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item"><a href="#" class="primary-btn">Book
-									a trip</a></li>
+							<li class="nav-item">
+								<a href="#" class="primary-btn">Book a trip</a>
+							</li>
 							<li class="nav-item">
 								<button type="button" class="search nav-link">
 									<i class="lnr lnr-magnifier" id="search"></i>
@@ -77,12 +77,11 @@
 					</div>
 				</div>
 			</nav>
-
+			
 			<div class="search_input" id="search_input_box">
 				<div class="container">
 					<form class="d-flex justify-content-between">
-						<input type="text" class="form-control" id="search_input"
-							placeholder="Search Here">
+						<input type="text" class="form-control" id="search_input" placeholder="Search Here">
 						<button type="submit" class="btn"></button>
 						<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 					</form>
