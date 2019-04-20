@@ -133,18 +133,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="521" column="32" lean-forward="true" selection-start-line="521" selection-start-column="32" selection-end-line="521" selection-end-column="32" />
+            <state relative-caret-position="129">
+              <caret line="1436" column="102" lean-forward="true" selection-start-line="1436" selection-start-column="102" selection-end-line="1436" selection-end-column="102" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2083#2084#0" expanded="true" />
-                <element signature="e#2163#2164#0" expanded="true" />
+                <element signature="e#14768#14769#0" expanded="true" />
                 <element signature="e#14805#14806#0" expanded="true" />
+                <element signature="e#15114#15115#0" expanded="true" />
                 <element signature="e#15144#15145#0" expanded="true" />
+                <element signature="e#15531#15532#0" expanded="true" />
                 <element signature="e#15569#15570#0" expanded="true" />
+                <element signature="e#16850#16851#0" expanded="true" />
                 <element signature="e#16887#16888#0" expanded="true" />
+                <element signature="e#17080#17081#0" expanded="true" />
                 <element signature="e#17117#17118#0" expanded="true" />
+                <element signature="e#17183#17184#0" expanded="true" />
                 <element signature="e#17228#17229#0" expanded="true" />
+                <element signature="e#17487#17488#0" expanded="true" />
                 <element signature="e#17524#17525#0" expanded="true" />
               </folding>
             </state>
@@ -227,7 +232,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -240,6 +245,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -282,7 +288,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -413,17 +418,18 @@
       <workItem from="1555268170614" duration="46000" />
       <workItem from="1555268740979" duration="1089000" />
       <workItem from="1555532856641" duration="13109000" />
+      <workItem from="1555780660291" duration="4072000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44960000" />
+    <option name="totallyTimeSpent" value="49032000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.117803834" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.05490405" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -444,7 +450,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32398754" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32394367" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" />
@@ -544,12 +550,12 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/javafx.base/javafx/event/ActionEvent.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/resources/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2090">
           <caret line="134" column="41" selection-start-line="134" selection-start-column="41" selection-end-line="134" selection-end-column="41" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/jdk/internal/reflect/NativeMethodAccessorImpl.java" />
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/java.base/jdk/internal/reflect/DelegatingMethodAccessorImpl.java" />
@@ -621,18 +627,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="521" column="32" lean-forward="true" selection-start-line="521" selection-start-column="32" selection-end-line="521" selection-end-column="32" />
+        <state relative-caret-position="129">
+          <caret line="1436" column="102" lean-forward="true" selection-start-line="1436" selection-start-column="102" selection-end-line="1436" selection-end-column="102" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2083#2084#0" expanded="true" />
-            <element signature="e#2163#2164#0" expanded="true" />
+            <element signature="e#14768#14769#0" expanded="true" />
             <element signature="e#14805#14806#0" expanded="true" />
+            <element signature="e#15114#15115#0" expanded="true" />
             <element signature="e#15144#15145#0" expanded="true" />
+            <element signature="e#15531#15532#0" expanded="true" />
             <element signature="e#15569#15570#0" expanded="true" />
+            <element signature="e#16850#16851#0" expanded="true" />
             <element signature="e#16887#16888#0" expanded="true" />
+            <element signature="e#17080#17081#0" expanded="true" />
             <element signature="e#17117#17118#0" expanded="true" />
+            <element signature="e#17183#17184#0" expanded="true" />
             <element signature="e#17228#17229#0" expanded="true" />
+            <element signature="e#17487#17488#0" expanded="true" />
             <element signature="e#17524#17525#0" expanded="true" />
           </folding>
         </state>
