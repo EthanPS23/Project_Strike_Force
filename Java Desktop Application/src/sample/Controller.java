@@ -25,6 +25,8 @@ package sample;
         import java.time.LocalDate;
         import java.time.format.DateTimeFormatter;
         import java.util.ResourceBundle;
+        import java.util.regex.Matcher;
+        import java.util.regex.Pattern;
 
 public class Controller implements Initializable {
 
@@ -36,13 +38,22 @@ public class Controller implements Initializable {
     String secondaryColour = "#1E88E5";
     String tertiaryColour = "#5E35B1";
 
+    // Vars for Login page
     final String user = "admin";
     final String passw = PasswordEncryption.MD5("password");
+
+    // customer page observable list
+    private ObservableList<Customer> custData = FXCollections.observableArrayList();
+
+    // variables for CustomerDetails Pane that populates the textfields after a mouse event from the table view
+    Customer customerSelectedDetails;
+    private int customerSelectedDetailId;
 
     // ---------variables for bookings page----------
     private int customerSelectedBookingDetailId;
     LocalDate bookingStart;
     LocalDate bookingEnd;
+
     // bookings page observablelists
     private ObservableList<Booking> bookingData = FXCollections.observableArrayList();
     private ObservableList<Region> regionData = FXCollections.observableArrayList();
@@ -51,6 +62,11 @@ public class Controller implements Initializable {
     //objects
     Booking customerSelectedBooking = null;
 
+    ObservableList<Package> packData = FXCollections.observableArrayList();
+    Package selectedPackage = null;
+    private int packId;
+    LocalDate pStart;
+    LocalDate pEnd;
 
     public Controller() throws NoSuchAlgorithmException {
     }
@@ -138,9 +154,6 @@ public class Controller implements Initializable {
     private Label lblLoginPassword;
 
     @FXML
-    private Label lblPasswordMessage;
-
-    @FXML
     private JFXButton btnLogin;
 
     @FXML
@@ -204,21 +217,6 @@ public class Controller implements Initializable {
     private JFXButton btnClearPkg;
 
     @FXML
-    private JFXButton btnNewPkgProdSup;
-
-    @FXML
-    private JFXButton btnDeletePkgProdSup;
-
-    @FXML
-    private TableView<?> gvProdSup_pkg;
-
-    @FXML
-    private TableView<?> gvProdSup_all_pkgs;
-
-    @FXML
-    private JFXButton btnAddPkgProdSup;
-
-    @FXML
     private Pane pnlPackagesOverview;
 
     @FXML
@@ -241,9 +239,6 @@ public class Controller implements Initializable {
 
     @FXML
     private TableColumn<Package, Float> colPkgAgencyCommission;
-
-    @FXML
-    private TableView<?> tblExistProductsSuppliers;
 
     @FXML
     private TableColumn<?, ?> colPkgExistProdName;
@@ -272,13 +267,8 @@ public class Controller implements Initializable {
     @FXML
     private JFXButton btnSavePkg;
 
-    @FXML
-    private JFXButton btnProdSupRemove;
-
-    @FXML
-    private JFXButton btnProdSupAdd;
-
     // Start of Customer Pane
+
     @FXML
     private Pane pnlCustomers;
 
@@ -412,9 +402,6 @@ public class Controller implements Initializable {
     @FXML
     private JFXDatePicker txtTripEnd;
 
-
-    // End of Booking Pane
-
     @FXML
     private JFXColorPicker cpSettingsTextColour;
 
@@ -454,45 +441,24 @@ public class Controller implements Initializable {
     @FXML
     private JFXButton fxMinimize;
 
-
     @FXML
     void onActionAddEditPkg(ActionEvent event) {
+
         if (btnAddEditPkg.getText().equals("Save New Package")) {
             saveNewPackage();
-        } else if (btnAddEditPkg.getText().equals("Update Package")) {
-            updatePackage();
-        }
-
-
-       /* String pkgName = txtPackageName.getText();
-        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String pkgDesc = txtPkgDesc.getText();
-        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
-        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
-
-
-
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
-                    "VALUES ('" +pkgName+ "','"+pkgStartDate+"','"+pkgEndDate+"','"+pkgDesc+"','"+pkgPrice+"','"+pkgCommission+"')");
-
-            JOptionPane.showMessageDialog( null,"New Package Added");
-
             clear();
-
             pnlPackagesOverview.toFront();
-
-            getPackages();
         }
-        catch (ClassNotFoundException | SQLException e)
-        {
-            e.printStackTrace();
-        }*/
+        else if (btnAddEditPkg.getText().equals("Update Package")) {
+            updatePackage();
+            clear();
+            pnlPackagesOverview.toFront();
+        }
+        else if (btnAddEditPkg.getText().equals("Delete Package")) {
+            deletePackage();
+            clear();
+            pnlPackagesOverview.toFront();
+        }
 
     }
 
@@ -511,13 +477,10 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionAddPkgProdSup(ActionEvent event) {
-
     }
 
     @FXML
     void onActionBkAdd(ActionEvent event) {
-
-        //getCustomerBooking();
 
     }
 
@@ -531,7 +494,7 @@ public class Controller implements Initializable {
 
     }
 
-    //save event for bookings page
+    // save event for bookings page
     // James Cockriell, April 10/19
     @FXML
     void onActionBkSave(ActionEvent event) {
@@ -539,18 +502,17 @@ public class Controller implements Initializable {
         bookingStart = txtTripStart.getValue();
         bookingEnd = txtTripEnd.getValue();
 
-
         if (txtBkSearch.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "You haven't searched for a customer");
             alert.showAndWait();
         } else if (checkBookingDates(bookingStart, bookingEnd) == false) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Trip start date needs to be an earlier date than trip end date.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Trip start date needs to be an earlier date than trip end date.");
             alert.showAndWait();
         } else if (txtDescription.getText().equals("") || txtDestination.getText().equals("") || txtBasePrice.getText().equals("") || txtAgencyCommission.getText().equals("")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You need to fill out all of the fields");
             alert.showAndWait();
         } else if (bkTextIsNonNegativeDouble(txtBasePrice.getText()) == false || bkTextIsNonNegativeDouble(txtAgencyCommission.getText()) == false) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Base Price and Agency Commission fields need to be populated with a non negative number value");
             alert.showAndWait();
         } else {
             saveBookingDetails();
@@ -560,7 +522,6 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionBkSearch(ActionEvent event) {
-        /*getCustomerBooking();*/
     }
 
     @FXML
@@ -577,7 +538,6 @@ public class Controller implements Initializable {
     @FXML
     void onActionClearPkg(ActionEvent event) {
         clear();
-
         txtPackageName.requestFocus();
     }
 
@@ -588,21 +548,99 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionCustAdd(ActionEvent event) {
+        int addcustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
+                "Add a Customer", JOptionPane.YES_NO_OPTION);
 
+        if ((addcustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
+                valFields(txtCustAddress.getText()) || valFields(txtCustCity.getText()) || valFields(txtCustProv.getText())) ||
+                valFields(txtCustPostal.getText()) || valFields(txtCustCountry.getText()) || valFields(txtCustHomePhone.getText()) ||
+                valFields(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "All of the Customer Information needs to be filled out");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valPhone(txtCustHomePhone.getText()) || ! valPhone(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The phone number entered needs to be in proper numeric format");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valEmail(txtCustEmail.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The customer email needs to be in proper format");
+            alert.showAndWait();
+        }
+
+        else if ((addcustomer == JOptionPane.YES_OPTION) && ! valPostalCode(txtCustPostal.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Postal code needs to be in a proper format");
+            alert.showAndWait();
+        }
+
+        else if (addcustomer == JOptionPane.YES_OPTION)
+        {
+            insertCustomer();
+            getCustomerSearch();
+        }
+
+        else
+        {
+            pnlCustomers.toFront();
+            txtCustSearch.requestFocus();
+        }
     }
 
     @FXML
     void onActionCustDelete(ActionEvent event) {
-
+        DeleteCustomer();
     }
 
     @FXML
     void onActionCustEdit(ActionEvent event) {
-
+       EnableFields();
     }
 
     @FXML
     void onActionCustSave(ActionEvent event) {
+
+        int savecustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
+                "Add a Customer", JOptionPane.YES_NO_OPTION);
+
+        if ((savecustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
+                valFields(txtCustAddress.getText()) || valFields(txtCustCity.getText()) || valFields(txtCustProv.getText())) ||
+                valFields(txtCustPostal.getText()) || valFields(txtCustCountry.getText()) || valFields(txtCustHomePhone.getText()) ||
+                valFields(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "All of the Customer Information needs to be filled out");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valPhone(txtCustHomePhone.getText()) || ! valPhone(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The phone number entered needs to be in proper numeric format");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valEmail(txtCustEmail.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The customer email needs to be in proper format");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valPostalCode(txtCustPostal.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Postal code needs to be in a proper format");
+            alert.showAndWait();
+        }
+
+        else if (savecustomer == JOptionPane.YES_OPTION)
+        {
+            saveCustomerDetails();
+            getCustomerSearch();
+            pnlCustomers.toFront();
+            txtCustSearch.requestFocus();
+        }
 
     }
 
@@ -612,13 +650,54 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private JFXTextField txtCustFirstName;
+
+    @FXML
+    private JFXTextField txtCustLastName;
+
+    @FXML
+    private JFXTextField txtCustAddress;
+
+    @FXML
+    private JFXTextField txtCustCity;
+
+    @FXML
+    private JFXTextField txtCustProv;
+
+    @FXML
+    private JFXTextField txtCustPostal;
+
+    @FXML
+    private JFXTextField txtCustCountry;
+
+    @FXML
+    private JFXTextField txtCustHomePhone;
+
+    @FXML
+    private JFXTextField txtCustBusPhone;
+
+    @FXML
+    private JFXTextField txtCustEmail;
+
+
+    @FXML
     void onActionCustomers(ActionEvent event) {
         pnlCustomers.toFront();
     }
 
     @FXML
     void onActionDeletePkg(ActionEvent event) {
-
+        int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to delete package?", "Delete Package", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            selectedPackage();
+            pnlPackages.toFront();
+            btnAddEditPkg.setText("Delete Package");
+            btnClearPkg.setVisible(false);
+        }
+        else {
+            pnlPackagesOverview.toFront();
+            btnClearPkg.setVisible(true);
+        }
     }
 
     @FXML
@@ -628,7 +707,7 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionEditPkg(ActionEvent event) {
-        selectedAgent();
+        selectedPackage();
         pnlPackages.toFront();
         btnAddEditPkg.setText("Update Package");
     }
@@ -642,8 +721,6 @@ public class Controller implements Initializable {
     @FXML
     void onActionLoginTab(ActionEvent event) {
         pnlLogin.toFront();
-        PromptTextLogin();
-
     }
 
     @FXML
@@ -731,13 +808,18 @@ public class Controller implements Initializable {
 
     @FXML
     void onKeyPressedBkSearch(KeyEvent event) {
-        //getCustomerBooking();
+
     }
 
     @FXML
     void onKeyTypedBkSearch(KeyEvent event) {
         getCustomerBooking();
 
+    }
+
+    @FXML
+    void onKeyTypedCustSearch(KeyEvent event) {
+        getCustomerSearch();
     }
 
     // on mouse event for when user clicks on bookings tableview
@@ -765,6 +847,28 @@ public class Controller implements Initializable {
         enableBkControls();
         // set value in to variable so it can be used class wide
         customerSelectedBookingDetailId = customerSelectedBooking.getBookingDetailId();
+    }
+
+    @FXML
+    void getCustomerDetails(MouseEvent event) {
+        populateCustomerDetails();
+    }
+
+    private void populateCustomerDetails ()
+    {
+        customerSelectedDetails = gvCustomer.getItems().get(gvCustomer.getSelectionModel().getFocusedIndex());
+        txtCustFirstName.setText(customerSelectedDetails.getCustFirstName());
+        txtCustLastName.setText(customerSelectedDetails.getCustLastName());
+        txtCustAddress.setText(customerSelectedDetails.getCustAddress());
+        txtCustCity.setText(customerSelectedDetails.getCustCity());
+        txtCustProv.setText(customerSelectedDetails.getCustProv());
+        txtCustPostal.setText(customerSelectedDetails.getCustPostal());
+        txtCustCountry.setText(customerSelectedDetails.getCustCountry());
+        txtCustHomePhone.setText(customerSelectedDetails.getCustHomePhone());
+        txtCustBusPhone.setText(customerSelectedDetails.getCustBusPhone());
+        txtCustEmail.setText(customerSelectedDetails.getCustEmail());
+
+        customerSelectedDetailId = customerSelectedDetails.getCustomerId();
     }
 
     //Ethan Shipley
@@ -845,11 +949,6 @@ public class Controller implements Initializable {
         assert txtPkgStartDate != null : "fx:id=\"txtPkgStartDate\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnAddEditPkg != null : "fx:id=\"btnAddEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnClearPkg != null : "fx:id=\"btnClearPkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnNewPkgProdSup != null : "fx:id=\"btnNewPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnDeletePkgProdSup != null : "fx:id=\"btnDeletePkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
-        assert gvProdSup_pkg != null : "fx:id=\"gvProdSup_pkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert gvProdSup_all_pkgs != null : "fx:id=\"gvProdSup_all_pkgs\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnAddPkgProdSup != null : "fx:id=\"btnAddPkgProdSup\" was not injected: check your FXML file 'sample.fxml'.";
         assert pnlPackagesOverview != null : "fx:id=\"pnlPackagesOverview\" was not injected: check your FXML file 'sample.fxml'.";
         assert tblPackages != null : "fx:id=\"tblPackages\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgPkgName != null : "fx:id=\"colPkgPkgName\" was not injected: check your FXML file 'sample.fxml'.";
@@ -858,7 +957,6 @@ public class Controller implements Initializable {
         assert colPkgPkgDesc != null : "fx:id=\"colPkgPkgDesc\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgBasePrice != null : "fx:id=\"colPkgBasePrice\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgAgencyCommission != null : "fx:id=\"colPkgAgencyCommission\" was not injected: check your FXML file 'sample.fxml'.";
-        assert tblExistProductsSuppliers != null : "fx:id=\"tblExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgExistProdName != null : "fx:id=\"colPkgExistProdName\" was not injected: check your FXML file 'sample.fxml'.";
         assert colPkgExistSupName != null : "fx:id=\"colPkgExistSupName\" was not injected: check your FXML file 'sample.fxml'.";
         assert tblNonExistProductsSuppliers != null : "fx:id=\"tblNonExistProductsSuppliers\" was not injected: check your FXML file 'sample.fxml'.";
@@ -868,8 +966,6 @@ public class Controller implements Initializable {
         assert btnDeletePkg != null : "fx:id=\"btnDeletePkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnEditPkg != null : "fx:id=\"btnEditPkg\" was not injected: check your FXML file 'sample.fxml'.";
         assert btnSavePkg != null : "fx:id=\"btnSavePkg\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnProdSupRemove != null : "fx:id=\"btnProdSupRemove\" was not injected: check your FXML file 'sample.fxml'.";
-        assert btnProdSupAdd != null : "fx:id=\"btnProdSupAdd\" was not injected: check your FXML file 'sample.fxml'.";
         assert pnlCustomers != null : "fx:id=\"pnlCustomers\" was not injected: check your FXML file 'sample.fxml'.";
         assert txtCustSearch != null : "fx:id=\"txtCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
         assert lblCustSearch != null : "fx:id=\"lblCustSearch\" was not injected: check your FXML file 'sample.fxml'.";
@@ -930,58 +1026,15 @@ public class Controller implements Initializable {
         cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
         cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
 
-        /*setTextColour();
-        setMenuColour();
-        setBackgroundColour();
-        setSecondaryColour();
-        setTertiaryColour();
-        getCustomerBooking();*/
-
-        ObservableList<Customer> custData = FXCollections.observableArrayList();
-
-
-        // sets the columns to the customer object properties
-
-        colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-        colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
-        colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
-        colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
-        colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
-        colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
-        colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
-        colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
-        colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
-        colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
-
-
-        try {
-//                Class.forName("com.mysql.jdbc.Driver");
-
-//                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
-//                        "Chris", "password");// this is temporary till tomorrow until I can bring in Harv's Travel Experts
-            Connection conn = DBConnect.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from customers");
-
-            while (rs.next()) {
-                custData.add(new Customer(rs.getString(2),
-                        rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6),
-                        rs.getString(7), rs.getString(8),
-                        rs.getString(9), rs.getString(10),
-                        rs.getString(11)));
-
-
-            }
-            gvCustomer.setItems(custData);
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        getCustomerBooking();
 
         // to load packages table
         getPackages();
+
+//        getCustomerSearch();
+
+        // load the customer table
+//        getCustomerDetails();
 
         setTextColour();
         setMenuColour();
@@ -993,29 +1046,26 @@ public class Controller implements Initializable {
     //this populates the Customer table on form load 1st step
 
 
+    //Author: Christopher Potvin
     //this is the login method
+
     private void Login() throws NoSuchAlgorithmException {
+        // to do switch
 
         String name = txtUserName.getText();
         String password = PasswordEncryption.MD5(txtPassword.getText());
 
-
         if (name.isEmpty() || password.isEmpty()) {
-            PromptTextLogin();
-            lblPasswordMessage.setText("All fields are required");
-            lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
+            InvalidateLogin();
             DisableMenu();
 
         } else {
             if (name.equals(user) && password.equals(passw)) {
-                //lblPasswordMessage.setText("Successfully logged in");
-                lblPasswordMessage.setTextFill(Color.rgb(21, 117, 84));
+                ValidateLogin();
                 EnableMenu();
 
             } else {
-                PromptTextLogin();
-                lblPasswordMessage.setText("Incorrect login information");
-                lblPasswordMessage.setTextFill(Color.rgb(210, 39, 30));
+                InvalidateLogin();
                 DisableMenu();
             }
         }
@@ -1026,25 +1076,13 @@ public class Controller implements Initializable {
         btnLogout.setDisable(false);
         txtPassword.setText("");
         txtUserName.setText("");
-        lblPasswordMessage.setText("");
         pnlLogin.toFront();
-        PromptTextLogin();
     }
 
-
-    private void PromptTextLogin() {
-        txtUserName.setPromptText("");
-        txtPassword.setPromptText("");
-    }
 
     private void EnableMenu() {
 
         pnlMainMenu.toFront();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
-        alert.setContentText("You are now successfully logged in");
-        alert.showAndWait();
-
         pnlLogin.toBack();
         btnLoginTab.setVisible(false);
         btnMainMenu.setVisible(true);
@@ -1055,8 +1093,16 @@ public class Controller implements Initializable {
         btnSettings.setVisible(true);
     }
 
+    private void ValidateLogin (){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Authentication Validated");
+        alert.setHeaderText(null);
+        alert.setContentText("You are now successfully logged in");
+        alert.showAndWait();
+    }
 
     private void DisableMenu() {
+
         btnMainMenu.setVisible(false);
         btnPackagesOverview.setVisible(false);
         btnPackages.setVisible(false);
@@ -1065,6 +1111,233 @@ public class Controller implements Initializable {
         btnSettings.setVisible(false);
     }
 
+    private void InvalidateLogin (){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Authentication Error");
+        alert.setHeaderText("Please check your login details");
+        alert.showAndWait();
+    }
+
+    // Author: Christopher Potvin
+
+    private void getCustomerSearch()
+    {
+        gvCustomer.getItems().clear(); // this clears the table view before the search field is used
+
+        String lastName = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
+
+        try {
+
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * from Customers WHERE CustLastName LIKE '%" + lastName + "%' " +
+                    "ORDER BY CustLastName DESC;";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                custData.add(new Customer(rs.getInt(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8),
+                        rs.getString(9), rs.getString(10),
+                        rs.getString(11)));
+            }
+
+            colCustFirstName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustFirstName"));
+            colCustLastName.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustLastName"));
+            colCustAddress.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustAddress"));
+            colCustCity.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCity"));
+            colCustProvince.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustProv"));
+            colCustPostalCode.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustPostal"));
+            colCustCountry.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustCountry"));
+            colCustHomePhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustHomePhone"));
+            colCustBusinessPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustBusPhone"));
+            colCustEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("CustEmail"));
+
+            gvCustomer.setItems(custData);
+            conn.close();
+            // this method disables the fields so the agent cannot play with the object until he hits the edit button
+            DisableFields();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Author: Christopher Potvin
+    // this method inserts a customer
+
+    private void insertCustomer(){
+
+        try {
+            String custFirstName = txtCustFirstName.getText();
+            String custLastName = txtCustLastName.getText();
+            String custAddress = txtCustAddress.getText();
+            String custCity = txtCustCity.getText();
+            String custProv = txtCustProv.getText();
+            String custPostal = txtCustPostal.getText();
+            String custCountry = txtCustCountry.getText();
+            String custHomePhone = txtCustHomePhone.getText();
+            String custBusPhone = txtCustBusPhone.getText();
+            String custEmail = txtCustEmail.getText();
+
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("insert into Customers(CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail) "
+            + "VALUES ('" + custFirstName + "','" + custLastName + "','" + custAddress + "','" + custCity + "','" + custProv + "','" + custPostal +
+                    "','" + custCountry + "','" + custHomePhone + "','" + custBusPhone + "','" + custEmail + "')");
+
+            JOptionPane.showMessageDialog(null, "New Customer Record Added");
+            clear();
+            getCustomerSearch();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    //update method
+    private void saveCustomerDetails()
+    {
+            String custFirstName = txtCustFirstName.getText();
+            String custLastName = txtCustLastName.getText();
+            String custAddress = txtCustAddress.getText();
+            String custCity = txtCustCity.getText();
+            String custProv = txtCustProv.getText();
+            String custPostal = txtCustPostal.getText();
+            String custCountry = txtCustCountry.getText();
+            String custHomePhone = txtCustHomePhone.getText();
+            String custBusPhone = txtCustBusPhone.getText();
+            String custEmail = txtCustEmail.getText();
+
+
+            Connection conn = DBConnect.getConnection();
+
+            String sql = "update customers set CustFirstName=" + "'" + custFirstName + "'" + ", CustLastName=" + "'" + custLastName + "'"
+                    + ", CustAddress=" + "'" + custAddress + "'" + ", CustCity=" + "'" + custCity + "'" + ", CustProv=" + "'"
+                    + custProv + "'" + ", CustPostal= " + "'" + custPostal + "'" + ", CustCountry=" + "'" + custCountry + "'"
+                    + ", CustHomePhone=" + "'" + custHomePhone + "'" + ", CustBusPhone=" + "'" + custBusPhone + "'" + ", CustEmail=" + "'"
+                    + custEmail + "'" + " where CustomerId=" + "'" + customerSelectedDetailId + "'";
+            try{
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                int numRows = stmt.executeUpdate();
+            if (numRows == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Customer information updated");
+            alert.showAndWait();
+
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }
+
+            getCustomerSearch();
+            populateCustomerDetails();
+            txtCustSearch.setText("");
+            clear();
+    }
+
+    //Author: Christopher Potvin
+    //This method will delete a customer record
+
+    private void DeleteCustomer ()
+    {
+        Connection conn = DBConnect.getConnection();
+        String sql = "delete from Customers where CustomerId=" + "'" +  customerSelectedDetailId + "'";
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+
+            int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this customer?", "Delete Customer", JOptionPane.YES_NO_OPTION);
+
+            if (reply == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog( null,"Customer deleted successfully.");
+
+                conn.close();
+            }
+            else {
+                pnlCustomers.toFront();
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        getCustomerSearch();
+        populateCustomerDetails();
+    }
+
+    // this is added functionality for the search button and edit button to work together
+    //Author: Christopher Potvin
+
+    private void DisableFields()
+    {
+        txtCustFirstName.setDisable(true);
+        txtCustLastName.setDisable(true);
+        txtCustAddress.setDisable(true);
+        txtCustCity.setDisable(true);
+        txtCustProv.setDisable(true);
+        txtCustPostal.setDisable(true);
+        txtCustCountry.setDisable(true);
+        txtCustHomePhone.setDisable(true);
+        txtCustBusPhone.setDisable(true);
+        txtCustEmail.setDisable(true);
+
+    }
+
+    private void EnableFields()
+    {
+        txtCustFirstName.setDisable(false);
+        txtCustLastName.setDisable(false);
+        txtCustAddress.setDisable(false);
+        txtCustCity.setDisable(false);
+        txtCustProv.setDisable(false);
+        txtCustPostal.setDisable(false);
+        txtCustCountry.setDisable(false);
+        txtCustHomePhone.setDisable(false);
+        txtCustBusPhone.setDisable(false);
+        txtCustEmail.setDisable(false);
+
+    }
+
+    // this is the start of the validation for the fields in the Customer table ie. Tel number and email, and fields required.
+    // Author: Christopher Potvin
+
+    private boolean valFields (String input)
+    {
+        return input.equals("");
+    }
+
+    private boolean valPhone (String input)
+    {
+        return input.length() == 10 && input.matches("[0-9]+");
+    }
+
+    private boolean valEmail (String email)
+    {
+        String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPat.matcher(email);
+        return matcher.find();
+    }
+
+    private boolean valPostalCode (String postalcode)
+    {
+        String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
+        Pattern pc = Pattern.compile(regex);
+        Matcher matcher = pc.matcher(postalcode);
+        boolean result = matcher.find();
+        return result;
+        // this matcher.find will return a true or false
+    }
+
+    // this is the start of the packages pane, Brando's work
     private void getPackages() {
         ObservableList<Package> packData = FXCollections.observableArrayList();
         try {
@@ -1087,9 +1360,13 @@ public class Controller implements Initializable {
             colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
 
             tblPackages.setItems(packData);
+            conn.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
     }
 
 
@@ -1130,7 +1407,7 @@ public class Controller implements Initializable {
             colBkFeeId.setCellValueFactory(new PropertyValueFactory<Booking, String>("feeId"));
 
             gvBookings.setItems(bookingData);
-            conn.close();
+            conn.close(); // connection close
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -1150,7 +1427,6 @@ public class Controller implements Initializable {
             while (rs.next()) {
                 regionData.add(new Region(rs.getString(1), rs.getString(2)));
             }
-
 
             cbRegionId.setItems(regionData);
             conn.close();
@@ -1200,7 +1476,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     private void clear() {
         txtPackageName.clear();
         txtPkgStartDate.setValue(null);
@@ -1220,7 +1495,7 @@ public class Controller implements Initializable {
             Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
                     "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
@@ -1232,6 +1507,7 @@ public class Controller implements Initializable {
             pnlPackagesOverview.toFront();
 
             getPackages();
+            conn.close();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -1317,11 +1593,7 @@ public class Controller implements Initializable {
         boolean acceptableBookingDates;
         if (bkEnd.isEqual(bkStart)) {
             acceptableBookingDates = true;
-        } else if (bkEnd.isBefore(bkStart)) {
-            acceptableBookingDates = false;
-        } else {
-            acceptableBookingDates = true;
-        }
+        } else acceptableBookingDates = !bkEnd.isBefore(bkStart);
         return acceptableBookingDates;
     }
 
@@ -1346,31 +1618,74 @@ public class Controller implements Initializable {
     }
 
     private void updatePackage() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "brandon", "password");
-            String sql = "update Packages set PkgName=?, PkgStartDate=?, PkgEndDate=?," +
-                    "PkgDesc=?,PkgBasePrice=?,PkgAgencyCommission=?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, txtPackageName.getText());
-            stmt.setDate(2, Date.valueOf(txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
-            stmt.setDate(3, Date.valueOf(txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
-            stmt.setString(4, txtPkgDesc.getText());
-            stmt.setFloat(5, Float.valueOf(txtPkgBasePrice.getText()));
-            stmt.setFloat(6, Float.valueOf(txtPkgAgencyCommission.getText()));
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
 
-            JOptionPane.showMessageDialog(null, "Package Updated");
+        String pkgName = txtPackageName.getText();
+        String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgEndDate = txtPkgEndDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String pkgDesc = txtPkgDesc.getText();
+        Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
+        Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
+
+        Connection conn = DBConnect.getConnection();
+        String sql = "update Packages set PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + " where PackageId=" + "'" + packId + "'";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            int numRows = stmt.executeUpdate();
+            if (numRows == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Update Successful");
+            alert.showAndWait();
 
             pnlPackagesOverview.toFront();
 
             getPackages();
+            conn.close();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void selectedAgent() {
+    // Brandon - method to delete package
+    private void deletePackage()
+    {
+        selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
+        packId = selectedPackage.getPackageId();
+
+        Connection conn = DBConnect.getConnection();
+        String sql = "delete packages_products_suppliers, packages from packages_products_suppliers inner join packages where packages_products_suppliers.PackageId and packages.PackageId= " + "'" + packId + "'";
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+            int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this package", "Delete Package", JOptionPane.YES_NO_OPTION);
+           if (reply == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog( null,"Package deleted successfully.");
+                pnlPackagesOverview.toFront();
+                activePkg();
+                getPackages();
+                conn.close();
+            }
+            else {
+                pnlPackagesOverview.toFront();
+            }
+
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void selectedPackage() {
         txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
         txtPkgStartDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgStartDate());
         txtPkgEndDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgEndDate());
@@ -1378,4 +1693,67 @@ public class Controller implements Initializable {
         txtPkgBasePrice.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgBasePrice().toString());
         txtPkgAgencyCommission.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgAgencyCommission().toString());
     }
+
+    private void activePkg()
+    {
+        txtPackageName.setEditable(true);
+        txtPkgStartDate.setEditable(true);
+        txtPkgEndDate.setEditable(true);
+        txtPkgDesc.setEditable(true);
+        txtPkgBasePrice.setEditable(true);
+        txtPkgAgencyCommission.setEditable(true);
+    }
+
+    private boolean pkgValidateSave() {
+        pStart = txtPkgStartDate.getValue();
+        pEnd = txtPkgStartDate.getValue();
+        boolean result;
+
+        if (pEnd.isBefore(pStart)) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Package start date needs to be an earlier date than package end date.");
+            alert.showAndWait();
+        } else if (txtPkgDesc.getText().equals("") || txtPkgBasePrice.getText().equals("") || txtPkgAgencyCommission.getText().equals("") || txtPackageName.getText().equals("")) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            alert.showAndWait();
+        } else if (Float.valueOf(txtPkgBasePrice.getText()) < 0 || Float.valueOf(txtPkgAgencyCommission.getText()) < 0) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        } else {
+            result = true;
+            saveNewPackage();
+            getPackages();
+        }
+        return result;
+    }
+
+
+    private boolean pkgValidateUpdate() {
+        pStart = txtPkgStartDate.getValue();
+        pEnd = txtPkgStartDate.getValue();
+
+        boolean result;
+
+        if (pEnd.isBefore(pStart)) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Package start date needs to be an earlier date than package end date.");
+            alert.showAndWait();
+        } else if (txtPkgDesc.getText().equals("") || txtPkgBasePrice.getText().equals("") || txtPkgAgencyCommission.getText().equals("") || txtPackageName.getText().equals("")) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "You need to fill out all of the fields");
+            alert.showAndWait();
+        } else if (Float.valueOf(txtPkgBasePrice.getText()) < 0 || Float.valueOf(txtPkgAgencyCommission.getText()) < 0) {
+            result = false;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        } else {
+            result = true;
+            updatePackage();
+            getPackages();
+        }
+        return result;
+    }
+
 }
