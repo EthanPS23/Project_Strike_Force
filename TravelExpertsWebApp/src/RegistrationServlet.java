@@ -130,6 +130,7 @@ public class RegistrationServlet extends HttpServlet {
 				session.setAttribute("message", "I dont know what happened");
 				response.sendRedirect("Registration.jsp");
 			}else {
+				session.setAttribute("message", "**Congrats you are now registered!**");
 				response.sendRedirect("Login.jsp");
 			}
 		}
