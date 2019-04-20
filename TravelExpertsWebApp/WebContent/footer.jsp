@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="icon" href="img/TravelLogoFavicon2.png" type="image/png">
 <title>footer</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -29,12 +29,11 @@
 				<div class="row">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget">
-							<h5 class="footer_title">About Agency</h5>
-							<p class="about-text">The world has become so fast paced that
-								people don't want to stand by reading a page of information,
-								they would much rather look at a presentation and understand the
-								message. It has come to a point where images and videos are used
-								more to</p>
+							<h5 class="footer_title">About TravelExperts</h5>
+							<p class="about-text">We are a dynamic and experienced team
+							of some of the finest experts of travel in 
+							Alberta. Sign up to our news letter, and prepare to have 
+							your world rocked!!!</p>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-6 col-sm-6">
@@ -50,22 +49,14 @@
 										<li><a href="#">Registration</a>
 									</ul>
 								</div>
-								<div class="col-5">
-									<ul class="list">
-										<li><a href="#">Team</a></li>
-										<li><a href="#">Pricing</a></li>
-										<li><a href="#">Blog</a></li>
-										<li><a href="#">contact</a></li>
-									</ul>
-								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget">
 							<h5>Newsletter</h5>
-							<p>For business professionals caught between high OEM price
-								and mediocre print and graphic output,</p>
+							<p>Here at TravelExperts, we enjoy being as helpful as possible. 
+							Sign up for our newsletter to receive exciting information about travel on the cheap.</p>
 							<div class="footer-newsletter" id="mc_embed_signup">
 								<form target="_blank" novalidate="true"
 									action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
@@ -124,10 +115,10 @@
 					</div>
 					<div class="col-lg-6 col-md-12 text-right">
 						<div class="social-icons">
-							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-								class="fa fa-twitter"></i></a> <a href="#"><i
-								class="fa fa-dribbble"></i></a> <a href="#"><i
-								class="fa fa-behance"></i></a>
+							<a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a> <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/"><i
+								class="fa fa-twitter"></i></a> <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><i
+								class="fa fa-instagram"></i></a> <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/"><i
+								class="fa fa-linkedin"></i></a>
 						</div>
 					</div>
 				</div>
