@@ -482,6 +482,7 @@ public class Controller implements Initializable {
             deletePackage();
             clear();
             pnlPackagesOverview.toFront();
+        }
 
     }
 
