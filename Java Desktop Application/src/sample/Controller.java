@@ -47,6 +47,7 @@ public class Controller implements Initializable {
 
     // variables for CustomerDetails Pane that populates the textfields after a mouse event from the table view
     Customer customerSelectedDetails;
+    private int customerSelectedDetailId;
 
     // ---------variables for bookings page----------
     private int customerSelectedBookingDetailId;
@@ -286,6 +287,7 @@ public class Controller implements Initializable {
     private JFXButton btnProdSupAdd;
 
     // Start of Customer Pane
+
     @FXML
     private Pane pnlCustomers;
 
@@ -419,9 +421,6 @@ public class Controller implements Initializable {
     @FXML
     private JFXDatePicker txtTripEnd;
 
-
-    // End of Booking Pane
-
     @FXML
     private JFXColorPicker cpSettingsTextColour;
 
@@ -468,7 +467,6 @@ public class Controller implements Initializable {
         } else if (btnAddEditPkg.getText().equals("Update Package")) {
             updatePackage();
         }
-
 
        /* String pkgName = txtPackageName.getText();
         String pkgStartDate = txtPkgStartDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -517,14 +515,11 @@ public class Controller implements Initializable {
 
     @FXML
     void onActionAddPkgProdSup(ActionEvent event) {
-
     }
 
     @FXML
     void onActionBkAdd(ActionEvent event) {
-
         //getCustomerBooking();
-
     }
 
     @FXML
@@ -544,7 +539,6 @@ public class Controller implements Initializable {
 
         bookingStart = txtTripStart.getValue();
         bookingEnd = txtTripEnd.getValue();
-
 
         if (txtBkSearch.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "You haven't searched for a customer");
@@ -634,7 +628,6 @@ public class Controller implements Initializable {
             pnlCustomers.toFront();
             txtCustSearch.requestFocus();
         }
-
     }
 
     @FXML
@@ -649,18 +642,54 @@ public class Controller implements Initializable {
             pnlCustomers.toFront();
             txtCustSearch.requestFocus();
         }
-
     }
 
     @FXML
     void onActionCustEdit(ActionEvent event) {
        EnableFields();
-
     }
 
     @FXML
     void onActionCustSave(ActionEvent event) {
-        saveCustomerDetails();
+
+        int savecustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
+                "Add a Customer", JOptionPane.YES_NO_OPTION);
+
+        if ((savecustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
+                valFields(txtCustAddress.getText()) || valFields(txtCustCity.getText()) || valFields(txtCustProv.getText())) ||
+                valFields(txtCustPostal.getText()) || valFields(txtCustCountry.getText()) || valFields(txtCustHomePhone.getText()) ||
+                valFields(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "All of the Customer Information needs to be filled out");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valPhone(txtCustHomePhone.getText()) || ! valPhone(txtCustBusPhone.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The phone number entered needs to be in proper numeric format");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valEmail(txtCustEmail.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "The customer email needs to be in proper format");
+            alert.showAndWait();
+        }
+
+        else if ((savecustomer == JOptionPane.YES_OPTION) && ! valPostalCode(txtCustPostal.getText()))
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Postal code needs to be in a proper format");
+            alert.showAndWait();
+        }
+
+        else if (savecustomer == JOptionPane.YES_OPTION)
+        {
+            saveCustomerDetails();
+            getCustomerSearch();
+            pnlCustomers.toFront();
+            txtCustSearch.requestFocus();
+        }
+
     }
 
     @FXML
@@ -831,7 +860,6 @@ public class Controller implements Initializable {
         getCustomerSearch();
     }
 
-
     // on mouse event for when user clicks on bookings tableview
     //Author James Cockriell, April 8/19
     @FXML
@@ -878,6 +906,7 @@ public class Controller implements Initializable {
         txtCustBusPhone.setText(customerSelectedDetails.getCustBusPhone());
         txtCustEmail.setText(customerSelectedDetails.getCustEmail());
 
+        customerSelectedDetailId = customerSelectedDetails.getCustomerId();
     }
 
     //Ethan Shipley
@@ -1043,7 +1072,6 @@ public class Controller implements Initializable {
         cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
         cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
 
-
         getCustomerBooking();
 
         // to load packages table
@@ -1116,7 +1144,6 @@ public class Controller implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("You are now successfully logged in");
         alert.showAndWait();
-
     }
 
     private void DisableMenu() {
@@ -1156,7 +1183,7 @@ public class Controller implements Initializable {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                custData.add(new Customer(rs.getString(2),
+                custData.add(new Customer(rs.getInt(1), rs.getString(2),
                         rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8),
@@ -1219,34 +1246,43 @@ public class Controller implements Initializable {
 
     private void saveCustomerDetails()
     {
-        try {
+            String custFirstName = txtCustFirstName.getText();
+            String custLastName = txtCustLastName.getText();
+            String custAddress = txtCustAddress.getText();
+            String custCity = txtCustCity.getText();
+            String custProv = txtCustProv.getText();
+            String custPostal = txtCustPostal.getText();
+            String custCountry = txtCustCountry.getText();
+            String custHomePhone = txtCustHomePhone.getText();
+            String custBusPhone = txtCustBusPhone.getText();
+            String custEmail = txtCustEmail.getText();
+
 
             Connection conn = DBConnect.getConnection();
 
-            String sql = "update Customers set CustFirstName=?, CustLastName=?, CustAddress=?, CustCity=?, CustProv=?, CustPostal=?," +
-                    "CustCountry=?, CustHomePhone=?, CustBusPhone=?, CustEmail=?";
+            String sql = "update customers set CustFirstName=" + "'" + custFirstName + "'" + ", CustLastName=" + "'" + custLastName + "'"
+                    + ", CustAddress=" + "'" + custAddress + "'" + ", CustCity=" + "'" + custCity + "'" + ", CustProv=" + "'"
+                    + custProv + "'" + ", CustPostal= " + "'" + custPostal + "'" + ", CustCountry=" + "'" + custCountry + "'"
+                    + ", CustHomePhone=" + "'" + custHomePhone + "'" + ", CustBusPhone=" + "'" + custBusPhone + "'" + ", CustEmail=" + "'"
+                    + custEmail + "'" + " where CustomerId=" + "'" + customerSelectedDetailId + "'";
+            try{
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                int numRows = stmt.executeUpdate();
+            if (numRows == 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were updated.");
+                alert.showAndWait();
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Customer information updated");
+            alert.showAndWait();
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1, txtCustFirstName.getText());
-            stmt.setString(2, txtCustLastName.getText());
-            stmt.setString(3, txtCustAddress.getText());
-            stmt.setString(4, txtCustCity.getText());
-            stmt.setString(5, txtCustProv.getText());
-            stmt.setString(6, txtCustPostal.getText());
-            stmt.setString(7, txtCustCountry.getText());
-            stmt.setString(8, txtCustHomePhone.getText());
-            stmt.setString(9, txtCustBusPhone.getText());
-            stmt.setString(10, txtCustEmail.getText());
-
-            JOptionPane.showMessageDialog(null, "Customer information updated");
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }
 
             getCustomerSearch();
+            populateCustomerDetails();
+            txtCustSearch.setText("");
             clear();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
     }
 
