@@ -175,7 +175,7 @@
 							id="myForm" action="mail.jsp" method="get"> -->
 						<Form class="trip-form-area trip-page-form trip-form text-right"
 							id="myForm" action="RegistrationServlet" method="post">
-							<div class="form-group col-md-12">
+							<!-- <div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustFirstName" name="CustFirstName"
 									placeholder="First Name" onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'First Name'">
@@ -196,7 +196,7 @@
 									name="Custcity" placeholder="City"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'City'">
-							</div>
+							</div> -->
 							<div class="form-group col-md-12">
 								<div class="form-select">
 									<select name="CustCountry" id="CustCountry" onchange="getProvState(this.value)">
