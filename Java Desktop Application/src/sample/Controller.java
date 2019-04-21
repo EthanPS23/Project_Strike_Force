@@ -1130,7 +1130,7 @@ public class Controller implements Initializable {
 
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * from Customers WHERE CustLastName LIKE '%" + lastName + "%' " +
+            String sql = "SELECT * from customers WHERE CustLastName LIKE '%" + lastName + "%' " +
                     "ORDER BY CustLastName DESC;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -1183,7 +1183,7 @@ public class Controller implements Initializable {
 
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into Customers(CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail) "
+            stmt.executeUpdate("insert into customers(CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail) "
             + "VALUES ('" + custFirstName + "','" + custLastName + "','" + custAddress + "','" + custCity + "','" + custProv + "','" + custPostal +
                     "','" + custCountry + "','" + custHomePhone + "','" + custBusPhone + "','" + custEmail + "')");
 
@@ -1247,7 +1247,7 @@ public class Controller implements Initializable {
     private void DeleteCustomer ()
     {
         Connection conn = DBConnect.getConnection();
-        String sql = "delete from Customers where CustomerId=" + "'" +  customerSelectedDetailId + "'";
+        String sql = "delete from customers where CustomerId=" + "'" +  customerSelectedDetailId + "'";
         try
         {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1378,13 +1378,13 @@ public class Controller implements Initializable {
         String lname = txtBkSearch.getText();
         Connection conn = DBConnect.getConnection();
         String sql = "SELECT BookingDetailId, TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as AgencyCommission, RegionName, ClassName, FeeName " +
-                "from (((((bookingDetails " +
-                "Inner Join Bookings on BookingDetails.BookingId = Bookings.BookingId) " +
-                "Inner Join Customers on Bookings.CustomerId = Customers.CustomerId) " +
-                "Inner Join Regions on BookingDetails.RegionId = Regions.RegionId) " +
-                "Inner Join Classes on BookingDetails.ClassId = Classes.ClassId) " +
-                "Inner Join Fees on BookingDetails.FeeId = Fees.FeeId) " +
-                "where Customers.CustLastName LIKE '%" + lname + "%' " +
+                "from (((((bookingdetails " +
+                "Inner Join bookings on bookingdetails.BookingId = bookings.BookingId) " +
+                "Inner Join customers on bookings.CustomerId = customers.CustomerId) " +
+                "Inner Join regions on bookingdetails.RegionId = regions.RegionId) " +
+                "Inner Join classes on bookingdetails.ClassId = classes.ClassId) " +
+                "Inner Join fees on bookingdetails.FeeId = fees.FeeId) " +
+                "where customers.CustLastName LIKE '%" + lname + "%' " +
                 "order by TripStart DESC;";
         try {
             Statement stmt = conn.createStatement();
@@ -1420,7 +1420,7 @@ public class Controller implements Initializable {
     private void loadcbRegionId() {
         regionData.clear();
         Connection conn = DBConnect.getConnection();
-        String sql = "select * from Regions";
+        String sql = "select * from regions";
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -1440,7 +1440,7 @@ public class Controller implements Initializable {
     private void loadcbClassId() {
         classData.clear();
         Connection conn = DBConnect.getConnection();
-        String sql = "select ClassId, ClassName from Classes";
+        String sql = "select ClassId, ClassName from classes";
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -1527,7 +1527,7 @@ public class Controller implements Initializable {
         String FeeId = cbFeeId.getSelectionModel().getSelectedItem().getFeeId();
 
         Connection conn = DBConnect.getConnection();
-        String sql = "update bookingDetails set TripStart=" + "'" + TripStart + "'" + ", TripEnd=" + "'" + TripEnd + "'" + ", Description=" + "'" + Description + "'" + ", Destination=" + "'" + Destination + "'" + ", BasePrice=" + "'" + BasePrice + "'" + ", AgencyCommission= " + "'" + AgencyCommission + "'" + ", RegionId=" + "'" + RegionId + "'" + ", ClassId=" + "'" + ClassId + "'" + ", FeeId=" + "'" + FeeId + "'" + " where BookingDetailId=" + "'" + customerSelectedBookingDetailId + "'";
+        String sql = "update bookingdetails set TripStart=" + "'" + TripStart + "'" + ", TripEnd=" + "'" + TripEnd + "'" + ", Description=" + "'" + Description + "'" + ", Destination=" + "'" + Destination + "'" + ", BasePrice=" + "'" + BasePrice + "'" + ", AgencyCommission= " + "'" + AgencyCommission + "'" + ", RegionId=" + "'" + RegionId + "'" + ", ClassId=" + "'" + ClassId + "'" + ", FeeId=" + "'" + FeeId + "'" + " where BookingDetailId=" + "'" + customerSelectedBookingDetailId + "'";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -1629,7 +1629,7 @@ public class Controller implements Initializable {
         Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
 
         Connection conn = DBConnect.getConnection();
-        String sql = "update Packages set PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + " where PackageId=" + "'" + packId + "'";
+        String sql = "update packages set PkgName=" + "'" + pkgName + "'" + ", PkgStartDate=" + "'" + pkgStartDate + "'" + ", PkgEndDate=" + "'" + pkgEndDate + "'" + ", PkgDesc=" + "'" + pkgDesc + "'" + ", PkgBasePrice=" + "'" + pkgPrice + "'" +  ", PkgAgencyCommission=" + "'" + pkgCommission + "'" + " where PackageId=" + "'" + packId + "'";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
