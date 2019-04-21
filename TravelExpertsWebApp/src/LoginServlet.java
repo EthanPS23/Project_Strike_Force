@@ -65,8 +65,10 @@ public class LoginServlet extends HttpServlet {
 	
 	private boolean verify(String userid, String password) {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","harv","password");
+			//Class.forName("org.mariadb.jdbc.Driver");
+			//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","harv","password");
+			//Connection conn = DriverManager.getConnection("jdbc:mysql://10.163.37.119:3306/travelexperts","harv","password");
+			Connection conn = DBConnect.getConnection();
 			String sql = "select CustPassword from customers where CustEmail=?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1,userid);
@@ -84,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 				return false;
 			}
 			
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

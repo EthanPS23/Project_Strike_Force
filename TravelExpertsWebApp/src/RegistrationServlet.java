@@ -154,13 +154,18 @@ public class RegistrationServlet extends HttpServlet {
 			+ " " + customerArray[11] + ")";
 	    try
 	    {
-	        //Class.forName("com.mysql.jdbc.Driver");
-			//Class.forName("oracle.jdbc.driver.OracleDriver");
-			Class.forName("org.mariadb.jdbc.Driver");
-	        //Connection dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","root","password");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","harv","password");
-	        //Connection dbConn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orant11g", "ictoosd", "ictoosd");
-
+			/*
+			 * //Class.forName("com.mysql.jdbc.Driver");
+			 * //Class.forName("oracle.jdbc.driver.OracleDriver");
+			 * Class.forName("org.mariadb.jdbc.Driver"); //Connection dbConn =
+			 * DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
+			 * "root","password"); Connection conn =
+			 * DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts",
+			 * "harv","password"); //Connection dbConn =
+			 * DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orant11g",
+			 * "ictoosd", "ictoosd");
+			 */
+	    	Connection conn = DBConnect.getConnection();
 	        Statement stmt = conn.createStatement();
 
 	        int rows = stmt.executeUpdate(sql);
