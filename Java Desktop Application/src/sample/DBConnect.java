@@ -10,7 +10,7 @@ public class DBConnect {
         Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://10.163.37.119:3306/travelexperts", "harv", "password");
+            conn = DriverManager.getConnection("jdbc:mysql://10.163.37.7:3306/travelexperts", "harv", "password");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

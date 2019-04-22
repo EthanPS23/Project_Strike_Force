@@ -76,7 +76,7 @@
 
 #apItems .column-header{
     -fx-border-color: -btn-brdr-colour;
-    -fx-border-width: 3pt;
+    -fx-border-width: 1pt;
 }
 
 #apItems .cell{
