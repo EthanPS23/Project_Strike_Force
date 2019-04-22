@@ -638,7 +638,7 @@ public class Controller implements Initializable {
 
         else if (addcustomer == JOptionPane.YES_OPTION)
         {
-            CustomerDB.insertCustomer(custy());
+            CustomerDB.insertCustomer(customer());
             //insertCustomer();
             clear();
             getCustomerSearch();
@@ -651,7 +651,7 @@ public class Controller implements Initializable {
             txtCustSearch.requestFocus();
         }
     }
-    private Customer custy(){
+    private Customer customer(){
         Customer cust = new Customer(-1, txtCustFirstName.getText(), txtCustLastName.getText(), txtCustAddress.getText(),
                 txtCustCity.getText(), txtCustProv.getText(), txtCustPostal.getText(), txtCustCountry.getText(), txtCustHomePhone.getText(),
                 txtCustBusPhone.getText(), txtCustEmail.getText());
@@ -1275,49 +1275,6 @@ public class Controller implements Initializable {
         }
     }
 
-    // Author: Christopher Potvin
-    // this method inserts a customer
-
-   /* private void insertCustomer(){
-
-        try {
-            Customer cust = new Customer(null, txtCustFirstName.getText(), txtCustLastName.getText(), txtCustAddress.getText(),
-                    txtCustCity.getText(), txtCustProv.getText(), txtCustPostal.getText(), txtCustCountry.getText(), txtCustHomePhone.getText(),
-                    txtCustBusPhone.getText(), txtCustEmail.getText());
-
-            *//*String custFirstName = txtCustFirstName.getText();
-            String custLastName = txtCustLastName.getText();
-            String custAddress = txtCustAddress.getText();
-            String custCity = txtCustCity.getText();
-            String custProv = txtCustProv.getText();
-            String custPostal = txtCustPostal.getText();
-            String custCountry = txtCustCountry.getText();
-            String custHomePhone = txtCustHomePhone.getText();
-            String custBusPhone = txtCustBusPhone.getText();
-            String custEmail = txtCustEmail.getText();*//*
-
-            Connection conn = DBConnect.getConnection();
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into customers(CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail) "
-                    + "VALUES ('" + cust.getCustFirstName() + "','" + cust.getCustLastName() + "','" + cust.getCustAddress()
-                    + "','" + cust.getCustCity() + "','" + cust.getCustProv() + "','" + cust.getCustPostal() +
-                    "','" + cust.getCustCountry() + "','" + cust.getCustHomePhone() + "','" + cust.getCustBusPhone() + "','" + cust.getCustEmail() + "')");
-            *//*stmt.executeUpdate("insert into customers(CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail) "
-            + "VALUES ('" + custFirstName + "','" + custLastName + "','" + custAddress + "','" + custCity + "','" + custProv + "','" + custPostal +
-                    "','" + custCountry + "','" + custHomePhone + "','" + custBusPhone + "','" + custEmail + "')");*//*
-
-            JOptionPane.showMessageDialog(null, "New Customer Record Added");
-            clear();
-            getCustomerSearch();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-    }*/
-
     //update method
     private void saveCustomerDetails()
     {
@@ -1391,25 +1348,6 @@ public class Controller implements Initializable {
         getCustomerSearch();
         populateCustomerDetails();
     }
-
-    // this is added functionality for the search button and edit button to work together
-    //Author: Christopher Potvin
-
-//    private void DisableFields()
-//    {
-//        txtCustFirstName.setDisable(true);
-//        txtCustLastName.setDisable(true);
-//        txtCustAddress.setDisable(true);
-//        txtCustCity.setDisable(true);
-//        txtCustProv.setDisable(true);
-//        txtCustPostal.setDisable(true);
-//        txtCustCountry.setDisable(true);
-//        txtCustHomePhone.setDisable(true);
-//        txtCustBusPhone.setDisable(true);
-//        txtCustEmail.setDisable(true);
-//
-//    }
-
 
     private void EnableFields()
     {
