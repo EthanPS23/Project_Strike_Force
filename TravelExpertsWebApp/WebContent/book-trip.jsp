@@ -33,10 +33,9 @@
 			<div class="container">
 				<div class="banner_content">
 					<div class="page_link">
-						<a href="index.jsp">Home</a> <a href="book-trip.jsp">Book a
-							Trip</a>
+						<a href="index.jsp">Home</a> <a href="book-trip.jsp">Confirmation</a>
 					</div>
-					<h2>Book a Trip</h2>
+					<h2>Confirm your Trip Details</h2>
 				</div>
 			</div>
 		</div>
@@ -47,6 +46,32 @@
 	<section class="trip-area section_gap">
 		<div class="container">
 			<div class="row justify-content-center">
+				<div class="row">
+					<div class="col-lg-4 col-md-6">
+						<div class="single-package">
+							<div class="thumb">
+								<img class="img-fluid" src="img/package/p1.jpg">
+							</div>
+							<p class="date">
+								<span>18</span>
+								<br>
+								" December"
+								</p>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<!--  
 				<div class="col-lg-7 col-md-10">
 					<div class="trip-form-section">
 						<h1>
@@ -99,6 +124,16 @@
 							</div>
 						</form>
 					</div>
+					-->
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				</div>
 			</div>
 		</div>
