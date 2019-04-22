@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/resources/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/resources/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExperts/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExperts/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExperts/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExperts/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExperts/app/src/main/java/com/example/travelexperts/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExperts/app/src/main/java/com/example/travelexperts/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExperts/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExperts/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExpertsWebApp/src/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExpertsWebApp/src/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TravelExpertsWebApp/src/RegistrationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TravelExpertsWebApp/src/RegistrationServlet.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,12 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1199">
+            <state relative-caret-position="-9103">
               <caret line="967" column="113" selection-start-line="967" selection-start-column="113" selection-end-line="967" selection-end-column="113" />
-              <folding>
-                <element signature="e#15945#15946#0" expanded="true" />
-                <element signature="e#15977#15978#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -80,7 +80,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Model/Region.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="34">
               <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
@@ -89,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/DBConnect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="68">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -168,7 +168,7 @@
     </treeState>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-71" />
     <option name="y" value="89" />
     <option name="width" value="1376" />
@@ -183,6 +183,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -229,8 +231,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -380,7 +380,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1633888" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.16565809" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -390,7 +390,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.92962354" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.92962354" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -501,12 +501,12 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-10.0.1/lib/src.zip!/javafx.base/javafx/event/ActionEvent.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/resources/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2090">
           <caret line="134" column="41" selection-start-line="134" selection-start-column="41" selection-end-line="134" selection-end-column="41" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -575,20 +575,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Model/Region.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/DBConnect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Model/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -601,14 +587,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Model/Region.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/DBConnect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1199">
+        <state relative-caret-position="-9103">
           <caret line="967" column="113" selection-start-line="967" selection-start-column="113" selection-end-line="967" selection-end-column="113" />
-          <folding>
-            <element signature="e#15945#15946#0" expanded="true" />
-            <element signature="e#15977#15978#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
