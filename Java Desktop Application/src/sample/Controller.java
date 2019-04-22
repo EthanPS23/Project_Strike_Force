@@ -1542,6 +1542,7 @@ public class Controller implements Initializable {
         txtPkgDesc.clear();
         txtPkgBasePrice.clear();
         txtPkgAgencyCommission.clear();
+        btnAddEditPkg.setText("Save New Package");
     }
 
     private void saveNewPackage() {
