@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp, btnLogin;
     EditText etEmail, etPassword;
 
-    String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/LoginRESTService/login";
+    String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Login/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
