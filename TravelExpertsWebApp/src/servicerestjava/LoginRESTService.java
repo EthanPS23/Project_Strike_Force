@@ -48,34 +48,4 @@ public class LoginRESTService {
 	  }
 	  return result;
 	}
-	
-	@POST
-	@Path("/register")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	@Produces(MediaType.TEXT_HTML)
-	public String register(@FormParam("CustEmail") String email, @FormParam("CustPassword") String password){
-		String result="false";
-		int x = 0;
-		
-		try{
-		    Connection conn = DBConnect.getConnection();
-		
-			PreparedStatement stmt = conn.prepareStatement("insert into customers(CustEmail, CustPassword) values(?,?)");
-			stmt.setString(1, email);
-			stmt.setString(2, password);
-			
-			x = stmt.executeUpdate();
-			
-			if(x==1){
-				result = "true";
-			}
-			
-			conn.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
 }
