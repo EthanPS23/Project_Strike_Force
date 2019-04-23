@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 etEmail = findViewById(R.id.etEmail);
                 System.out.println(etEmail.getText());
+
                 // String to connect to the REST Services
                 StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("RVA", "error:" + error);
 
                         int errorCode = 0;
+
                         if (error instanceof TimeoutError) {
                             errorCode = -7;
                         } else if (error instanceof NoConnectionError) {
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void instagramOpen(View view){
-        Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com"));
+        Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
 //        10.163.37.119:8080/TravelExpertsWebApp/
         startActivity(browserIntent);
     }
