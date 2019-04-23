@@ -27,11 +27,11 @@ public class PasswordEncyption {
 
 		 */
 
-		public static String hashPassword(String password_plaintext) {
+		public static String hashPassword(String custPassword) {
 
 			String salt = BCrypt.gensalt(workload);
 
-			String hashed_password = BCrypt.hashpw(password_plaintext, salt);
+			String hashed_password = BCrypt.hashpw(custPassword, salt);
 
 			return(hashed_password);
 

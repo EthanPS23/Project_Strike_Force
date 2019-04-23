@@ -25,7 +25,6 @@ public class LoginRESTService {
 	{
 	
 	  String result="false";
-	  System.out.println(email);
 	  
 	  try {
 		  Connection conn = DBConnect.getConnection();
@@ -34,7 +33,7 @@ public class LoginRESTService {
 		  
 		  PreparedStatement stmt = conn.prepareStatement(sql);
 		  stmt.setString(1, email);
-		  stmt.setString(2, PasswordEncyption.hashPassword(password));
+		  stmt.setString(2, password);
 		  
 		  ResultSet rs = stmt.executeQuery();
 		  
