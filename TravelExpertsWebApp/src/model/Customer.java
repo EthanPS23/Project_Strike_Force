@@ -17,6 +17,26 @@ public class Customer implements Serializable {
 	@Id
 	private int customerId;
 
+	public Customer(int customerId, int agentId, String custAddress, String custBusPhone, String custCity,
+			String custCountry, String custEmail, String custFirstName, String custHomePhone, String custLastName,
+			String custPassword, String custPostal, String custProv, String custUserId) {
+		super();
+		this.customerId = customerId;
+		this.agentId = agentId;
+		this.custAddress = custAddress;
+		this.custBusPhone = custBusPhone;
+		this.custCity = custCity;
+		this.custCountry = custCountry;
+		this.custEmail = custEmail;
+		this.custFirstName = custFirstName;
+		this.custHomePhone = custHomePhone;
+		this.custLastName = custLastName;
+		this.custPassword = custPassword;
+		this.custPostal = custPostal;
+		this.custProv = custProv;
+		this.custUserId = custUserId;
+	}
+
 	private int agentId;
 
 	private String custAddress;
