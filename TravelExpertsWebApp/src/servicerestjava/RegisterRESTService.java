@@ -1,6 +1,8 @@
 package servicerestjava;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import security.BCrypt;
+import security.PasswordEncyption;
  
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -11,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/Register")
 public class RegisterRESTService {
+	
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -20,7 +23,6 @@ public class RegisterRESTService {
 			@FormParam("CustHomePhone") String custHomePhone, @FormParam("CustBusPhone") String custBusPhone, @FormParam("CustEmail") String custEmail, @FormParam("CustPassword") String custPassword){
 		String result="false";
 		int x = 0;
-		
 		try{
 		    Connection conn = DBConnect.getConnection();
 		
@@ -40,7 +42,8 @@ public class RegisterRESTService {
 			stmt.setString(9, custBusPhone);
 			stmt.setString(10, custEmail);
 			stmt.setString(11, custPassword);
-			
+			// this is the JBcrypt class that is hashing the Customer Password
+			// PasswordEncryption.hashedPassword(custPassword)
 			x = stmt.executeUpdate();
 			
 			if(x==1){

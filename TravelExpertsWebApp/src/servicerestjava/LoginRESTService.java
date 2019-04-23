@@ -1,5 +1,7 @@
 package servicerestjava;
 import java.sql.Connection;
+import security.PasswordEncyption;
+import security.BCrypt;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +34,7 @@ public class LoginRESTService {
 		  
 		  PreparedStatement stmt = conn.prepareStatement(sql);
 		  stmt.setString(1, email);
-		  stmt.setString(2, password);
+		  stmt.setString(2, PasswordEncyption.hashPassword(password));
 		  
 		  ResultSet rs = stmt.executeQuery();
 		  
