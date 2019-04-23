@@ -47,7 +47,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6">
-						<div class="single-package" style="border: 0.1em soild black;">
+						<div class="single-package" style="border: 0.1em soild black;" id="myCard" action="BookServlet" method="post">
 							<div class="thumb">
 								<img class="img-fluid" src="img/package/p1.jpg">
 							</div>
