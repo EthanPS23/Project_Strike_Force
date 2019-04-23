@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp, btnLogin;
     EditText etEmail, etPassword;
 
-    String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/LoginRESTService/login";
+    String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Login/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // if login successful grant access to the packages page
                         if (response.equals("true")) {
-                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
                             startActivity(packageMain);
                         } else {
-                            Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
