@@ -57,7 +57,8 @@ public class DetailCustomerActivity extends AppCompatActivity {
                             startActivity(mainActivity);
 
                         } else {
-                            Toast.makeText(DetailCustomerActivity.this, "Sorry but registration was not successful", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(DetailCustomerActivity.this, "Sorry but registration was not successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailCustomerActivity.this, response, Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
