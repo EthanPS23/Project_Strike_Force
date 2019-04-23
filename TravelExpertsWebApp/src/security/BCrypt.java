@@ -647,7 +647,7 @@ public class BCrypt {
 	 * using BCrypt.gensalt)
 	 * @return	the hashed password
 	 */
-	public static String hashpw(String password, String salt) {
+	public static String hashpw(String custPassword, String salt) {
 		BCrypt B;
 		String real_salt;
 		byte passwordb[], saltb[], hashed[];
