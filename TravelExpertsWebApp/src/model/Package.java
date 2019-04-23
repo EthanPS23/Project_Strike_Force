@@ -35,7 +35,21 @@ public class Package implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date pkgStartDate;
 
+	public Package(int packageId, BigDecimal pkgAgencyCommission, BigDecimal pkgBasePrice, String pkgDesc,
+			Date pkgEndDate, String pkgImg, String pkgName, Date pkgStartDate) {
+		super();
+		this.packageId = packageId;
+		this.pkgAgencyCommission = pkgAgencyCommission;
+		this.pkgBasePrice = pkgBasePrice;
+		this.pkgDesc = pkgDesc;
+		this.pkgEndDate = pkgEndDate;
+		this.pkgImg = pkgImg;
+		this.pkgName = pkgName;
+		this.pkgStartDate = pkgStartDate;
+	}
+
 	public Package() {
+		
 	}
 
 	public int getPackageId() {
