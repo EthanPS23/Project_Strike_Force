@@ -27,6 +27,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
     // to do button sign up does an insert to the db,JSON?
     String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/LoginRESTService/register";
+    // Change this to RegisterRESTService/register
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
