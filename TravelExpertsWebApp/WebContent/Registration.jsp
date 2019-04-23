@@ -115,24 +115,24 @@
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustFirstName" name="CustFirstName"
 									placeholder="First Name" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'First Name'">
+									onblur="this.placeholder = 'First Name'" maxlength="25">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustLastName" name="CustLastName"
 									placeholder="Last Name" onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Last Name'">
+									onblur="this.placeholder = 'Last Name'" maxlength="25">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustAddress"
 									name="CustAddress" placeholder="Address"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Address'">
+									onblur="this.placeholder = 'Address'" maxlength="75">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="Custcity"
 									name="Custcity" placeholder="City"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'City'">
+									onblur="this.placeholder = 'City'" maxlength="50">
 							</div>
 							<div class="form-group col-md-12">
 								<div class="form-select">
@@ -152,92 +152,40 @@
 								<input type="text" class="form-control" id="CustPostal"
 									name="CustPostal" placeholder="Postal Code"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Postal Code'">
+									onblur="this.placeholder = 'Postal Code'" maxlength="7">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustHomePhone"
 									name="CustHomePhone" placeholder="Home Phone"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Home Phone'">
+									onblur="this.placeholder = 'Home Phone'" maxlength="20">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustBusPhone"
 									name="CustBusPhone" placeholder="Business Phone"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Business Phone'">
+									onblur="this.placeholder = 'Business Phone'" maxlength="20">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustEmail"
 									name="CustEmail" placeholder="Email"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Email'">
+									onblur="this.placeholder = 'Email'" maxlength="50">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="password" class="form-control" id="CustPassword"
 									name="CustPassword" placeholder="Password"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Password'">
+									onblur="this.placeholder = 'Password'" maxlength="255">
 							</div>
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="AgentID"
 									name="AgentID" placeholder="Agent ID"
 									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Agent ID'">
+									onblur="this.placeholder = 'Agent ID'" maxlength="11">
 							</div>
 							<div class="col-lg-12 text-center">
 								<button class="primary-btn text-uppercase">Register</button>
-								<%-- <%
-									if (request.getParameter("submit") != null)
-									{
-										String [] customer = new String[11];
-										customer[0] = (String)request.getParameter("CustFirstName");
-										customer[1] = (String)request.getParameter("CustLastName");
-										customer[2]= (String)request.getParameter("CustAddress");
-										customer[3]= (String)request.getParameter("CustCity");
-										customer[4] = (String)request.getParameter("CustProv");
-										customer[5] = (String)request.getParameter("CustCountry");
-										customer[6] = (String)request.getParameter("CustPostal");
-										customer[7] = (String)request.getParameter("CustHomePhone");
-										customer[8] = (String)request.getParameter("CustBusPhone");
-										customer[9] = (String)request.getParameter("CustEmail");
-										customer[10] = (String)request.getParameter("AgentID");
-								
-										//pass data to validation function
-										String message = validate(customer);
-										if (message.equals(""))
-										{
-											//if not valid set error message and redisplay form
-											out.print("<h4 style='color:crimson'>" + createCustomer(customer) + "</h4>");
-											
-											//after writing customer data empty the array so form will be empty
-											
-												customer[0] = "";
-												customer[1] = "";
-												customer[2] = "";
-												customer[3] = "";
-												customer[4] = "";
-												customer[5] = "";
-												customer[6] = "";
-												customer[7] = "";
-												customer[8] = "";
-												customer[9] = "";
-												customer[10] = "";
-										
-											
-											/* displayForm(customer, out); */
-										} else
-										{
-										   out.print("<h4 style='color:crimson'>" + message + "</h4>");
-										   /* displayForm(customer, out); */
-									    }
-									}
-									else
-									{
-										//display form
-										String [] customer = {"","","","","","","","","","",""};
-										/* displayForm(customer, out); */
-									}
-								%> --%>
 							</div>
 						</Form>
 						<%!
