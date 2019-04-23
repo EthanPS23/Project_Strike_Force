@@ -116,7 +116,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-4 col-md-6">
-					<div class="single-package">
+					<div class="single-package" id="pack1" action="packageRESTservice" method="get">
 						<div class="thumb">
 							<img class="img-fluid" src="img/package/p1.jpg" alt="">								
 						</div>
