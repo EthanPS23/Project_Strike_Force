@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -142,8 +144,8 @@ public class RegistrationServlet extends HttpServlet {
 			+ " '" + customerArray[1] + "',"
 			+ " '" + customerArray[2] + "',"
 			+ " '" + customerArray[3] + "',"
-			+ " '" + customerArray[4] + "',"
 			+ " '" + customerArray[5] + "',"
+			+ " '" + customerArray[4] + "',"
 			+ " '" + customerArray[6] + "',"
 			+ " '" + customerArray[7] + "',"
 			+ " '" + customerArray[8] + "',"

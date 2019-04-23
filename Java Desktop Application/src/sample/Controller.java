@@ -1542,6 +1542,7 @@ public class Controller implements Initializable {
         txtPkgDesc.clear();
         txtPkgBasePrice.clear();
         txtPkgAgencyCommission.clear();
+        btnAddEditPkg.setText("Save New Package");
     }
 
     private void saveNewPackage() {
@@ -1553,10 +1554,11 @@ public class Controller implements Initializable {
             Float pkgPrice = Float.valueOf(txtPkgBasePrice.getText());
             Float pkgCommission = Float.valueOf(txtPkgAgencyCommission.getText());
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");
+            /*Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");*/
+            Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into Packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
+            stmt.executeUpdate("insert into packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
                     "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
 
             JOptionPane.showMessageDialog(null, "New Package Added");
@@ -1567,7 +1569,7 @@ public class Controller implements Initializable {
 
             getPackages();
             conn.close();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
