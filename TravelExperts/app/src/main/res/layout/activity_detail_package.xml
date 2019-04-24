@@ -21,6 +21,19 @@
         app:layout_constraintVertical_bias="0.951" />
 
     <Button
+        android:id="@+id/btnView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:layout_marginTop="446dp"
+        android:text="View"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -132,77 +145,45 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintVertical_bias="0.258">
 
-        <EditText
-            android:id="@+id/etPkgName"
+        <TextView
+            android:id="@+id/tvpkgName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="textPersonName"
             android:padding="14dp"
-            android:text="PkgName"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/etPkgStartDate"
+        <TextView
+            android:id="@+id/tvpkgStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date"
             android:padding="14dp"
-            android:text="PkgStartDate"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/etPkgEndDate"
+        <TextView
+            android:id="@+id/tvpkgEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date"
             android:padding="14dp"
-            android:text="PkgEndDate"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/etPkgDesc"
+        <TextView
+            android:id="@+id/tvpkgDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="textMultiLine"
-            android:linksClickable="false"
-            android:longClickable="false"
             android:padding="14dp"
-            android:text="PkgDesc"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:text="TextView"
+            android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/etPkgBasePrice"
+        <TextView
+            android:id="@+id/tvpkgBasePrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="true"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="number"
-            android:linksClickable="false"
-            android:longClickable="false"
             android:padding="14dp"
-            android:text="PkgBasePrice"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textIsSelectable="false"
-            android:textSize="14sp" />
+            android:text="TextView"
+            android:textAlignment="center" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

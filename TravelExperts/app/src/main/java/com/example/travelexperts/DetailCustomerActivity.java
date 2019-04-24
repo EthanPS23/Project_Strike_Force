@@ -52,13 +52,13 @@ public class DetailCustomerActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if (response.equals("true")) {
-                            Toast.makeText(DetailCustomerActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailCustomerActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                             Intent mainActivity = new Intent(DetailCustomerActivity.this, MainActivity.class);
                             startActivity(mainActivity);
 
                         } else {
                             //Toast.makeText(DetailCustomerActivity.this, "Sorry but registration was not successful", Toast.LENGTH_LONG).show();
-                            Toast.makeText(DetailCustomerActivity.this, response, Toast.LENGTH_LONG).show();
+                            Toast.makeText(DetailCustomerActivity.this, response, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
