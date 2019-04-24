@@ -1,6 +1,7 @@
 package com.example.travelexperts;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -48,9 +49,16 @@ public class DetailPackageActivity extends AppCompatActivity {
         initializeBtns();
         initializeFields();
 
-        session = new SessionManager(DetailPackageActivity.this);
+        Intent intent = getIntent();
+        Package pkg = (Package) intent.getSerializableExtra("pkg");
+        tvpkgName.setText(pkg.getPkgName());
+        tvpkgBasePrice.setText(String.valueOf(pkg.getPkgBasePrice()));
+        tvpkgDesc.setText(pkg.getPkgDesc());
+        tvpkgStartDate.setText(pkg.getPkgStartDate());
+        tvpkgEndDate.setText(pkg.getPkgEndDate());
 
-        rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
+
+        /*rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
 
 
         btnView.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +66,7 @@ public class DetailPackageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 jsonParse();
             }
-        });
+        });*/
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +77,7 @@ public class DetailPackageActivity extends AppCompatActivity {
 
     }
 
-    private void jsonParse()
+    /*private void jsonParse()
     {
         String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getpackageid/1";
 
@@ -128,7 +136,7 @@ public class DetailPackageActivity extends AppCompatActivity {
         });
 
         rQueue.add(request);
-    }
+    }*/
 
     private void initializeBtns ()
     {
