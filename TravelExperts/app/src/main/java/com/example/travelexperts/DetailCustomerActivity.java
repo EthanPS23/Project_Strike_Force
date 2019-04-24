@@ -109,7 +109,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void setCustBtnClear() {
@@ -142,7 +141,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
     private void clearTextEdits() {
 
-        // this is an example of how empty the edit text fields with a method
     }
 
 }

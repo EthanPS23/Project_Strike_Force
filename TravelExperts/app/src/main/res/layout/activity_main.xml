@@ -103,7 +103,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:contentDescription="LogoLink"
-                    android:onClick="instagramOpen"
+                    android:onClick="webappLinkOpen"
                     app:srcCompat="@drawable/clearlogo" />
 
             </LinearLayout>

@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-
     // Shared Preferences
     SharedPreferences pref;
 
@@ -79,8 +78,6 @@ public class SessionManager {
 
     }
 
-
-
     /**
      * Get stored session data
      * */
@@ -122,5 +119,18 @@ public class SessionManager {
     // Get Login State
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
+    }
+
+    // Get and Set custId variable
+    public void setCustId(String custId) {
+
+        pref.edit().putString("CustId", custId).commit();
+    }
+
+    public String getCustId() {
+
+        String custId = pref.getString("CustId","");
+
+        return custId;
     }
 }

@@ -1,8 +1,11 @@
 package com.example.travelexperts;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +34,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     // Colors and design at the preliminary stage. Button colors and link colors can be changed as desired by the group
+
+    String custId; // custId variable to be passed to the next activity
+
+    private SharedPreferences pref;
 
     Button btnSignUp, btnLogin;
     EditText etEmail, etPassword;
@@ -71,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFields()
     {
         etPassword = findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
 
     }
 
@@ -82,32 +90,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(custRegistration);
             }
         });
-
     }
 
     private void viewPackages(){
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etEmail = findViewById(R.id.etEmail);
                 System.out.println(etEmail.getText());
 
                 // String to connect to the REST Services
-                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                final StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // if login successful grant access to the packages page
                         //if (response.equals("true")) {
                         if (!response.equals("false")) {
+
+                            custId = response;
+                            session.setCustId(custId);
                             session.createLoginSession("CustEmail", "CustPassword");
+
                             session.isLoggedIn();
-//                            session String custId = response.toString();
+
                             Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show(); // this creates the login session based on the post to the webservice
 //                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
                             startActivity(packageMain);
                             finish();
+
                         } else {
                             Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_SHORT).show();
                         }
@@ -146,16 +157,22 @@ public class MainActivity extends AppCompatActivity {
                         return parameters;
                     }
                     };
+
                 RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
                 requestQueue.add(request);
+
                 }
+
+
         });
 
     }
 
-    public void instagramOpen(View view){
+
+    public void webappLinkOpen(View view){
         Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
 //        10.163.37.119:8080/TravelExpertsWebApp/
         startActivity(browserIntent);
     }
+
 }
