@@ -48,8 +48,9 @@ public class Package implements Serializable {
 		this.pkgStartDate = pkgStartDate;
 	}
 
-	public Package() {
+	
 		
+	public Package() {
 	}
 
 	public int getPackageId() {
