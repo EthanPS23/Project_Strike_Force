@@ -81,12 +81,24 @@
 									<span class="fa fa-location-arrow">
 										
 									</span>
-									
+									<%
+									String pkgName = (String) session.getAttribute("pkgId");
+									if(pkgName!=null) { 
+								         request.getSession().setAttribute("pkgName",pkgName);
+								   	}
+									%>
+									Location
 								</p>
 								<p class="ml-20">
 									<span class="fa fa-calendar">
 										
 									</span>
+									<%
+									String pkgDate = (String) session.getAttribute("pkgId");
+									if(pkgDate!=null) { 
+								         request.getSession().setAttribute("pkgStartDate",pkgDate);
+								   	}
+									%>
 									trip date
 								</p>
 							</div>

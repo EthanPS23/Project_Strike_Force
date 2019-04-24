@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 		LoginRESTService lrs = new LoginRESTService();
 		if (lrs.login(cust)) {
 			session.setAttribute("loggedin", "true");
+			session.setAttribute("custId", lrs.custId(cust));
 			response.sendRedirect("index.jsp");
 		}else {
 			session.setAttribute("message", "Incorrect Login");

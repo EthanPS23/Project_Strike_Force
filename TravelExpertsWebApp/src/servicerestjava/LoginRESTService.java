@@ -84,4 +84,34 @@ public class LoginRESTService {
 	  }
 	  return result;
 	}
+	
+	public String custId(Customer cust)
+	{
+		String result = "false";
+		System.out.println(cust.getCustEmail());
+		  
+		try {
+			Connection conn = DBConnect.getConnection();
+			  
+			String sql = "select customerId from customers where CustEmail=? and CustPassword=?";
+			  
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, cust.getCustEmail());
+			stmt.setString(2, cust.getCustPassword());
+			//stmt.setString(2, PasswordEncyption.hashPassword(password));
+			  
+			ResultSet rs = stmt.executeQuery();
+			  
+			if(rs.next()) {
+				result = rs.getString("customerId");
+			}
+			  
+			conn.close();
+		  }
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
