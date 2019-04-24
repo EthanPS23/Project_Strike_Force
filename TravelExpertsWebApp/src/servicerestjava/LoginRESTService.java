@@ -54,7 +54,7 @@ public class LoginRESTService {
 	  return result;
 	}
 	
-	
+	// Ethan Shipley
 	public boolean login (Customer cust)
 	{
 	
@@ -86,6 +86,7 @@ public class LoginRESTService {
 	  return result;
 	}
 	
+	// Ethan Shipley
 	public String custId(Customer cust)
 	{
 		String result = "false";
