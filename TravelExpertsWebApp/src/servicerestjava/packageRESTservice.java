@@ -45,6 +45,7 @@ public class packageRESTservice {
 		String jsonString = gson.toJson(packages, type);
 		em.close();
 		factory.close();
+		jsonString = "[{\"packages\": " + jsonString + "}]";
 		return jsonString;
 		
 	}
@@ -65,6 +66,7 @@ public class packageRESTservice {
 		String jsonString = gson.toJson(packages, type);
 		em.close();
 		factory.close();
+		jsonString = "[{\"packages\": " + jsonString + "}]";
 		return jsonString;
 		
 	}

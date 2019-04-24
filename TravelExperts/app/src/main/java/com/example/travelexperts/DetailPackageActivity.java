@@ -66,14 +66,15 @@ public class DetailPackageActivity extends AppCompatActivity {
 
     private void jsonParse()
     {
-        String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getallpackages";
+        String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getpackageid/1";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            JSONArray jsonArray = response.getJSONArray(0);
+                            JSONObject jsonObject =response.getJSONObject(0);
+                            JSONArray jsonArray = jsonObject.getJSONArray("packages");
 
                             for (int i = 0; i < jsonArray.length(); i++)
                             {
@@ -85,11 +86,11 @@ public class DetailPackageActivity extends AppCompatActivity {
                                 String pkgDesc = packages.getString("pkgDesc");
                                 String pkgBasePrice = packages.getString("pkgBasePrice");
 
-                                tvpkgName.append(pkgName);
-                                tvpkgStartDate.append(pkgStartDate);
-                                tvpkgEndDate.append(pkgEndDate);
-                                tvpkgDesc.append(pkgDesc);
-                                tvpkgBasePrice.append(pkgBasePrice);
+                                tvpkgName.setText(pkgName);
+                                tvpkgStartDate.setText(pkgStartDate);
+                                tvpkgEndDate.setText(pkgEndDate);
+                                tvpkgDesc.setText(pkgDesc);
+                                tvpkgBasePrice.setText(pkgBasePrice);
 
                             }
                         } catch (JSONException e) {
