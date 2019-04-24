@@ -56,11 +56,25 @@ public class DetailPackageActivity extends AppCompatActivity {
         initializeBtns();
         initializeFields();
 
-        session = new SessionManager(DetailPackageActivity.this);
+        Intent intent = getIntent();
+        Package pkg = (Package) intent.getSerializableExtra("pkg");
+        tvpkgName.setText(pkg.getPkgName());
+        tvpkgBasePrice.setText(String.valueOf(pkg.getPkgBasePrice()));
+        tvpkgDesc.setText(pkg.getPkgDesc());
+        tvpkgStartDate.setText(pkg.getPkgStartDate());
+        tvpkgEndDate.setText(pkg.getPkgEndDate());
 
-        rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
+
+        /*rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
 
         getPackageDetailsJSON();
+
+        btnView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jsonParse();
+            }
+        });*/
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +85,7 @@ public class DetailPackageActivity extends AppCompatActivity {
 
     }
 
-    private void getPackageDetailsJSON()
+    /*private void jsonParse()
     {
         String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getpackageid/1";
 
@@ -130,7 +144,7 @@ public class DetailPackageActivity extends AppCompatActivity {
         });
 
         rQueue.add(request);
-    }
+    }*/
 
     // this is the post that will insert a new booking into the REST service
     private void insertBookingDetails
