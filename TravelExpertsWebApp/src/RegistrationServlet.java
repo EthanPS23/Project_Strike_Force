@@ -11,8 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Customer;
+//import model.Customer;
+import servicerestjava.RegisterRESTService;
+//import sun.security.validator.ValidatorException;
+
 /**
  * Servlet implementation class RegistrationServlet
+ */
+/* User enters in their information in order to register
+ * The servlet takes the inputted data and then sends it to the web services
+ * where the services inputs the user into the database
+ * Author: Ethan Shipley
+ * Course CMPP 264
+ * Date: April 23 2019
  */
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
@@ -29,76 +41,6 @@ public class RegistrationServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		out = response.getWriter();
-//		String [] customerArray = new String[12];
-//		customerArray[0] = request.getParameter("CustFirstName");
-//		customerArray[1] = request.getParameter("CustLastName");
-//		customerArray[2] = request.getParameter("CustAddress");
-//		customerArray[3] = request.getParameter("Custcity");
-//		customerArray[4] = request.getParameter("CustCountry");
-//		customerArray[5] = request.getParameter("CustProv");
-//		customerArray[6] = request.getParameter("CustPostal");
-//		customerArray[7] = request.getParameter("CustHomePhone");
-//		customerArray[8] = request.getParameter("CustBusPhone");
-//		customerArray[9] = request.getParameter("CustEmail");
-//		customerArray[10] = request.getParameter("CustPassword");
-//		customerArray[11] = request.getParameter("AgentID");
-//		validate(customerArray);
-//	}
-	
-	private String validate(String [] customerData)
-	{
-		for (int i=0; i<customerData.length; i++)
-		{
-			if (customerData[i].equals(""))
-			{
-				switch(i)
-				{
-					case 0:
-						return "**First name must have a value!**";
-					
-					case 1:
-						return "**Last name must have a value!**";
-					
-					case 2:
-						return "**Address must have a value!**";						
-					
-					case 3:
-						return "**You must include your city name!**";
-						
-					case 4:
-						return "**You must include your country name!**";
-						
-					case 5:
-						return "**You must include your province or state name!**";
-						
-					case 6:
-						return "**You must include your postal or zip code!**";
-						
-					case 7:
-						return "**Please provide your home phone number!**";
-						
-					case 8:
-						return "**Please provide your business phone number!**";
-						
-					case 9:
-						return "**Please provide your email!**";
-						
-					case 10:
-						return "**Please provide your password!**";
-					
-					default:
-					return "field must have a value.";
-				}
-			}
-		}
-		return "";
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -106,78 +48,21 @@ public class RegistrationServlet extends HttpServlet {
 		//doPost(request, response);
 		out = response.getWriter();
 		session = request.getSession();
-		String [] customerArray = new String[12];
-		customerArray[0] = request.getParameter("CustFirstName");
-		customerArray[1] = request.getParameter("CustLastName");
-		customerArray[2] = request.getParameter("CustAddress");
-		customerArray[3] = request.getParameter("Custcity");
-		customerArray[4] = request.getParameter("CustCountry");
-		customerArray[5] = request.getParameter("CustProv");
-		customerArray[6] = request.getParameter("CustPostal");
-		customerArray[7] = request.getParameter("CustHomePhone");
-		customerArray[8] = request.getParameter("CustBusPhone");
-		customerArray[9] = request.getParameter("CustEmail");
-		customerArray[10] = request.getParameter("CustPassword");
-		customerArray[11] = request.getParameter("AgentID");
+		Customer cust = new Customer(-1, -1, request.getParameter("CustAddress").trim(), request.getParameter("CustBusPhone").trim(), request.getParameter("CustCity").trim(), 
+				request.getParameter("CustCountry").trim(),	request.getParameter("CustEmail").trim(), request.getParameter("CustFirstName").trim(), request.getParameter("CustHomePhone").trim(), 
+				request.getParameter("CustLastName").trim(), request.getParameter("CustPassword").trim(), request.getParameter("CustPostal").trim(), request.getParameter("CustProv").trim(), null);
+		RegisterRESTService str = new RegisterRESTService();
+		String valid = str.register(cust);
 		
-		String valid= validate(customerArray);
-		if (valid != "") {
+		//String valid= validate(customerArray);
+		if (valid != "true") {
 			session.setAttribute("message", valid);
 			response.sendRedirect("Registration.jsp");
 		}else {
-			//String msg = createCustomer(customerArray);
-			if (!createCustomer(customerArray)) {
-				session.setAttribute("message", "I dont know what happened");
-				response.sendRedirect("Registration.jsp");
-			}else {
-				session.setAttribute("message", "**Congrats you are now registered!**");
-				response.sendRedirect("Login.jsp");
-			}
+			session.setAttribute("message", "**Congrats you are now registered!**");
+			response.sendRedirect("Login.jsp");
 		}
 	}
-	public boolean createCustomer(String [] customerArray)
-	{
-		String sql = "INSERT INTO customers ("
-			+ "CustomerID, CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustCountry, CustPostal, CustHomePhone, CustBusPhone, CustEmail, CustPassword, AgentID"
-			+ ") values (last_insert_id(), "
-			+ "'" + customerArray[0] + "'," 
-			+ " '" + customerArray[1] + "',"
-			+ " '" + customerArray[2] + "',"
-			+ " '" + customerArray[3] + "',"
-			+ " '" + customerArray[5] + "',"
-			+ " '" + customerArray[4] + "',"
-			+ " '" + customerArray[6] + "',"
-			+ " '" + customerArray[7] + "',"
-			+ " '" + customerArray[8] + "',"
-			+ " '" + customerArray[9] + "',"
-			+ " '" + customerArray[10] + "',"
-			+ " " + customerArray[11] + ")";
-	    try
-	    {
-	    	Connection conn = DBConnect.getConnection();
-	        Statement stmt = conn.createStatement();
-
-	        int rows = stmt.executeUpdate(sql);
-
-	        // Cleanup
-	        conn.close();  // close the connection
-		        
-			if (rows == 1)
-			{
-				//return "Your registration was a success. Thank you for joining The Travel Experts.";
-				return true;
-			}
-			else
-			{
-				//return "You were unsuccessful";
-				return false;
-			}
-	    }
-	    catch (Exception excp)
-	    {
-	        excp.printStackTrace();
-	    }
-		return false;
-	}
+	
 
 }
