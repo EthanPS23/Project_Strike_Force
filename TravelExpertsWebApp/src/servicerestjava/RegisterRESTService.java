@@ -63,6 +63,8 @@ public class RegisterRESTService {
 		    else {
 		    	return valids;
 		    }
+
+
 			// this is the JBcrypt class that is hashing the Customer Password
 			// PasswordEncryption.hashedPassword(custPassword)
 			x = stmt.executeUpdate();
@@ -111,6 +113,7 @@ public class RegisterRESTService {
 		    else {
 		    	return valids;
 		    }
+
 			// this is the JBcrypt class that is hashing the Customer Password
 			// PasswordEncryption.hashedPassword(custPassword)
 			x = stmt.executeUpdate();

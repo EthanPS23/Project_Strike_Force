@@ -4,6 +4,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
+/* Booking Class to set variables, construtor, and getter/setters for bookings.
+ * Author: Brandon Ezekiel
+ * Date: April 23 2019
+ */
 
 /**
  * The persistent class for the bookings database table.
