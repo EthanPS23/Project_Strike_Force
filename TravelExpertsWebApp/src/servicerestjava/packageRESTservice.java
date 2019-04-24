@@ -30,6 +30,11 @@ import model.Package;
  */
 @Path("/packages")
 public class packageRESTservice {
+	/* Gets all of the provinces or states depending on what country id is passed.
+	 * Author: James Cockriell
+	 * Course CMPP 264
+	 * Date: April 10 2019
+	 */
 	@GET
 	@Path("/getpackageid/{ packageid }")
 	@Produces(MediaType.APPLICATION_JSON)

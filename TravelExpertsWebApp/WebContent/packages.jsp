@@ -3,6 +3,10 @@
 <!doctype html>
 <html lang="en">
 
+<!-- Author: James Cockriell
+Date: April 24, 2019
+Description: Packages page for web app -->
+
 <script src="jquery-3.3.1.js"></script>
 <script>
 $(document).ready(function(){
@@ -99,6 +103,8 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
+			
+			<!-- -------------------------generated card -->
 			<div class="row" id="divtoappend">
 			
 			<!-- Card is generated here -->

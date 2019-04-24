@@ -5,14 +5,13 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 /**
  * The persistent class for the packages database table.
  * 
  */
 @Entity
-@Table(name="packages")
-@NamedQuery(name="Package.findAll", query="SELECT p FROM Package p")
+@Table(name = "packages")
+@NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p")
 public class Package implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -48,8 +47,6 @@ public class Package implements Serializable {
 		this.pkgStartDate = pkgStartDate;
 	}
 
-	
-		
 	public Package() {
 	}
 

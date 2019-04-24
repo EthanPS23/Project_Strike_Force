@@ -23,7 +23,7 @@ import model.Country;
  * Date: April 10 2019
  */
 
-@Path("/packages")
+/*@Path("/packages")
 public class PackagesRESTService {
 	
 	@GET
@@ -43,5 +43,5 @@ public class PackagesRESTService {
 		em.close();
 		factory.close();
 		return jsonString;
-	}
+	}*/
 }
