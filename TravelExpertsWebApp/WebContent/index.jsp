@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
-
+<script src="js/jquery-3.2.1.min.js"></script>
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
