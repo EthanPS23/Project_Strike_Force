@@ -54,19 +54,6 @@ public class RegisterRESTService {
 		    else {
 		    	return valids;
 		    }
-
-
-			stmt.setString(1, custFirstName);
-			stmt.setString(2, custLastName);
-			stmt.setString(3, custAddress);
-			stmt.setString(4, custCity);
-			stmt.setString(5, custProv);
-			stmt.setString(6, custCountry);
-			stmt.setString(7, custPostal);
-			stmt.setString(8, custHomePhone);
-			stmt.setString(9, custBusPhone);
-			stmt.setString(10, custEmail);
-			stmt.setString(11, custPassword);
 			// this is the JBcrypt class that is hashing the Customer Password
 			// PasswordEncryption.hashedPassword(custPassword)
 			x = stmt.executeUpdate();
