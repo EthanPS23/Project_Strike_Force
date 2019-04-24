@@ -22,6 +22,24 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 
+<script src="jquery-3.3.1.js"></script>
+<script>
+	$(document).ready(function(){
+		$.get("/TravelExpertsWebApp/rest/Bookings/bookings",
+		function(postBook){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 5 && this.status == 200) {
+			      document.getElementById("single-package").innerHTML =
+			      this.responseText;
+			    }
+			  };
+			  xhttp.open("POST", "10.167.37.7:8080/TravelExpertsWebApp/book-trip.jsp", true);
+			    xhttp.setRequestHeader("Content-type", "application/json");
+			    xhttp.send("json");
+	})
+</script>
+
 <body>
 
 	<!-- Header area Include statement -->
@@ -63,25 +81,55 @@
 									<span class="fa fa-location-arrow">
 										
 									</span>
-									location
+									<%
+									String pkgName = (String) session.getAttribute("pkgId");
+									if(pkgName!=null) { 
+								         request.getSession().setAttribute("pkgName",pkgName);
+								   	}
+									%>
+									Location
 								</p>
 								<p class="ml-20">
 									<span class="fa fa-calendar">
 										
 									</span>
+									<%
+									String pkgDate = (String) session.getAttribute("pkgId");
+									if(pkgDate!=null) { 
+								         request.getSession().setAttribute("pkgStartDate",pkgDate);
+								   	}
+									%>
 									trip date
 								</p>
 							</div>
 							<h4>
-								Package Name
+							<%
+							String pkgName = (String) session.getAttribute("pkgId");
+							if(pkgName!=null) { 
+						         request.getSession().setAttribute("pkgName",pkgName);
+						   	}
+							%>
+							Package Name
 							</h4>
 							<p>
+							<%
+							String pkgDesc = (String) session.getAttribute("pkgId");
+							if(pkgDesc!=null) { 
+						         request.getSession().setAttribute("pkgDesc",pkgDesc);
+						   	}
+							%>
 								Description
 							</p>
 							<p>
+							<%
+							String pkgBasePrice = (String) session.getAttribute("pkgId");
+							if(pkgBasePrice!=null) { 
+						         request.getSession().setAttribute("pkgBasePrice",pkgDesc);
+						   	}
+							%>
 								Price
 							</p>
-							<a href="#" class="primary-btn">Click here to confirm booking!</a>
+							<button type="button" class="primary-btn" onClick="postbook()">Click here to confirm booking!</button>
 						</div>
 					</div>
 				

@@ -2,6 +2,17 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<script src="js/jquery-3.2.1.min.js"></script>
+
+<!-- <script>
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a:not(".dropdown-toggle")') ) {
+        $(this).collapse('hide');
+    }
+});
+</script> -->
+
+
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
