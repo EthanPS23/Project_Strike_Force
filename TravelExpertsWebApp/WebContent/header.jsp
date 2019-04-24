@@ -2,17 +2,17 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<script src="js/jquery-3.2.1.min.js"></script>
 
-<!-- <script>
+
+<script>
 $(document).on('click','.navbar-collapse.in',function(e) {
     if( $(e.target).is('a:not(".dropdown-toggle")') ) {
         $(this).collapse('hide');
     }
 });
-</script> -->
+</script>
 
-
+<script src="js/jquery-3.2.1.min.js"></script>
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -26,7 +26,6 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/magnific-popup.css">
 <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-
 <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
 <!-- main css -->
 <link rel="stylesheet" href="css/style.css">
@@ -39,7 +38,7 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<!-- following line of code is logo image on header -->
 					<a class="navbar-brand logo_h" href="index.jsp"><img src="img/newLogo12.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					<button class="navbar-toggler" type="button" onClick="e" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -96,22 +95,5 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 	</header>
 	<!--================ End Header Menu Area =================-->
 	
-		<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/stellar.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="vendors/nice-select/js/jquery.nice-select.min.js"></script>
-	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-	<script src="js/owl-carousel-thumb.min.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
- 	<!-- <script src="js/mail-script.js"></script> -->
-	<!--gmaps Js-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="js/gmaps.min.js"></script>
-	<script src="js/theme.js"></script>
 	
 </html>
