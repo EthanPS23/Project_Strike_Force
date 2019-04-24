@@ -112,6 +112,8 @@
 							id="myForm" action="mail.jsp" method="get"> -->
 						<Form class="trip-form-area trip-page-form trip-form text-right"
 							id="myForm" action="RegistrationServlet" method="post">
+						<!-- <Form class="trip-form-area trip-page-form trip-form text-right"
+							id="myForm" action="rest/Register/register" method="post"> -->
 							<div class="form-group col-md-12">
 								<input type="text" class="form-control" id="CustFirstName" name="CustFirstName"
 									placeholder="First Name" onfocus="this.placeholder = ''"
@@ -129,8 +131,8 @@
 									onblur="this.placeholder = 'Address'" maxlength="75">
 							</div>
 							<div class="form-group col-md-12">
-								<input type="text" class="form-control" id="Custcity"
-									name="Custcity" placeholder="City"
+								<input type="text" class="form-control" id="CustCity"
+									name="CustCity" placeholder="City"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'City'" maxlength="50">
 							</div>
@@ -178,17 +180,17 @@
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Password'" maxlength="255">
 							</div>
-							<div class="form-group col-md-12">
+							<!-- <div class="form-group col-md-12">
 								<input type="text" class="form-control" id="AgentID"
 									name="AgentID" placeholder="Agent ID"
 									onfocus="this.placeholder = ''"
 									onblur="this.placeholder = 'Agent ID'" maxlength="11">
-							</div>
+							</div> -->
 							<div class="col-lg-12 text-center">
 								<button class="primary-btn text-uppercase">Register</button>
 							</div>
 						</Form>
-						<%!
+						<%-- <%!
 							public String validate(String [] customerData)
 							{
 								for (int i=0; i<customerData.length; i++)
@@ -283,7 +285,7 @@
 							    }
 								return "";
 							}
-						%>
+						%> --%>
 					</div>
 				</div>
 			</div>

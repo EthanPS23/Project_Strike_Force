@@ -13,9 +13,21 @@ import javax.ws.rs.core.MediaType;
 
 import model.Customer;
 
+
+/** Take the inputted registation data, validates it and the inputs it into the database
+ * Based on the validation error a corresponding error message is passed,
+ * the web service is made to work for the website and android application
+ * Author: Ethan Shipley
+ * Course CMPP 264
+ * Date: April 23 2019
+ */
 @Path("/Register")
 public class RegisterRESTService {
 
+	/**
+	 * This register method is designed to enter the customers data into the database based on variables sent by the andoird application
+	 * 
+	 */
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -24,9 +36,6 @@ public class RegisterRESTService {
 			@FormParam("CustCity") String custCity, @FormParam("CustProv") String custProv, @FormParam("CustCountry") String custCountry, @FormParam("CustPostal") String custPostal,
 			@FormParam("CustHomePhone") String custHomePhone, @FormParam("CustBusPhone") String custBusPhone, @FormParam("CustEmail") String custEmail, @FormParam("CustPassword") String custPassword){
 		String result="false";
-		//String lastName = (String)custLastName.replaceAll("\\s", "");
-		//String lastName = (String)custLastName.trim();
-		//lastName = lastName.trim();
 		Customer cust = new Customer(-1, -1, custAddress.trim(), custBusPhone.trim(), custCity.trim(), custCountry.trim(), custEmail.trim(), custFirstName.trim(), custHomePhone.trim(), custLastName.trim(), 
 				custPassword.trim(), custPostal.trim(), custProv.trim(), null);
 		int x = 0;
@@ -54,19 +63,54 @@ public class RegisterRESTService {
 		    else {
 		    	return valids;
 		    }
+			// this is the JBcrypt class that is hashing the Customer Password
+			// PasswordEncryption.hashedPassword(custPassword)
+			x = stmt.executeUpdate();
 
+			if(x==1){
+				result = "true";
+			}
 
-			stmt.setString(1, custFirstName);
-			stmt.setString(2, custLastName);
-			stmt.setString(3, custAddress);
-			stmt.setString(4, custCity);
-			stmt.setString(5, custProv);
-			stmt.setString(6, custCountry);
-			stmt.setString(7, custPostal);
-			stmt.setString(8, custHomePhone);
-			stmt.setString(9, custBusPhone);
-			stmt.setString(10, custEmail);
-			stmt.setString(11, custPassword);
+			conn.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	/**
+	 * This register method is designed to enter the customers data into the database based on variables sent by the web application
+	 * This overloads the android register method
+	 */
+	public String register(Customer cust){
+		String result="false";
+		int x = 0;
+		try{
+		    Connection conn = DBConnect.getConnection();
+
+		    String sql = "INSERT INTO customers (CustomerID, CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustCountry, CustPostal, CustHomePhone, CustBusPhone, CustEmail, CustPassword) "
+		    		+ "values (last_insert_id(),?,?,?,?,?,?,?,?,?,?,?)";
+
+		    PreparedStatement stmt = conn.prepareStatement(sql);
+		    String valids = validator(cust);
+		    if (valids.equals("true")){
+		    	stmt.setString(1, cust.getCustFirstName());
+				stmt.setString(2, cust.getCustLastName());
+				stmt.setString(3, cust.getCustAddress());
+				stmt.setString(4, cust.getCustCity());
+				stmt.setString(5, cust.getCustProv());
+				stmt.setString(6, cust.getCustCountry());
+				stmt.setString(7, cust.getCustPostal());
+				stmt.setString(8, cust.getCustHomePhone());
+				stmt.setString(9, cust.getCustBusPhone());
+				stmt.setString(10, cust.getCustEmail());
+				stmt.setString(11, cust.getCustPassword());
+		    }
+		    else {
+		    	return valids;
+		    }
 			// this is the JBcrypt class that is hashing the Customer Password
 			// PasswordEncryption.hashedPassword(custPassword)
 			x = stmt.executeUpdate();
@@ -84,7 +128,10 @@ public class RegisterRESTService {
 		return result;
 	}
 
-	private String validator(Customer cust) {
+	/**
+	 * Validates the customer information before entering the info into the database
+	 */
+	public String validator(Customer cust) {
 		String pattern = "(?=^.{8,32}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
 		String emailpat = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
 		String postpat = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
