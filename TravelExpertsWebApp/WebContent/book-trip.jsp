@@ -21,10 +21,10 @@
 	}) */
 	
 	$(document).ready(function(){
-	$.get("/TravelExpertsWebApp/rest/packages/getallpackagesweb",
+	$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/1",
 		function(data){
 			for (i=0; i<data.length; i++){
-				$('#divtoappend').append("<div class=\"col-lg-6 col-md-8\">"
+				$('#divtoappend').append("<div class=\"col-lg-12 col-md-10\">"
 						+ "<div class=\"single-package\">" 
 						+ "<div class=\"thumb\">"
 						+ "<img class=\"img-fluid\" src=\"img/package/p1.jpg\" alt=\"\">"
