@@ -67,6 +67,8 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="logout.jsp">LogOut</a></li>
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item">
