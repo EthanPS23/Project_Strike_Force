@@ -4,12 +4,10 @@ package com.example.travelexperts;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,21 +22,19 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 
 public class DetailPackageActivity extends AppCompatActivity {
-     Button btnOrder, btnBack, btnView;
+     Button btnOrder, btnLogout, btnView;
      TextView tvpkgName, tvpkgStartDate,
              tvpkgDesc, tvpkgEndDate, tvpkgBasePrice;
 
+     SessionManager session;
     // To do these methods need to be created to show the package details based on the JSON info
     // Each img button will need a method or sql statement to call that specific package
 
@@ -52,6 +48,8 @@ public class DetailPackageActivity extends AppCompatActivity {
         initializeBtns();
         initializeFields();
 
+        session = new SessionManager(DetailPackageActivity.this);
+
         rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
 
 
@@ -59,6 +57,13 @@ public class DetailPackageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 jsonParse();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                session.logoutUser();
             }
         });
 
@@ -73,7 +78,7 @@ public class DetailPackageActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            JSONObject jsonObject =response.getJSONObject(0);
+                            JSONObject jsonObject = response.getJSONObject(0);
                             JSONArray jsonArray = jsonObject.getJSONArray("packages");
 
                             for (int i = 0; i < jsonArray.length(); i++)
@@ -128,7 +133,7 @@ public class DetailPackageActivity extends AppCompatActivity {
     private void initializeBtns ()
     {
         btnOrder = findViewById(R.id.btnOrder);
-        btnBack = findViewById(R.id.btnBack);
+        btnLogout = findViewById(R.id.btnLogout);
         btnView = findViewById(R.id.btnView);
     }
 

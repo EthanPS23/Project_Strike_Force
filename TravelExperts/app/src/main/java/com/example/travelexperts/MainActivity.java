@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnSignUp, btnLogin;
     EditText etEmail, etPassword;
 
+    SessionManager session; // call the session manager class to create a session variable
+
     String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Login/login";
 
     @Override
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         // go to customer registration page if sign in btn is clicked
         getCustDetails();
+
+        //Session manager
+        session = new SessionManager(MainActivity.this);
 
         // go to packages page if login authorization is correct on login btn
         // if not error message with a toast, to do -> create the toast
@@ -91,10 +97,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // if login successful grant access to the packages page
-                        if (response.equals("true")) {
-                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                        //if (response.equals("true")) {
+                        if (!response.equals("false")) {
+                            session.createLoginSession("CustEmail", "CustPassword");
+                            session.isLoggedIn();
+//                            session String custId = response.toString();
+                            Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show(); // this creates the login session based on the post to the webservice
+//                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
                             Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
                             startActivity(packageMain);
+                            finish();
                         } else {
                             Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_SHORT).show();
                         }
@@ -129,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                             Map<String, String> parameters = new HashMap<String, String>();
                             parameters.put("CustEmail", etEmail.getText().toString());
                             parameters.put("CustPassword", etPassword.getText().toString());
+
                         return parameters;
                     }
                     };
