@@ -7,7 +7,7 @@
 		<class>model.Package</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/travelexperts"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.163.37.7:3306/travelexperts"/>
 			<property name="javax.persistence.jdbc.user" value="harv"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
 		</properties>

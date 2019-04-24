@@ -300,8 +300,7 @@
 									+ " '" + customerArray[8] + "',"
 									+ " '" + customerArray[9] + "',"
 									+ " " + customerArray[10] + ")";
-	
-	
+
 							    try
 							    {
 							        //Class.forName("com.mysql.jdbc.Driver");
