@@ -14,6 +14,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 // Author: Christopher Potvin
+
+import model.Customer;
+
+
 @Path("/Login")
 public class LoginRESTService {
 	
@@ -39,6 +43,38 @@ public class LoginRESTService {
 		  
 		  if(rs.next()) {
 			  result = "true";
+		  }
+		  
+		  conn.close();
+	  }
+	  catch (Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+	  return result;
+	}
+	
+	
+	public boolean login (Customer cust)
+	{
+	
+	  boolean result = false;
+	  System.out.println(cust.getCustEmail());
+	  
+	  try {
+		  Connection conn = DBConnect.getConnection();
+		  
+		  String sql = "select * from customers where CustEmail=? and CustPassword=?";
+		  
+		  PreparedStatement stmt = conn.prepareStatement(sql);
+		  stmt.setString(1, cust.getCustEmail());
+		  stmt.setString(2, cust.getCustPassword());
+		  //stmt.setString(2, PasswordEncyption.hashPassword(password));
+		  
+		  ResultSet rs = stmt.executeQuery();
+		  
+		  if(rs.next()) {
+			  result = true;
 		  }
 		  
 		  conn.close();

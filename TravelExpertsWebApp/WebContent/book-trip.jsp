@@ -43,23 +43,48 @@
 	<!--================End Home Banner Area =================-->
 
 	<!--================ Start Book a Trip Area =================-->
-	<section class="trip-area section_gap">
+	<section class="package-area section_gap_top">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="row">
 					<div class="col-lg-4 col-md-6">
-						<div class="single-package">
+						<h3>Confirm your Trip Details!</h3>
+						<br>
+						<div class="single-package" style="border: 0.1em soild black;" id="myCard" action="BookServlet" method="post">
 							<div class="thumb">
 								<img class="img-fluid" src="img/package/p1.jpg">
 							</div>
 							<p class="date">
 								<span>18</span>
 								<br>
-								" December"
+								December
+							</p>
+							<div class="meta-top d-flex">
+								<p>
+									<span class="fa fa-location-arrow">
+										
+									</span>
+									location
 								</p>
+								<p class="ml-20">
+									<span class="fa fa-calendar">
+										
+									</span>
+									trip date
+								</p>
+							</div>
+							<h4>
+								Package Name
+							</h4>
+							<p>
+								Description
+							</p>
+							<p>
+								Price
+							</p>
+							<a href="#" class="primary-btn">Click here to confirm booking!</a>
 						</div>
 					</div>
-				</div>
+				
 				
 				
 				

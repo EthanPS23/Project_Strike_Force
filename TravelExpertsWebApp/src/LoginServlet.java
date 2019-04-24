@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Customer;
+import servicerestjava.LoginRESTService;
+import servicerestjava.RegisterRESTService;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -44,53 +48,48 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		out = response.getWriter();
 		session = request.getSession();
-		String userid = request.getParameter("CustEmail");
-		String password = request.getParameter("CustPassword");
+//		String userid = request.getParameter("CustEmail");
+//		String password = request.getParameter("CustPassword");
 		
-		if (verify(userid, password)) {
+		Customer cust = new Customer(-1, -1, "", "", "", "", request.getParameter("CustEmail").trim(), "", "", "", request.getParameter("CustPassword").trim(), "", "", null);
+		LoginRESTService lrs = new LoginRESTService();
+		if (lrs.login(cust)) {
 			session.setAttribute("loggedin", "true");
-			//boolean b = (boolean) session.getAttribute("loggedin");
-			//out.print("Logged In");
 			response.sendRedirect("index.jsp");
 		}else {
 			session.setAttribute("message", "Incorrect Login");
-			log("user: " + userid + " password: " + password);
+			log("user: " + cust.getCustEmail() + " password: " + cust.getCustPassword());
 			response.sendRedirect("Login.jsp");
 		}
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 	
-	private boolean verify(String userid, String password) {
-		try {
-			//Class.forName("org.mariadb.jdbc.Driver");
-			//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","harv","password");
-			//Connection conn = DriverManager.getConnection("jdbc:mysql://10.163.37.119:3306/travelexperts","harv","password");
-			Connection conn = DBConnect.getConnection();
-			String sql = "select CustPassword from customers where CustEmail=?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1,userid);
-			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next()) {
-				String pwd = rs.getString(1);
-				/*if(rs.getString(1).equals("password")) {*/
-				/*if(pwd == password) {*/
-				if(pwd.equals(password)) {
-					//login is okay
-					return true;
-				}
-			}else {
-				return false;
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-	
-	}
+//	private boolean verify(String userid, String password) {
+//		try {
+//			Connection conn = DBConnect.getConnection();
+//			String sql = "select CustPassword from customers where CustEmail=?";
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setString(1,userid);
+//			ResultSet rs = stmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				String pwd = rs.getString(1);
+//				if(pwd.equals(password)) {
+//					//login is okay
+//					return true;
+//				}
+//			}else {
+//				return false;
+//			}
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return false;
+//	
+//	}
 	
 	
 	
