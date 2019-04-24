@@ -71,4 +71,24 @@ public class packageRESTservice {
 		
 	}
 	
+	//Ethan Shipley and Brandon Ezekiel
+	@GET
+	@Path("/getallpackagesweb")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getPackageweb()
+	{
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("TravelExpertsWebApp");
+		EntityManager em = factory.createEntityManager();
+		String sql = "SELECT p FROM Package p";
+		Query query = em.createQuery(sql);
+		List<Package> packages = query.getResultList();
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Package>>() {}.getType();
+		String jsonString = gson.toJson(packages, type);
+		em.close();
+		factory.close();
+		//jsonString = "[{\"packages\": " + jsonString + "}]";
+		return jsonString;
+			
+	}
 }
