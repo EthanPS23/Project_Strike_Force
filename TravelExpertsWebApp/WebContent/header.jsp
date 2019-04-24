@@ -54,7 +54,6 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="about-us.jsp">About</a></li>
-									<li class="nav-item"><a class="nav-link" href="book-trip.jsp">Book trip</a></li>
 									<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
 								</ul>
 							</li>
@@ -68,7 +67,7 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
 							<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
-							<li class="nav-item"><a class="nav-link" href="logout.jsp">LogOut</a></li>
+							<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item">

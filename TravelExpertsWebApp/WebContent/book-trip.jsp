@@ -1,7 +1,67 @@
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
+
+<script src="jquery-3.3.1.js"></script>
+<script>
+	/* $(document).ready(function(){
+		$.get("/TravelExpertsWebApp/rest/Bookings/bookings",
+		function(postBook){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 5 && this.status == 200) {
+			      document.getElementById("single-package").innerHTML =
+			      this.responseText;
+			    }
+			  };
+			  xhttp.open("POST", "10.167.37.7:8080/TravelExpertsWebApp/book-trip.jsp", true);
+			    xhttp.setRequestHeader("Content-type", "application/json");
+			    xhttp.send("json");
+	}) */
+	
+	$(document).ready(function(){
+	$.get("/TravelExpertsWebApp/rest/packages/getallpackagesweb",
+		function(data){
+			for (i=0; i<data.length; i++){
+				$('#divtoappend').append("<div class=\"col-lg-6 col-md-8\">"
+						+ "<div class=\"single-package\">" 
+						+ "<div class=\"thumb\">"
+						+ "<img class=\"img-fluid\" src=\"img/package/p1.jpg\" alt=\"\">"
+						+ "</div>"
+						+ "<p class=\"date\"><span>"
+						+ data[i].pkgStartDate.toString().substring(0,7).replace(",","")
+						+ "</span><br></p>"
+						+ "<div class=\"meta-top d-flex\">"
+						+ "<p>Start Date: "
+						+ data[i].pkgStartDate.toString().substring(0,12).replace(",","") 
+						+ "</p>"
+						+ "</div>"
+						+ "<p>End Date: "
+						+ data[i].pkgEndDate.toString().substring(0,12).replace(",","").replace(",","")
+						+ "</p>"
+						+ "<h4>"
+						+ data[i].pkgName
+						+ "</h4>"
+						+ "<p>"
+						+ data[i].pkgDesc
+						+ "</p>"
+						+ "<p style='font-weight: bold;'>Price: " 
+						+ "</p>"
+						+ "<h3 style='color: blue;  font-weight: bold;'>$"
+						+ data[i].pkgBasePrice
+						+ "</h3>"
+						+ "<a href=\"#\" class=\"primary-btn\">Confirm Now!</a>"
+						+ "</div>"
+						+ "</div>"
+						);
+				$('#divtoappend').niceSelect('update');						
+			}
+		},
+		"json");
+})			
+</script>
+
 
 <head>
 <!-- Required meta tags -->
@@ -22,23 +82,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-<script src="jquery-3.3.1.js"></script> --%>
-<script>
-	$(document).ready(function(){
-		$.get("/TravelExpertsWebApp/rest/Bookings/bookings",
-		function(postBook){
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-			    if (this.readyState == 5 && this.status == 200) {
-			      document.getElementById("single-package").innerHTML =
-			      this.responseText;
-			    }
-			  };
-			  xhttp.open("POST", "10.167.37.7:8080/TravelExpertsWebApp/book-trip.jsp", true);
-			    xhttp.setRequestHeader("Content-type", "application/json");
-			    xhttp.send("json");
-	})
-</script>
+
 
 <body>
 
@@ -64,7 +108,12 @@
 	<section class="package-area section_gap_top">
 		<div class="container">
 			<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6">
+				<div id="divtoappend"></div>
+					
+				
+			
+			
+					<%-- <div class="col-lg-4 col-md-6">
 						<h3>Confirm your Trip Details!</h3>
 						<br>
 						<div class="single-package" style="border: 0.1em soild black;" id="myCard" action="BookServlet" method="post">
@@ -77,27 +126,33 @@
 								December
 							</p>
 							<div class="meta-top d-flex">
-								<p>
-									<span class="fa fa-location-arrow">
-										
-									</span>
-									
-									Location
-								</p>
 								<p class="ml-20">
 									<span class="fa fa-calendar">
 										
 									</span>
 									<%
-									String pkgDate = (String) session.getAttribute("pkgId");
-									if(pkgDate!=null) { 
-								         request.getSession().setAttribute("pkgStartDate",pkgDate);
+									String pkgSDate = (String) session.getAttribute("pkgId");
+									if(pkgSDate!=null) { 
+								         request.getSession().setAttribute("pkgStartDate",pkgSDate);
 								   	}
 									%>
-									trip date
+									Start Date
 								</p>
+								
 							</div>
-							<h4>
+							<p class="ml-20">
+								<span class="fa fa-calendar">
+										
+									</span>
+									<%
+									String pkgEDate = (String) session.getAttribute("pkgId");
+									if(pkgEDate!=null) { 
+								         request.getSession().setAttribute("pkgEndDate",pkgEDate);
+								   	}
+									%>
+									End Date
+								</p>
+							<h4 class="ml-20">
 							<%
 							String pkgName = (String) session.getAttribute("pkgId");
 							if(pkgName!=null) { 
@@ -106,7 +161,7 @@
 							%>
 							Package Name
 							</h4>
-							<p>
+							<p class="ml-20">
 							<%
 							String pkgDesc = (String) session.getAttribute("pkgId");
 							if(pkgDesc!=null) { 
@@ -115,7 +170,7 @@
 							%>
 								Description
 							</p>
-							<p>
+							<p class="ml-20">
 							<%
 							String pkgBasePrice = (String) session.getAttribute("pkgId");
 							if(pkgBasePrice!=null) { 
@@ -124,9 +179,9 @@
 							%>
 								Price
 							</p>
-							<button type="button" class="primary-btn" onClick="postbook()">Click here to confirm booking!</button>
+							<button class="primary-btn text-uppercase" onClick="postbook()">Click here to confirm booking!</button>
 						</div>
-					</div>
+					</div> --%>
 				
 				
 				
@@ -204,7 +259,7 @@
 				
 				</div>
 			</div>
-		</div>
+		<!--  </div> -->
 	</section>
 	<!--================ End Book a Trip Area =================-->
 
