@@ -1245,14 +1245,17 @@ public class Controller {
     {
         gvCustomer.getItems().clear(); // this clears the table view before the search field is used
 
-        String lastName = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
+        String search = txtCustSearch.getText(); // this gets the customer text and puts the value into a String var
 
         try {
 
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * from customers WHERE CustLastName LIKE '%" + lastName + "%' " +
-                    "ORDER BY CustLastName DESC;";
+            String sql = "SELECT * from customers WHERE CustFirstName LIKE '%" + search + "%' OR CustLastName LIKE '%" +
+                    search + "%' OR CustAddress LIKE '%" + search + "%' OR CustCity LIKE '%" + search + "%' OR CustProv LIKE '%" +
+                    search + "%' OR CustPostal LIKE '%" + search + "%' OR CustCountry LIKE '%" + search + "%' OR CustHomePhone LIKE '%" +
+                    search + "%' OR CustBusPhone LIKE '%" + search + "%' OR CustEmail LIKE '%" + search + "%' ORDER BY CustFirstName DESC;";
+
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
