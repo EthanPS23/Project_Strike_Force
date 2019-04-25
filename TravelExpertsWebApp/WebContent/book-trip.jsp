@@ -41,7 +41,8 @@
 		$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/" + pkgId,
 		function(data){
 			for (i=0; i<data.length; i++){
-				$('#divtoappend').append("<div class=\"col-lg-12 col-md-10\">"
+				$('#divtoappend').append("<form action=\"BookingServlet\" method=\"post\">" 
+						+ "<div class=\"col-lg-12 col-md-10\">"
 						+ "<div class=\"single-package\">" 
 						+ "<div class=\"thumb\">"
 						+ "<img class=\"img-fluid\" src=\"img/package/p1.jpg\" alt=\"\">"
@@ -68,9 +69,10 @@
 						+ "<h3 style='color: blue;  font-weight: bold;'>$"
 						+ data[i].pkgBasePrice
 						+ "</h3>"
-						+ "<a href=\"#\" class=\"primary-btn\">Confirm Now!</a>"
+						+ "<a href=\"#\" class=\"primary-btn\" onClick=\"postBook\">Confirm Now!</a>"
 						+ "</div>"
 						+ "</div>"
+						+ "</form>"
 						);
 				$('#divtoappend').niceSelect('update');						
 			}

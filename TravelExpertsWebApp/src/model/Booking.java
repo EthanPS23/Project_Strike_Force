@@ -52,6 +52,7 @@ public class Booking implements Serializable {
 	public Booking() {
 	}
 
+
 	public int getBookingId() {
 		return this.bookingId;
 	}
