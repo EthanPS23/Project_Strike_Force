@@ -10,10 +10,11 @@ Description: Packages page for web app -->
 <script src="jquery-3.3.1.js"></script>
 <script>
 $(document).ready(function(){
-	$.get("/TravelExpertsWebApp/rest/packages/getallpackages",
+	$.get("/TravelExpertsWebApp/rest/packages/getallpackagesweb",
 		function(data){
 			for (i=0; i<data.length; i++){
 				$('#divtoappend').append("<div class=\"col-lg-6 col-md-8\">"
+						+ "<form action=\"PackagesServlet\"  = \"post\""
 						+ "<div class=\"single-package\">" 
 						+ "<div class=\"thumb\">"
 						+ "<img class=\"img-fluid\" src=\"img/package/p1.jpg\" alt=\"\">"
@@ -40,7 +41,9 @@ $(document).ready(function(){
 						+ "<h3 style='color: blue;  font-weight: bold;'>$"
 						+ data[i].pkgBasePrice
 						+ "</h3>"
-						+ "<a href=\"#\" class=\"primary-btn\">Book Now!</a>"
+						+ "<a href=\"book-trip.jsp?param=" + data[i].packageId + "\" class=\"primary-btn\">Book Now!</a>"
+						/*+ "<a href=\"book-trip.jsp\" class=\"primary-btn\"OnClick=" + + "Book Now!</a>"*/
+						/* + "<button name=\" value=\"" + data[i].packageId + "\" class=\"primary-btn\" >Book Now!</a>" */
 						+ "</div>"
 						+ "</div>"
 						);
