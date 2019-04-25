@@ -2,6 +2,52 @@
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
+<script>
+	function getUrlParam(parameter, defaultvalue){
+	    var urlparameter = defaultvalue;
+	    if(window.location.href.indexOf(parameter) > -1){
+	        urlparameter = getUrlVars()[parameter];
+	        }
+	    return urlparameter;
+	}
+
+
+	$(document).ready(function(){
+		var pkgId = getUrlParam('param','1')
+		$.get("/TravelExpertsWebApp/rest/countries/getallcountries/" + pkgId ,
+		function(data){
+			for (i=0; i<data.length; i++){
+				$("#CustCountry").append("<option value='"
+					+ data[i].countryId
+					+ "'>"
+					+ data[i].countryName
+					+ "</option>"
+					);
+				$('#CustCountry').niceSelect('update');
+			}
+		},
+		"json");
+	})
+	function getProvState(countryid)
+	{			
+		$.get("/TravelExpertsWebApp/rest/provstates/getprovstates/" + countryid,
+			function(data){
+				$("#CustProv").empty();
+				$("#CustProv").append("<option value=''>Select One</option>");
+				for (i=0; i<data.length; i++){
+					$("#CustProv").append("<option value='"
+						+ data[i].provStateId
+						+ "'>"
+						+ data[i].provStateName
+						+ "</option>"
+					);
+					$('#CustProv').niceSelect('update');
+				}
+			},
+			"json"
+		);
+	}
+</script>
 
 <script src="jquery-3.3.1.js"></script>
 <script>
@@ -21,7 +67,7 @@
 	}) */
 	
 	$(document).ready(function(){
-	$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/1",
+	$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/{packageId}",
 		function(data){
 			for (i=0; i<data.length; i++){
 				$('#divtoappend').append("<div class=\"col-lg-12 col-md-10\">"
@@ -85,6 +131,12 @@
 
 
 <body>
+
+<%
+	String packId = request.getParameter("param");
+	session.setAttribute("packageId", packId);
+	//String packId = (String)request.getSession().getAttribute("packageId");
+%>
 
 	<!-- Header area Include statement -->
 	<jsp:include page="header.jsp" />
@@ -182,14 +234,6 @@
 							<button class="primary-btn text-uppercase" onClick="postbook()">Click here to confirm booking!</button>
 						</div>
 					</div> --%>
-				
-				
-				
-				
-				
-				
-				
-				
 				
 				
 				
