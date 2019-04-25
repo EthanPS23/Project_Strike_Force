@@ -43,4 +43,23 @@ public class ProvStateRESTService {
 		factory.close();
 		return jsonString;
 	}
+	
+	@GET
+	@Path("/getprovstatesapp/{ countryid }")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getProvStateApp(@PathParam("countryid") String countryid)
+	{
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("TravelExpertsWebApp");
+		EntityManager em = factory.createEntityManager();
+		String sql = "SELECT p FROM Provstate p WHERE p.countryId= '" + countryid + "'";
+		Query query = em.createQuery(sql);
+		List<Provstate> provstates = query.getResultList();
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Provstate>>() {}.getType();
+		String jsonString = gson.toJson(provstates, type);
+		em.close();
+		factory.close();
+		jsonString = "[{\"provstates\": " + jsonString + "}]";
+		return jsonString;
+	}
 }

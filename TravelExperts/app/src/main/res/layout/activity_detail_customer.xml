@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="395dp"
         android:layout_height="539dp"
         android:layout_marginStart="8dp"
@@ -146,14 +147,17 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/etCustCountry"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spCustCountry"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -170,14 +174,19 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/etCustProv"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spCustProvState"
+                android:layout_width="157dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spCustCountry" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -346,4 +355,5 @@
                 app:layout_constraintVertical_bias="0.988" />
         </LinearLayout>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
