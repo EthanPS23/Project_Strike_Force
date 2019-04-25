@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@drawable/package_details_background">
 
     <Button
         android:id="@+id/btnOrder"
@@ -14,24 +14,16 @@
         android:layout_marginBottom="104dp"
         android:layout_marginStart="136dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_border"
+        android:fontFamily="serif"
         android:text="Order"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintVertical_bias="0.951" />
-
-    <Button
-        android:id="@+id/btnView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
-        android:layout_marginTop="446dp"
-        android:text="View"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -40,7 +32,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="64dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_border"
+        android:fontFamily="serif"
         android:text="Logout"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOrder" />
@@ -53,9 +48,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="serif"
         android:text="Package Details"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,8 +62,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="150dp"
-        android:layout_height="237dp"
+        android:layout_width="149dp"
+        android:layout_height="318dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
@@ -82,57 +78,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:padding="14dp"
+            android:fontFamily="serif"
+            android:padding="16dp"
             android:text="Name of Package :"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvPkgStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:padding="14dp"
+            android:fontFamily="serif"
+            android:padding="16dp"
             android:text="Start Date :"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvPkgEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:editable="false"
-            android:padding="14dp"
+            android:fontFamily="serif"
+            android:padding="16dp"
             android:text="End Date :"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvPkgDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
             android:editable="false"
-            android:padding="14dp"
+            android:fontFamily="serif"
+            android:padding="16dp"
             android:text="Description :"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvPkgBasePrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:padding="14dp"
+            android:fontFamily="serif"
+            android:padding="16dp"
             android:text="Price :"
             android:textAlignment="center"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="150dp"
-        android:layout_height="237dp"
+        android:layout_height="319dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -149,46 +157,71 @@
             android:id="@+id/tvpkgName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:fontFamily="serif"
             android:padding="14dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvpkgStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:fontFamily="serif"
             android:padding="14dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvpkgEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:fontFamily="serif"
             android:padding="14dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvpkgDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:fontFamily="serif"
             android:padding="14dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/tvpkgBasePrice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="69dp"
+            android:clickable="false"
+            android:editable="false"
+            android:fontFamily="serif"
             android:padding="14dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

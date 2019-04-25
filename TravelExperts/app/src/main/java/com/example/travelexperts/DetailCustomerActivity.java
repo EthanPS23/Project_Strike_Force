@@ -109,6 +109,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void setCustBtnClear() {
@@ -137,6 +138,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
         etCustBusPhone = findViewById(R.id.etCustBusPhone);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+
     }
 
     private void clearTextEdits() {

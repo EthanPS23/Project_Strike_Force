@@ -10,6 +10,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,9 +26,14 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,27 +103,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println(etEmail.getText());
+                getcustomerId();
 
                 // String to connect to the REST Services
                 final StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         // if login successful grant access to the packages page
                         //if (response.equals("true")) {
                         if (!response.equals("false")) {
 
-                            custId = response;
-                            session.setCustId(custId);
+
                             session.createLoginSession("CustEmail", "CustPassword");
 
                             session.isLoggedIn();
 
-                            Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show(); // this creates the login session based on the post to the webservice
-//                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                            Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
-                            startActivity(packageMain);
+                            Toast toast = Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT); // this creates the login session based on the post to the webservice
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0,0);
+                            toast.show();
+
                             finish();
+
+
+//
 
                         } else {
                             Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_SHORT).show();
@@ -169,9 +179,79 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Author: Chris Potvin
+    //this method returns the customerID based on the REST service
+
+    private void getcustomerId(){
+//        final String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Login/getcustomerid";
+        final StringRequest request = new StringRequest(Request.Method.POST, "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Login/getcustomerid", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (!response.equals("false")) {
+
+//                    Toast.makeText(MainActivity.this, "Customer Id retrieved", Toast.LENGTH_SHORT).show(); // this creates the login session based on the post to the webservice
+                    System.out.println(response);
+
+                    Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
+                    packageMain.putExtra("custID", response);
+                    startActivity(packageMain);
+
+
+//                            Intent packageMain = new Intent(getApplicationContext(), PackageActivity.class);
+//                            packageMain.putExtra("custId", response);
+
+                             // this should print out the customerId//                            startActivity(packageMain);
+
+                            finish();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "ERRRRROOOORRR", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.d("RVA", "error:" + error);
+
+                int errorCode = 0;
+
+                if (error instanceof TimeoutError) {
+                    errorCode = -7;
+                } else if (error instanceof NoConnectionError) {
+                    errorCode = -2;
+                } else if (error instanceof AuthFailureError) {
+                    errorCode = -6;
+                } else if (error instanceof ServerError) {
+                    errorCode = 0;
+                } else if (error instanceof NetworkError) {
+                    errorCode = -1;
+                } else if (error instanceof ParseError) {
+                    errorCode = -8;
+                }
+                Toast.makeText(MainActivity.this, "This is the error-> " +errorCode, Toast.LENGTH_LONG).show();
+            }
+
+        }) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("CustEmail", etEmail.getText().toString());
+                parameters.put("CustPassword", etPassword.getText().toString());
+
+                return parameters;
+            }
+        };
+
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
+    }
+
+
     public void webappLinkOpen(View view){
         Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
-//        10.163.37.119:8080/TravelExpertsWebApp/
         startActivity(browserIntent);
     }
 

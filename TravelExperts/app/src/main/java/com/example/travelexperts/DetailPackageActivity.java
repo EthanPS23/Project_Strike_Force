@@ -24,13 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +34,7 @@ import java.util.Map;
 public class DetailPackageActivity extends AppCompatActivity {
      Button btnOrder, btnLogout, btnView;
      TextView tvpkgName, tvpkgStartDate,
-             tvpkgDesc, tvpkgEndDate, tvpkgBasePrice;
+             tvpkgDesc, tvpkgEndDate, tvpkgBasePrice, tvTitle;
 
      SessionManager session;
     // To do these methods need to be created to show the package details based on the JSON info
@@ -57,7 +52,19 @@ public class DetailPackageActivity extends AppCompatActivity {
         initializeFields();
 
         Intent intent = getIntent();
+        String custId = intent.getStringExtra("custID");
+        intent.putExtra("custID", custId);
+
+
         Package pkg = (Package) intent.getSerializableExtra("pkg");
+        intent.putExtra("packageId", pkg);
+        System.out.println(pkg);
+//        System.out.println(pkg);
+
+
+        // this will retrieve thestring from Main Activity customer ID
+
+
         tvpkgName.setText(pkg.getPkgName());
         tvpkgBasePrice.setText(String.valueOf(pkg.getPkgBasePrice()));
         tvpkgDesc.setText(pkg.getPkgDesc());
@@ -65,89 +72,29 @@ public class DetailPackageActivity extends AppCompatActivity {
         tvpkgEndDate.setText(pkg.getPkgEndDate());
 
 
-        /*rQueue = Volley.newRequestQueue(DetailPackageActivity.this);
+        session = new SessionManager(DetailPackageActivity.this);
 
-        getPackageDetailsJSON();
-
-        btnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jsonParse();
-            }
-        });*/
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 session.logoutUser();
+                Toast.makeText(DetailPackageActivity.this, "You are now logged out", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertBookingDetails();
             }
         });
 
     }
 
-    /*private void jsonParse()
-    {
-        String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getpackageid/1";
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(0);
-                            JSONArray jsonArray = jsonObject.getJSONArray("packages");
-
-                            for (int i = 0; i < jsonArray.length(); i++)
-                            {
-                                JSONObject packages = jsonArray.getJSONObject(i);
-
-                                String pkgName = packages.getString("pkgName");
-                                String pkgStartDate = packages.getString("pkgStartDate");
-                                String pkgEndDate = packages.getString("pkgEndDate");
-                                String pkgDesc = packages.getString("pkgDesc");
-                                String pkgBasePrice = packages.getString("pkgBasePrice");
-
-                                tvpkgName.setText(pkgName);
-                                tvpkgStartDate.setText(pkgStartDate);
-                                tvpkgEndDate.setText(pkgEndDate);
-                                tvpkgDesc.setText(pkgDesc);
-                                tvpkgBasePrice.setText(pkgBasePrice);
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Log.d("RVA", "error:" + error);
-
-                int errorCode = 0;
-
-                if (error instanceof TimeoutError) {
-                    errorCode = -7;
-                } else if (error instanceof NoConnectionError) {
-                    errorCode = -2;
-                } else if (error instanceof AuthFailureError) {
-                    errorCode = -6;
-                } else if (error instanceof ServerError) {
-                    errorCode = 0;
-                } else if (error instanceof NetworkError) {
-                    errorCode = -1;
-                } else if (error instanceof ParseError) {
-                    errorCode = -8;
-                }
-                Toast.makeText(DetailPackageActivity.this, "This is the error-> " +errorCode, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        rQueue.add(request);
-    }*/
-
     // this is the post that will insert a new booking into the REST service
-    private void insertBookingDetails
+    private void insertBookingDetails()
     {
         // this is the string URL for the bookings post
         String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Booking/booking";
@@ -162,7 +109,7 @@ public class DetailPackageActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(DetailPackageActivity.this, "UOOOOOOOOH!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DetailPackageActivity.this, "UOOOOOOOOH!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -188,16 +135,26 @@ public class DetailPackageActivity extends AppCompatActivity {
                 }
                 Toast.makeText(DetailPackageActivity.this, "This is the error-> " +errorCode, Toast.LENGTH_LONG).show();
             }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> parameters = new HashMap<String, String>();
-////                parameters.put("CustomerId"); these variables need to be the customerId brought in from the session variable of the main activity login
-////                parameters.put("PackageId"); this needs to be the package id brought in from the package activity
-//                return parameters;
-//
-//            }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                Intent intent = getIntent();
+                String custId = intent.getStringExtra("custID");
+                System.out.println(custId);
+                intent.putExtra("custID", custId);
+
+
+                Package pkg = (Package) intent.getSerializableExtra("pkg");
+                intent.putExtra("packageId", pkg);
+                System.out.println(pkg);
+
+
+                parameters.put("CustomerId", custId );
+                parameters.put("PackageId", Integer.toString(pkg.getPackageId()));
+                return parameters;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(DetailPackageActivity.this);
         requestQueue.add(request);
@@ -208,7 +165,6 @@ public class DetailPackageActivity extends AppCompatActivity {
     {
         btnOrder = findViewById(R.id.btnOrder);
         btnLogout = findViewById(R.id.btnLogout);
-        btnView = findViewById(R.id.btnView);
     }
 
     private void initializeFields()
@@ -218,6 +174,7 @@ public class DetailPackageActivity extends AppCompatActivity {
         tvpkgEndDate = findViewById(R.id.tvpkgEndDate);
         tvpkgDesc = findViewById(R.id.tvpkgDesc);
         tvpkgBasePrice = findViewById(R.id.tvpkgBasePrice);
+        tvTitle = findViewById(R.id.tvTitle);
     }
 
     private void custOrderAnotherPackage()
@@ -233,15 +190,16 @@ public class DetailPackageActivity extends AppCompatActivity {
 
                     case DialogInterface.BUTTON_NEGATIVE:
                         session.logoutUser();
+                        Toast.makeText(DetailPackageActivity.this, "You are now logged out", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DetailPackageActivity.this);
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListerner)
+        builder.setMessage("Would you like to order another package?").setPositiveButton("Yes", dialogClickListerner)
                 .setNegativeButton("No", dialogClickListerner).show();
-
     }
+
 
 }

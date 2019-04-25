@@ -1,11 +1,17 @@
 package servicerestjava;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import security.PasswordEncyption;
 import security.BCrypt;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -17,7 +23,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 // Author: Christopher Potvin
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import model.Customer;
+import model.Package;
 
 
 @Path("/Login")
@@ -90,6 +100,55 @@ public class LoginRESTService {
 		}
 		return result;
 	}
+	
+//	@POST
+//	@Path("/getcustomeridJSON")
+//	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//	@Produces(MediaType.TEXT_HTML)
+//	public String custIdJSON(@FormParam("CustEmail") String email,@FormParam("CustPassword") String password)
+//	{
+//		String result = "false";
+//		System.out.println(email + password);
+//
+//		try {
+//			
+//			EntityManagerFactory factory = Persistence.createEntityManagerFactory("TravelExpertsWebApp");
+//			EntityManager em = factory.createEntityManager();
+//			String sql = "select customerId from customers where CustEmail=? and CustPassword=?";
+//			Query query = em.createQuery(sql);
+//			List<Package> packages = query.getResultList();
+//			Gson gson = new Gson();
+//			Type type = new TypeToken<List<Package>>() {}.getType();
+//			String jsonString = gson.toJson(packages, type);
+//			em.close();
+//			factory.close();
+//			jsonString = "[{\"customerId\": " + jsonString + "}]";
+//			return jsonString;
+//			
+//			
+//			/*
+//			 * Connection conn = DBConnect.getConnection();
+//			 * 
+//			 * String sql =
+//			 * "select customerId from customers where CustEmail=? and CustPassword=?";
+//			 * 
+//			 * PreparedStatement stmt = conn.prepareStatement(sql); stmt.setString(1,
+//			 * email); stmt.setString(2, password); //stmt.setString(2,
+//			 * PasswordEncyption.hashPassword(password));
+//			 * 
+//			 * ResultSet rs = stmt.executeQuery();
+//			 * 
+//			 * if(rs.next()) { result = rs.getString("customerId"); }
+//			 * 
+//			 * conn.close();
+//			 */
+//		  }
+//		catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
 
 
 

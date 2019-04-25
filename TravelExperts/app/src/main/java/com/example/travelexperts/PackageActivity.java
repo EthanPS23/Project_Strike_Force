@@ -47,31 +47,24 @@ public class PackageActivity extends AppCompatActivity {
         lvPackage = findViewById(R.id.lvPackages);
         rQueue = Volley.newRequestQueue(PackageActivity.this);
         getPackages();
-        //final ArrayList<Package> packages = getPackages();
-
-        /*ArrayList<HashMap<String, String>> packageMaps = new ArrayList<>();
-        for (Package p : data){
-            HashMap<String, String> map = new HashMap<>();
-            map.put("pkgName", p.getPkgName() + "");
-            map.put("pkgStartDate", p.getPkgStartDate());
-            map.put("pkgEndDate", p.getPkgEndDate());
-            map.put("pkgDesc", p.getPkgDesc());
-            map.put("pkgBasePrice", p.getPkgBasePrice() + "");
-            packageMaps.add(map);
-        }
-
-        int resource = R.layout.package_item;
-        String[] from = {"pkgName", "pkgStartDate", "pkgEndDate", "pkgDesc", "pkgBasePrice"};
-        int[] to = {R.id.tvPkgNameItem, R.id.tvPkgStartDateItem, R.id.tvPkgEndDateItem, R.id.tvPkgDescItem, R.id.tvPkgBasePriceItem};
-        SimpleAdapter adapter = new SimpleAdapter(this, packageMaps, resource, from, to);
-        lvPackage.setAdapter(adapter);*/
 
         lvPackage.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Package pkg = data.get(position);
-                Intent intent = new Intent(getApplicationContext(), DetailPackageActivity.class);
-                intent.putExtra("pkg", pkg);
+
+                Intent intent = getIntent();
+                String custId = intent.getStringExtra("custID");
+
+
+                System.out.println(custId);
+                System.out.println(custId);
+
+                intent = new Intent(getApplicationContext(), DetailPackageActivity.class);
+                intent.putExtra("custID", custId);
+                intent.putExtra("pkg", pkg );
+//
+
                 startActivity(intent);
             }
         });
@@ -82,6 +75,8 @@ public class PackageActivity extends AppCompatActivity {
         // that has been selected according to which one was selected. To do -> need to grab JSON from jsp to do so*/
 
     }
+
+    //Author: Ethan Shipley
     private void stffs(){
         ArrayList<HashMap<String, String>> packageMaps = new ArrayList<>();
         for (Package p : data){
@@ -166,67 +161,5 @@ public class PackageActivity extends AppCompatActivity {
         });
 
         rQueue.add(request);
-        //return data;
     }
-
-    /*private ArrayList<Package> getPackages() {
-        ArrayList<Package> data = new ArrayList<>();
-        data.add(new Package(1,"Carribean","2016-12-12 00:00:00",
-                "2016-12-20 00:00:00","8 Day All Inclusive Hawaiian Vacation",
-                "Images/Polynesia.jpg",3000.00,310.00));
-        data.add(new Package(1,"New Year","2016-12-12 00:00:00",
-                "2016-12-20 00:00:00","8 Day All Inclusive Hawaiian Vacation",
-                "Images/Polynesia.jpg",3000.00,310.00));
-        data.add(new Package(1,"Russia","2016-12-12 00:00:00",
-                "2016-12-20 00:00:00","8 Day All Inclusive Hawaiian Vacation",
-                "Images/Polynesia.jpg",3000.00,310.00));
-        data.add(new Package(1,"Australia","2016-12-12 00:00:00",
-                "2016-12-20 00:00:00","8 Day All Inclusive Hawaiian Vacation",
-                "Images/Polynesia.jpg",3000.00,310.00));
-        return data;
-    }*/
-
-    /*private void initializeImgBtns ()
-    {
-        *//*myImageButtonPackage1 = findViewById(R.id.imgBtnCNYear);
-        myImageButtonPackage2 = findViewById(R.id.imgBtnPolynesia);
-        myImageButtonPackage3 = findViewById(R.id.imgBtnAsia);
-        myImageButtonPackage4 = findViewById(R.id.imgBtnEuro);*//*
-    }*/
-
-    /*private void getPackageDetails()
-    {
-        myImageButtonPackage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoadFirstPackage = new Intent(PackageActivity.this, DetailPackageActivity.class);
-                startActivity(intentLoadFirstPackage);
-            }
-        });
-
-        myImageButtonPackage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoadSecondPackage = new Intent(PackageActivity.this, DetailPackageActivity.class);
-                startActivity(intentLoadSecondPackage);
-            }
-        });
-
-        myImageButtonPackage3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoadThirdPackage = new Intent(PackageActivity.this, DetailPackageActivity.class);
-                startActivity(intentLoadThirdPackage);
-            }
-        });
-
-        myImageButtonPackage4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentLoadFourthPackage = new Intent(PackageActivity.this, DetailPackageActivity.class);
-                startActivity(intentLoadFourthPackage);
-            }
-        });
-    }*/
-
 }

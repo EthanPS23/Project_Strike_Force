@@ -111,4 +111,12 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@android:color/white" />
+        />
 </android.support.constraint.ConstraintLayout>
