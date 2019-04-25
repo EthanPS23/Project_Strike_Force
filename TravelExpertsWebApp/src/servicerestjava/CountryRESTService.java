@@ -44,4 +44,24 @@ public class CountryRESTService {
 		factory.close();
 		return jsonString;
 	}
+	
+	@GET
+	@Path("/getallcountriesapp")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllCountriesapp()
+	{
+		EntityManagerFactory factory = 
+		Persistence.createEntityManagerFactory("TravelExpertsWebApp");
+		EntityManager em = factory.createEntityManager();
+		String sql = "SELECT c FROM Country c";
+		Query query = em.createQuery(sql);
+		List<Country> country = query.getResultList();
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Country>>() {}.getType();
+		String jsonString = gson.toJson(country, type);
+		em.close();
+		factory.close();
+		jsonString = "[{\"countries\": " + jsonString + "}]";
+		return jsonString;
+	}
 }

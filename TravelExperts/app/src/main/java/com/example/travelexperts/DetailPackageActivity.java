@@ -147,7 +147,7 @@ public class DetailPackageActivity extends AppCompatActivity {
     }*/
 
     // this is the post that will insert a new booking into the REST service
-    private void insertBookingDetails
+    private void insertBookingDetails()
     {
         // this is the string URL for the bookings post
         String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/Booking/booking";
