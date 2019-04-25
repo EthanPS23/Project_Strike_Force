@@ -1413,6 +1413,7 @@ public class Controller {
 
     // this is the start of the packages pane, Brando's work
     private void getPackages() {
+        tblPackages.getItems().clear();
         ObservableList<Package> packData = FXCollections.observableArrayList();
         try {
             /*Class.forName("com.mysql.jdbc.Driver");
