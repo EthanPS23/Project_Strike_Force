@@ -96,4 +96,24 @@ public class packageRESTservice {
 		return jsonString;
 			
 	}
+	
+	@GET
+	@Path("/getpackageidweb/{ packageid }")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getPackageIdweb(@PathParam("packageid") int packageid)
+	{
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("TravelExpertsWebApp");
+		EntityManager em = factory.createEntityManager();
+		String sql = "SELECT p FROM Package p WHERE p.packageId= " + packageid + "";
+		Query query = em.createQuery(sql);
+		List<Package> packages = query.getResultList();
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<Package>>() {}.getType();
+		String jsonString = gson.toJson(packages, type);
+		em.close();
+		factory.close();
+		//jsonString = "[{\"packages\": " + jsonString + "}]";
+		return jsonString;
+		
+	}
 }
