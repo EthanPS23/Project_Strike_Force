@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
 <!doctype html>
 <html lang="en">
 
@@ -37,9 +38,12 @@
 	}) */
 	
 	$(document).ready(function(){
-		var pkgId = getUrlParam('param','1')
+		var pkgId = getUrlParam('param','1');
+		//String b = (String)session.getAttribute("custId");
+		//session.setAttribute("pkgId", pkgId);
 		$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/" + pkgId,
 		function(data){
+			
 			for (i=0; i<data.length; i++){
 				$('#divtoappend').append("<form action=\"BookingServlet\" method=\"post\">" 
 						+ "<div class=\"col-lg-12 col-md-10\">"
@@ -69,7 +73,10 @@
 						+ "<h3 style='color: blue;  font-weight: bold;'>$"
 						+ data[i].pkgBasePrice
 						+ "</h3>"
-						+ "<a href=\"#\" class=\"primary-btn\" onClick=\"postBook\">Confirm Now!</a>"
+						+ "<div class=\"col-lg-12 text-center\">"
+						+ "<button class=\"primary-btn text-uppercase\">COnfirm NOW!</button>"
+						+ "</div>"
+						//+ "<a href=\"#\" class=\"primary-btn\" onClick=\"postBook\">Confirm Now!</a>"
 						+ "</div>"
 						+ "</div>"
 						+ "</form>"
@@ -80,7 +87,9 @@
 		"json");
 })			
 </script>
-
+<%
+	session.setAttribute("pkgId", request.getParameter("param"));
+%>
 
 <head>
 <!-- Required meta tags -->

@@ -28,8 +28,9 @@ public class BookingRESTService {
 	@Path("/booking")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public String booking(@FormParam("BookingDate") Date bookingDate, @FormParam("BookingNo") int bookingNo, @FormParam("TravelerCount") int TravelerCount,
-			@FormParam("CustomerId") int customerId, @FormParam("TripTypeId")  String tripTypeId, @FormParam("PackageId") int packageId)
+	/*public String booking(@FormParam("BookingDate") Date bookingDate, @FormParam("BookingNo") int bookingNo, @FormParam("TravelerCount") int TravelerCount,
+			@FormParam("CustomerId") int customerId, @FormParam("TripTypeId")  String tripTypeId, @FormParam("PackageId") int packageId)*/
+	public String booking(@FormParam("CustomerId") int customerId, @FormParam("PackageId") int packageId)
 	{
 		String result="false";
 		Date d1 = new Date(); 

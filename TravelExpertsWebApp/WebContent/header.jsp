@@ -5,11 +5,7 @@
 
 
 <script>
-$(document).on('click','.navbar-collapse.in',function(e) {
-    if( $(e.target).is('a:not(".dropdown-toggle")') ) {
-        $(this).collapse('hide');
-    }
-});
+
 </script>
 
 <script src="js/jquery-3.2.1.min.js"></script>

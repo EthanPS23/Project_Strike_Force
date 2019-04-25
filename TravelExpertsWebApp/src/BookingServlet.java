@@ -51,16 +51,29 @@ public class BookingServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		//doPost(request, response);
 		out = response.getWriter();
 		session = request.getSession();
-		Date d1 = new Date();
-		Booking book = new Booking(-1, d1, "", Integer.parseInt(request.getParameter("customerId")), Integer.parseInt(request.getParameter("packageId")), -1, "");
-		BookingRESTService str = new BookingRESTService();
+		int customerId =Integer.parseInt((String)session.getAttribute("custId")) ;
+		String pkgId = (String) session.getAttribute("packageId");
+		int packageId = Integer.parseInt(pkgId);
+		//int packageId =Integer.parseInt(request.getParameter("packageId"));
+		//Date d1 = new Date();
+		//Booking book = new Booking(-1, d1, "", Integer.parseInt(request.getParameter("customerId")), Integer.parseInt(request.getParameter("packageId")), -1, "");
+		BookingRESTService brs = new BookingRESTService();
+		brs.booking(customerId, packageId);
+		if(brs.booking(customerId, packageId).equals("true")) {
+			session.setAttribute("message", "Package booked!");
+			response.sendRedirect("index.jsp");	
+		}
+		else {
+			session.setAttribute("message", "Error booking, are you logged in.");
+			response.sendRedirect("packages.jsp");	
+		}
+		//brs.booking(customerId, packageId)
+		//brs.booking(book.getCustomerId(), book.getPackageId());
 		
 		
-		session.setAttribute("message", "Package booked!");
-		response.sendRedirect("index.jsp");
 		
 		
 	}
