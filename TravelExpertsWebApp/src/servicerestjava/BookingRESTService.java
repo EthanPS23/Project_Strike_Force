@@ -2,6 +2,9 @@ package servicerestjava;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import security.BCrypt;
 import security.PasswordEncyption;
 
@@ -42,13 +45,16 @@ public class BookingRESTService {
 		{
 			Connection conn = DBConnect.getConnection();
 			
-			String sql = "INSERT INTO bookings (bookingId, customerId, tripTypeId, packageId) "
-					+ "values (last_insert_id(),?,?,?)";
+			String sql = "INSERT INTO bookings (bookingId, bookingDate, customerId, packageId, tripTypeId) "
+					+ "values (last_insert_id(),?,?,?,\"B\")";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setInt(1, book.getCustomerId());
-			stmt.setString(2, "B");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			
+			stmt.setString(1, dateFormat.format(date));
+			stmt.setInt(2, book.getCustomerId());
 			stmt.setInt(3, book.getPackageId());
 			
 			x = stmt.executeUpdate();
