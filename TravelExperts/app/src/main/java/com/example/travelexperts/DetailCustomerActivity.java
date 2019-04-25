@@ -199,7 +199,19 @@ public class DetailCustomerActivity extends AppCompatActivity {
         spCustCountry.setAdapter(dataAdapter);*/
 
         CountryJson();
+        if (dataCountries.size() == 0){
+            spCustCountry = (Spinner) findViewById(R.id.spCustCountry);
+            List<String> list = new ArrayList<String>();
+            list.add("CA");
+            list.add("US");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            spCustCountry.setAdapter(dataAdapter);
+            return;
+        }
         List<String> list = new ArrayList<String>();
+
         for (Countries c : dataCountries) {
             list.add(c.getCountryId());
         }
@@ -294,7 +306,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
     public void CountryJson(){
         //final ArrayList<Package> data = new ArrayList<>();
-        String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/packages/getallpackages";
+        String URL = "http://10.163.37.7:8080/TravelExpertsWebApp/rest/countries/getallcountriesapp";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
@@ -308,24 +320,8 @@ public class DetailCustomerActivity extends AppCompatActivity {
                             {
                                 JSONObject countries = jsonArray.getJSONObject(i);
 
-                                //String
-
-                                /*int PackageId = packages.getInt("packageId");
-                                String pkgName = packages.getString("pkgName");
-                                String pkgStartDate = packages.getString("pkgStartDate");
-                                String pkgEndDate = packages.getString("pkgEndDate");
-                                String pkgDesc = packages.getString("pkgDesc");
-                                String pkgImg = packages.getString("pkgImg");
-                                double pkgBasePrice = packages.getDouble("pkgBasePrice");
-                                double pkgAgencyCommission = packages.getDouble("pkgAgencyCommission");*/
-
                                 dataCountries.add(new Countries(countries.getString("countryId"),
                                         countries.getString("countryName")));
-
-                                /*data.add(new Package(packages.getInt("packageId"), packages.getString("pkgName"),
-                                        packages.getString("pkgStartDate"), packages.getString("pkgEndDate"),
-                                        packages.getString("pkgDesc"), packages.getString("pkgImg"),
-                                        packages.getDouble("pkgBasePrice"), packages.getDouble("pkgAgencyCommission")));*/
 
                             }
                         } catch (JSONException e) {
@@ -359,7 +355,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
         });
 
         rQueue.add(request);
-        //return data;
+
     }
 
     /*private void stffs(){
