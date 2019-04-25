@@ -33,11 +33,16 @@
 <body>
 
 	<!--================ Start Header Menu Area =================-->
-	<header class="header_area">
+	
+	<!-- Header area Include statement -->
+	<jsp:include page="header.jsp" />
+	
+	
+	<!-- <header class="header_area">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
-					<!-- Brand and toggle get grouped for better mobile display -->
+					Brand and toggle get grouped for better mobile display
 					<a class="navbar-brand logo_h" href="index.jsp"><img
 						src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -47,7 +52,7 @@
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<!-- Collect the nav links, forms, and other content for toggling -->
+					Collect the nav links, forms, and other content for toggling
 					<div class="collapse navbar-collapse offset"
 						id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
@@ -99,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-	</header>
+	</header> -->
 	<!--================ End Header Menu Area =================-->
 
 	<!--================Home Banner Area =================-->

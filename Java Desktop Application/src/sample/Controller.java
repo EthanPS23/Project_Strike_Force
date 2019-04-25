@@ -28,15 +28,15 @@ package sample;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
-public class Controller implements Initializable {
-
+//public class Controller implements Initializable {
+public class Controller {
     // this is the set password prompt text on application load
 
-    String textColour = "#000000";
-    String backgroundColour = "#64B5F6";
-    String menuColour = "#03A9F4";
-    String secondaryColour = "#1E88E5";
-    String tertiaryColour = "#5E35B1";
+    String textColour = "#FFFFFF";
+    String backgroundColour = "#9435FA";
+    String menuColour = "#4D1371";
+    String secondaryColour = "#FF2F8B";
+    String tertiaryColour = "#FF827C";
 
     // Vars for Login page
     final String user = "admin";
@@ -527,6 +527,7 @@ public class Controller implements Initializable {
         int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             txtPackageName.requestFocus();
+            clear();
             btnAddEditPkg.setText("Save New Package");
         } else {
             pnlPackagesOverview.toFront();
@@ -894,8 +895,11 @@ public class Controller implements Initializable {
 
     @FXML
     void onKeyTypedPkgSearch(KeyEvent event) {
-
+        getPackageSearch();
     }
+
+    //Ethan Shipley and Brandon Ezekiel
+
 
     // on mouse event for when user clicks on bookings tableview
     //Author James Cockriell, April 8/19
@@ -981,6 +985,7 @@ public class Controller implements Initializable {
 
     @FXML
     void initialize() {
+        EnableMenu(false);
         cpSettingsTextColour.setValue(Color.web(textColour));
         cpSettingsBgColour.setValue(Color.web(backgroundColour));
         cpSettingsMenuColour.setValue(Color.web(menuColour));
@@ -1120,6 +1125,13 @@ public class Controller implements Initializable {
         assert btnClose != null : "fx:id=\"btnClose\" was not injected: check your FXML file 'sample.fxml'.";
         assert fxMinimize != null : "fx:id=\"fxMinimize\" was not injected: check your FXML file 'sample.fxml'.";
 
+        getCustomerBooking();
+
+        // to load packages table
+        getPackages();
+
+        getCustomerSearch();
+
         setTextColour();
         setMenuColour();
         setBackgroundColour();
@@ -1138,7 +1150,7 @@ public class Controller implements Initializable {
                 (int) (c.getBlue() * 255));
     }
 
-    @Override
+    /*@Override
     public void initialize(URL location, ResourceBundle resources) {
 
         cpSettingsTextColour.setValue(Color.web(textColour));
@@ -1163,7 +1175,7 @@ public class Controller implements Initializable {
         setSecondaryColour();
         setTertiaryColour();
 
-    }
+    }*/
     //this populates the Customer table on form load 1st step
 
 
@@ -1405,20 +1417,7 @@ public class Controller implements Initializable {
             String sql = "select * from packages";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3).toLocalDate(),
-                        rs.getDate(4).toLocalDate(), rs.getString(5), rs.getFloat(6),
-                        rs.getFloat(7)));
-            }
-
-            colPkgPkgName.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgName"));
-            colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgStartDate"));
-            colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgEndDate"));
-            colPkgPkgDesc.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgDesc"));
-            colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgBasePrice"));
-            colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
-
-            tblPackages.setItems(packData);
+            packageQuery(rs);
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1426,6 +1425,53 @@ public class Controller implements Initializable {
 
         selectedPackage = tblPackages.getItems().get(tblPackages.getSelectionModel().getFocusedIndex());
         packId = selectedPackage.getPackageId();
+    }
+    //Ethan Shipley and Brandon Ezekiel
+    // shows the result query in the packages table
+    //April 25, 2019
+    private void packageQuery(ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3).toLocalDate(),
+                    rs.getDate(4).toLocalDate(), rs.getString(5), rs.getFloat(6),
+                    rs.getFloat(7)));
+        }
+
+        colPkgPkgName.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgName"));
+        colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgStartDate"));
+        colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgEndDate"));
+        colPkgPkgDesc.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgDesc"));
+        colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgBasePrice"));
+        colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
+
+        tblPackages.setItems(packData);
+    }
+
+    //Ethan Shipley and Brandon Ezekiel
+    // Searches the packages table
+    //April 25, 2019
+    private void getPackageSearch()
+    {
+        tblPackages.getItems().clear(); // this clears the table view before the search field is used
+
+        String srch = txtPkgSearch.getText(); // this gets the customer text and puts the value into a String var
+
+        try {
+
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * from packages WHERE PkgName LIKE '%" + srch + "%' OR PkgStartDate LIKE '%"
+                    + srch + "%' OR PkgEndDate LIKE '%" + srch + "%' OR PkgDesc LIKE '%"
+                    + srch + "%' OR PkgBasePrice LIKE '%" + srch + "%' OR PkgAgencyCommission LIKE '%"
+                    + srch + "%' ORDER BY PkgName DESC;";
+            ResultSet rs = stmt.executeQuery(sql);
+            packageQuery(rs);
+            conn.close();
+            // this method disables the fields so the agent cannot play with the object until he hits the edit button
+//            DisableFields();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -1558,8 +1604,8 @@ public class Controller implements Initializable {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");*/
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
-                    "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
+            stmt.executeUpdate("insert into packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission,PkgImg) " +
+                    "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "','Images/Europe.jpg')");
 
             JOptionPane.showMessageDialog(null, "New Package Added");
 

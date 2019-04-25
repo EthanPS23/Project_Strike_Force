@@ -5,11 +5,7 @@
 
 
 <script>
-$(document).on('click','.navbar-collapse.in',function(e) {
-    if( $(e.target).is('a:not(".dropdown-toggle")') ) {
-        $(this).collapse('hide');
-    }
-});
+
 </script>
 
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -66,12 +62,25 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
-							<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
-							<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
+							<!-- <li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li> -->
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item">
-								<a href="packages.jsp" class="primary-btn">Book a trip</a>
+							
+							<%
+							// Brandon Ezekiel
+							// funtion to change login/logout based on function
+							String b = (String)session.getAttribute("loggedin");
+								if (b =="false")
+								{ %>
+									<a href="Login.jsp" class="primary-btn" id="logbtn">Login</a>	
+								<% } else if (b =="true")  { %>
+									<a href="logout.jsp" class="primary-btn" id="logbtn">Logout</a>
+								<% } else {%>
+								 	<a href="Login.jsp" class="primary-btn" id="logbtn">Login</a>
+								<%} %> 
+								
 							</li>
 							<li class="nav-item">
 								<button type="button" class="search nav-link">
@@ -83,14 +92,14 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 				</div>
 			</nav>
 			
-			<div class="search_input" id="search_input_box">
+			<!-- <div class="search_input" id="search_input_box">
 				<div class="container">
 					<form class="d-flex justify-content-between">
 						<input type="text" class="form-control" id="search_input" placeholder="Search Here">
 						<button type="submit" class="btn"></button>
 						<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 					</form>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</header>
