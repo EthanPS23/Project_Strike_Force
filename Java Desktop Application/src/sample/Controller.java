@@ -503,18 +503,20 @@ public class Controller {
     @FXML
     void onActionAddEditPkg(ActionEvent event) {
 
-        if (btnAddEditPkg.getText().equals("Save New Package")) {
+        bookingStart = txtPkgStartDate.getValue();
+        bookingEnd = txtPkgEndDate.getValue();
+
+        if (checkBookingDates(bookingStart, bookingEnd) == false) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Trip start date needs to be an earlier date than trip end date.");
+            alert.showAndWait();
+        } else if (txtPackageName.getText().equals("") || txtPkgDesc.getText().equals("") || txtPkgBasePrice.getText().equals("") || txtPkgAgencyCommission.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You need to fill out all of the fields");
+            alert.showAndWait();
+        } else if (bkTextIsNonNegativeDouble(txtPkgBasePrice.getText()) == false || bkTextIsNonNegativeDouble(txtPkgAgencyCommission.getText()) == false) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Base Price and Agency Commission fields need to be populated with a non negative number value");
+            alert.showAndWait();
+        } else {
             saveNewPackage();
-            clear();
-            pnlPackagesOverview.toFront();
-        }
-        else if (btnAddEditPkg.getText().equals("Update Package")) {
-            updatePackage();
-            clear();
-            pnlPackagesOverview.toFront();
-        }
-        else if (btnAddEditPkg.getText().equals("Delete Package")) {
-            deletePackage();
             clear();
             pnlPackagesOverview.toFront();
         }
@@ -527,8 +529,8 @@ public class Controller {
         int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to create a new package?", "Create New Package", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             txtPackageName.requestFocus();
+            activePkg();
             clear();
-            btnAddEditPkg.setText("Save New Package");
         } else {
             pnlPackagesOverview.toFront();
         }
@@ -755,13 +757,12 @@ public class Controller {
     void onActionDeletePkg(ActionEvent event) {
         int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to delete package?", "Delete Package", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            selectedPackage();
-            btnAddEditPkg.setText("Delete Package");
-            btnClearPkg.setVisible(false);
+            deletePackage();
+            clear();
+
         }
         else {
             pnlPackagesOverview.toFront();
-            btnClearPkg.setVisible(true);
         }
     }
 
@@ -1126,7 +1127,7 @@ public class Controller {
         getCustomerBooking();
 
         // to load packages table
-        getPackages();
+        setPkg();
 
         getCustomerSearch();
 
@@ -1137,6 +1138,8 @@ public class Controller {
         setTertiaryColour();
         getCustomerBooking();
         clearBkControls();
+
+        btnAddEditPkg.setText("Save");
 
     }
 
@@ -1502,6 +1505,7 @@ public class Controller {
                 bookingData.add(booking);
             }
 
+
             colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
             colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
             colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
@@ -1589,7 +1593,7 @@ public class Controller {
         txtPkgDesc.clear();
         txtPkgBasePrice.clear();
         txtPkgAgencyCommission.clear();
-        btnAddEditPkg.setText("Save New Package");
+        btnAddEditPkg.setText("Save");
     }
 
     private void saveNewPackage() {
@@ -1705,6 +1709,8 @@ public class Controller {
         return acceptableBookingDates;
     }
 
+
+
     // code to verify that text fields have non negative number values.
     // james cockriell, April 12/19
     public boolean bkTextIsNonNegativeDouble(String value) {
@@ -1767,16 +1773,28 @@ public class Controller {
         packId = selectedPackage.getPackageId();
 
         Connection conn = DBConnect.getConnection();
-        String sql = "delete packages_products_suppliers, packages from packages_products_suppliers inner join packages where packages_products_suppliers.PackageId and packages.PackageId= " + "'" + packId + "'";
+        String sql1 = "DELETE FROM packages_products_suppliers WHERE PackageId = " + packId + ";";
+        String sql2 = "DELETE FROM packages WHERE PackageId = " + packId;
+
         try
         {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.executeUpdate();
             int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to delete this package", "Delete Package", JOptionPane.YES_NO_OPTION);
-           if (reply == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog( null,"Package deleted successfully.");
-                pnlPackagesOverview.toFront();
-                activePkg();
+            if (reply == JOptionPane.YES_OPTION) {
+                PreparedStatement stmt1 = conn.prepareStatement(sql1);
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                //stmt.executeUpdate();
+                stmt1.executeUpdate();
+                int numRows = stmt2.executeUpdate();
+                if (numRows == 0) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No rows were delete.");
+                    alert.showAndWait();
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Delete Successful");
+                alert.showAndWait();
+                //JOptionPane.showMessageDialog( null,"Package deleted successfully.");
+                //pnlPackagesOverview.toFront();
+                //activePkg();
+                //getPackages();
                 getPackages();
                 conn.close();
             }
@@ -1793,6 +1811,12 @@ public class Controller {
 
     }
 
+    @FXML
+    void getPackageDetails(MouseEvent event) {
+        dpkg();
+        selectedPackage();
+    }
+
     private void selectedPackage() {
         txtPackageName.setText(tblPackages.getSelectionModel().getSelectedItem().getPkgName());
         txtPkgStartDate.setValue(tblPackages.getSelectionModel().getSelectedItem().getPkgStartDate());
@@ -1804,12 +1828,19 @@ public class Controller {
 
     private void activePkg()
     {
+        txtPackageName.setDisable(false);
+        txtPkgStartDate.setDisable(false);
+        txtPkgEndDate.setDisable(false);
+        txtPkgDesc.setDisable(false);
+        txtPkgBasePrice.setDisable(false);
+        txtPkgAgencyCommission.setDisable(false);
         txtPackageName.setEditable(true);
         txtPkgStartDate.setEditable(true);
         txtPkgEndDate.setEditable(true);
         txtPkgDesc.setEditable(true);
         txtPkgBasePrice.setEditable(true);
         txtPkgAgencyCommission.setEditable(true);
+        txtPackageName.requestFocus();
     }
 
     private boolean pkgValidateSave() {
@@ -1862,6 +1893,46 @@ public class Controller {
             getPackages();
         }
         return result;
+    }
+
+    private void dpkg(){
+        txtPackageName.setDisable(true);
+        txtPkgStartDate.setDisable(true);
+        txtPkgEndDate.setDisable(true);
+        txtPkgDesc.setDisable(true);
+        txtPkgBasePrice.setDisable(true);
+        txtPkgAgencyCommission.setDisable(true);
+    }
+
+    private void setPkg() {
+
+        try {
+
+            Connection conn = DBConnect.getConnection();
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * from packages";
+            ResultSet rs = stmt.executeQuery(sql);
+
+
+            while (rs.next()) {
+                packData.add(new Package(rs.getInt(1), rs.getString(2), rs.getDate(3).toLocalDate(),
+                        rs.getDate(4).toLocalDate(), rs.getString(5), rs.getFloat(6),
+                        rs.getFloat(7)));
+            }
+
+            colPkgPkgName.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgName"));
+            colPkgPkgStartDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgStartDate"));
+            colPkgPkgEndDate.setCellValueFactory(new PropertyValueFactory<Package, LocalDate>("pkgEndDate"));
+            colPkgPkgDesc.setCellValueFactory(new PropertyValueFactory<Package, String>("pkgDesc"));
+            colPkgBasePrice.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgBasePrice"));
+            colPkgAgencyCommission.setCellValueFactory(new PropertyValueFactory<Package, Float>("pkgAgencyCommission"));
+
+            tblPackages.setItems(packData);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
     }
 
 }
