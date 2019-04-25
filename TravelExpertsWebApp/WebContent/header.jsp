@@ -62,12 +62,25 @@
 								</ul>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
-							<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
-							<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li>
+							<!-- <li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a></li>
+							<li class="nav-item"><a class="nav-link" href="logout.jsp">Logout</a></li> -->
 						</ul>
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item">
-								<a href="packages.jsp" class="primary-btn">Book a trip</a>
+							
+							<%
+							// Brandon Ezekiel
+							// funtion to change login/logout based on function
+							String b = (String)session.getAttribute("loggedin");
+								if (b =="false")
+								{ %>
+									<a href="Login.jsp" class="primary-btn" id="logbtn">Login</a>	
+								<% } else if (b =="true")  { %>
+									<a href="logout.jsp" class="primary-btn" id="logbtn">Logout</a>
+								<% } else {%>
+								 	<a href="Login.jsp" class="primary-btn" id="logbtn">Login</a>
+								<%} %> 
+								
 							</li>
 							<li class="nav-item">
 								<button type="button" class="search nav-link">
