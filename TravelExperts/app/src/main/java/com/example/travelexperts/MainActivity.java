@@ -127,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
                             finish();
 
 
-//
-
                         } else {
                             Toast.makeText(MainActivity.this, "Incorrect Login Details", Toast.LENGTH_SHORT).show();
                         }
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
 
                 } else {
-                    Toast.makeText(MainActivity.this, "ERRRRROOOORRR", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "ERRRRROOOORRR", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {

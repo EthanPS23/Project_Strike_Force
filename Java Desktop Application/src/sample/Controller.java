@@ -640,9 +640,7 @@ public class Controller {
         else if (addcustomer == JOptionPane.YES_OPTION)
         {
             CustomerDB.insertCustomer(customer());
-            //insertCustomer();
             clear();
-            getCustomerSearch();
             getCustomerSearch();
         }
 
@@ -672,7 +670,7 @@ public class Controller {
     @FXML
     void onActionCustSave(ActionEvent event) {
 
-        int savecustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
+        int savecustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to update a customer record?",
                 "Add a Customer", JOptionPane.YES_NO_OPTION);
 
         if ((savecustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
