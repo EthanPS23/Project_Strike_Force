@@ -2,7 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="en">
+
+<script src="jquery-3.3.1.js"></script>
 <script>
+//Ethan Shipley
 	function getUrlParam(parameter, defaultvalue){
 	    var urlparameter = defaultvalue;
 	    if(window.location.href.indexOf(parameter) > -1){
@@ -10,47 +13,14 @@
 	        }
 	    return urlparameter;
 	}
-
-
-	$(document).ready(function(){
-		var pkgId = getUrlParam('param','1')
-		$.get("/TravelExpertsWebApp/rest/countries/getallcountries/" + pkgId ,
-		function(data){
-			for (i=0; i<data.length; i++){
-				$("#CustCountry").append("<option value='"
-					+ data[i].countryId
-					+ "'>"
-					+ data[i].countryName
-					+ "</option>"
-					);
-				$('#CustCountry').niceSelect('update');
-			}
-		},
-		"json");
-	})
-	function getProvState(countryid)
-	{			
-		$.get("/TravelExpertsWebApp/rest/provstates/getprovstates/" + countryid,
-			function(data){
-				$("#CustProv").empty();
-				$("#CustProv").append("<option value=''>Select One</option>");
-				for (i=0; i<data.length; i++){
-					$("#CustProv").append("<option value='"
-						+ data[i].provStateId
-						+ "'>"
-						+ data[i].provStateName
-						+ "</option>"
-					);
-					$('#CustProv').niceSelect('update');
-				}
-			},
-			"json"
-		);
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
 	}
-</script>
-
-<script src="jquery-3.3.1.js"></script>
-<script>
+	
 	/* $(document).ready(function(){
 		$.get("/TravelExpertsWebApp/rest/Bookings/bookings",
 		function(postBook){
@@ -67,7 +37,8 @@
 	}) */
 	
 	$(document).ready(function(){
-	$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/{packageId}",
+		var pkgId = getUrlParam('param','1')
+		$.get("/TravelExpertsWebApp/rest/packages/getpackageidweb/" + pkgId,
 		function(data){
 			for (i=0; i<data.length; i++){
 				$('#divtoappend').append("<div class=\"col-lg-12 col-md-10\">"
