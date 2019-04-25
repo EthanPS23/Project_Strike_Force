@@ -1,3 +1,12 @@
+<!-- 
+	Author: Brandon Ezekiel
+	Date: April 23, 2019
+	Bookings JSP page that displays selected package and inserts booking into database.
+ -->
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
@@ -6,7 +15,9 @@
 
 <script src="jquery-3.3.1.js"></script>
 <script>
+
 //Ethan Shipley
+	
 	function getUrlParam(parameter, defaultvalue){
 	    var urlparameter = defaultvalue;
 	    if(window.location.href.indexOf(parameter) > -1){
@@ -22,20 +33,8 @@
 	    return vars;
 	}
 	
-	/* $(document).ready(function(){
-		$.get("/TravelExpertsWebApp/rest/Bookings/bookings",
-		function(postBook){
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-			    if (this.readyState == 5 && this.status == 200) {
-			      document.getElementById("single-package").innerHTML =
-			      this.responseText;
-			    }
-			  };
-			  xhttp.open("POST", "10.167.37.7:8080/TravelExpertsWebApp/book-trip.jsp", true);
-			    xhttp.setRequestHeader("Content-type", "application/json");
-			    xhttp.send("json");
-	}) */
+	
+	// Brandon Ezekiel
 	
 	$(document).ready(function(){
 		var pkgId = getUrlParam('param','1');
