@@ -1604,8 +1604,8 @@ public class Controller {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "harv", "password");*/
             Connection conn = DBConnect.getConnection();
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate("insert into packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission) " +
-                    "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "')");
+            stmt.executeUpdate("insert into packages(PkgName,PkgStartDate,PkgEndDate,PkgDesc,PkgBasePrice,PkgAgencyCommission,PkgImg) " +
+                    "VALUES ('" + pkgName + "','" + pkgStartDate + "','" + pkgEndDate + "','" + pkgDesc + "','" + pkgPrice + "','" + pkgCommission + "','Images/Europe.jpg')");
 
             JOptionPane.showMessageDialog(null, "New Package Added");
 
