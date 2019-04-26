@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="800dp"
             android:adjustViewBounds="false"
             android:contentDescription="island"
             android:cropToPadding="false"
@@ -110,13 +110,8 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+    </FrameLayout><![CDATA[
 
-    <android.support.design.widget.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white" />
-        />
+    />
+]]>
 </android.support.constraint.ConstraintLayout>

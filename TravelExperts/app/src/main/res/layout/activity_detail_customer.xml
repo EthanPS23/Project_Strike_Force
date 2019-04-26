@@ -48,8 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/first_name"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustFirstName"
@@ -58,7 +59,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,8 +75,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/last_name"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustLastName"
@@ -82,7 +86,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,8 +102,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/address"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustAddress"
@@ -106,7 +113,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,8 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/city"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustCity"
@@ -130,7 +140,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -144,8 +156,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/country"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spCustCountry"
@@ -171,8 +184,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/province"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spCustProvState"
@@ -200,8 +214,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/postal_code"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustPostal"
@@ -210,7 +225,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -224,8 +241,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/home_phone"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustHomePhone"
@@ -234,7 +252,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -248,8 +268,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/business_phone"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etCustBusPhone"
@@ -258,7 +279,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -273,8 +296,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/email"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etEmail"
@@ -283,7 +307,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -297,8 +323,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Password:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etPassword"
@@ -307,7 +334,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -320,14 +349,16 @@
                 android:id="@+id/btnClear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="100dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginBottom="12dp"
                 android:background="@drawable/button_border"
                 android:fontFamily="serif"
                 android:text="@string/clear"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.899"
@@ -339,14 +370,16 @@
                 android:id="@+id/btnCreateNewCust"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/button_border"
                 android:fontFamily="serif"
                 android:text="@string/create"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

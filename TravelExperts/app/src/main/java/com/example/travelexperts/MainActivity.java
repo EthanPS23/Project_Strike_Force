@@ -120,9 +120,7 @@ public class MainActivity extends AppCompatActivity {
                             session.isLoggedIn();
 
 
-                            Toast toast = Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT); // this creates the login session based on the post to the webservice
-                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0,0);
-                            toast.show();
+                            Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show(); // this creates the login session based on the post to the webservice
 
                             finish();
 
