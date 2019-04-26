@@ -11,6 +11,8 @@ public class Booking {
      */
 
     private int BookingDetailId;
+    private String CustFirstName;
+    private String CustLastName;
     private Date tripStart;
     private Date tripEnd;
     private String description;
@@ -23,8 +25,10 @@ public class Booking {
     private String classId;
     private String feeId;
 
-    public Booking(int bookingDetailId, Date tripStart, Date tripEnd, String description, String destination, String basePrice, String agencyComission, String regionId, String classId, String feeId) {
+    public Booking(int bookingDetailId, String custFirstName, String custLastName, Date tripStart, Date tripEnd, String description, String destination, String basePrice, String agencyComission, String regionId, String classId, String feeId) {
         BookingDetailId = bookingDetailId;
+        CustFirstName = custFirstName;
+        CustLastName = custLastName;
         this.tripStart = tripStart;
         this.tripEnd = tripEnd;
         this.description = description;
@@ -42,6 +46,22 @@ public class Booking {
 
     public void setBookingDetailId(int bookingDetailId) {
         BookingDetailId = bookingDetailId;
+    }
+
+    public String getCustFirstName() {
+        return CustFirstName;
+    }
+
+    public void setCustFirstName(String custFirstName) {
+        CustFirstName = custFirstName;
+    }
+
+    public String getCustLastName() {
+        return CustLastName;
+    }
+
+    public void setCustLastName(String custLastName) {
+        CustLastName = custLastName;
     }
 
     public Date getTripStart() {

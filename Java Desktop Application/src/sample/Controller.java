@@ -408,6 +408,12 @@ public class Controller {
     private TableView<Booking> gvBookings;
 
     @FXML
+    private TableColumn<Booking, String> colBkFirstName;
+
+    @FXML
+    private TableColumn<Booking, String> colBkLastName;
+
+    @FXML
     private TableColumn<Booking, Date> colBkTripStart;
 
     @FXML
@@ -1487,7 +1493,7 @@ public class Controller {
         gvBookings.getItems().clear();
         String searchValue = txtBkSearch.getText();
         Connection conn = DBConnect.getConnection();
-        String sql = "SELECT BookingDetailId, TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as AgencyCommission, RegionName, ClassName, FeeName " +
+        String sql = "SELECT BookingDetailId, CustFirstName, CustLastName, TripStart, TripEnd, Description, Destination, cast(BasePrice as char) as BasePrice, cast(AgencyCommission as char) as AgencyCommission, RegionName, ClassName, FeeName " +
                 "from (((((bookingdetails " +
                 "Inner Join bookings on bookingdetails.BookingId = bookings.BookingId) " +
                 "Inner Join customers on bookings.CustomerId = customers.CustomerId) " +
@@ -1511,12 +1517,14 @@ public class Controller {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
 
-                Booking booking = new Booking(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+//                Booking booking = new Booking(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
 
+                Booking booking = new Booking(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12));
                 bookingData.add(booking);
             }
 
-
+            colBkFirstName.setCellValueFactory(new PropertyValueFactory<Booking, String>("custFirstName"));
+            colBkLastName.setCellValueFactory(new PropertyValueFactory<Booking, String>("custLastName"));
             colBkTripStart.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripStart"));
             colBkTripEnd.setCellValueFactory(new PropertyValueFactory<Booking, Date>("tripEnd"));
             colBkDescription.setCellValueFactory(new PropertyValueFactory<Booking, String>("description"));
@@ -1673,42 +1681,14 @@ public class Controller {
         bookingEnd = null;
         customerSelectedBooking = null;
         txtBkSearch.setText("");
+        txtTripStart.setValue(null);
+        txtTripEnd.setValue(null);
+        txtDescription.setText("");
+        txtDestination.setText("");
+        txtBasePrice.setText("");
+        txtAgencyCommission.setText("");
     }
 
-//    private void clearBkControls() {
-//        txtTripStart.getEditor().setDisable(true);
-//        //txtTripStart.hide();
-//        txtTripStart.getEditor().clear();
-//        txtTripEnd.getEditor().setDisable(true);
-//        //txtTripEnd.hide();
-//        txtTripEnd.getEditor().clear();
-//        txtDescription.setDisable(true);
-//        txtDescription.setText("");
-//        txtDestination.setDisable(true);
-//        txtDestination.setText("");
-//        txtBasePrice.setDisable(true);
-//        txtBasePrice.setText("");
-//        txtAgencyCommission.setDisable(true);
-//        txtAgencyCommission.setText("");
-//        cbRegionId.setDisable(true);
-//        cbRegionId.setValue(null);
-//        cbClassId.setDisable(true);
-//        cbClassId.setValue(null);
-//        cbFeeId.setDisable(true);
-//        cbFeeId.setValue(null);
-//    }
-//
-//    public void enableBkControls() {
-//        txtTripStart.getEditor().setDisable(false);
-//        txtTripEnd.getEditor().setDisable(false);
-//        txtDescription.setDisable(false);
-//        txtDestination.setDisable(false);
-//        txtBasePrice.setDisable(false);
-//        txtAgencyCommission.setDisable(false);
-//        cbRegionId.setDisable(false);
-//        cbClassId.setDisable(false);
-//        cbFeeId.setDisable(false);
-//    }
 
     // code to check if booking start date is not later than booking end date.
     //James Cockriell April 10/19
