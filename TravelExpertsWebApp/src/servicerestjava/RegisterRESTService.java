@@ -189,12 +189,23 @@ public class RegisterRESTService {
 		if(cust.getCustEmail().length() > 50) {
 			return "Email must be less then 50 characters";
 		}
-		if(cust.getCustPostal().length() == 0) {
-			return "Empty post code";
+		if (cust.getCustCountry().equals("CA")) {
+			if(cust.getCustPostal().length() == 0) {
+				return "Empty post code";
+			}
+			if(!cust.getCustPostal().matches(postpat)) {
+				return "Please enter post code of format A1A 1A1";
+			}
 		}
-		if(!cust.getCustPostal().matches(postpat)) {
-			return "Please enter post code of format A1A 1A1";
+		else if (cust.getCustCountry().equals("US")) {
+			if(cust.getCustPostal().length() == 0) {
+				return "Empty post code";
+			}
+			if(!cust.getCustPostal().matches("\\d{5}")) {
+				return "Please enter post code of format 90210";
+			}
 		}
+		
 
 		return "true";
 	}
