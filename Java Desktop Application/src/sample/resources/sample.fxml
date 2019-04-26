@@ -398,7 +398,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="fxMinimize" layoutX="1058.0" layoutY="3.0" onAction="#onActionMinimize" text="─">
+            <!--<JFXButton fx:id="fxMinimize" layoutX="1058.0" layoutY="3.0" onAction="#onActionMinimize" text="─">-->
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
