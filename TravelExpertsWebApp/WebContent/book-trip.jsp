@@ -139,7 +139,12 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div id="divtoappend"></div>
-					
+					<%
+						String b = (String)session.getAttribute("loggedin");
+						if (b !="true"){
+							response.sendRedirect("Login.jsp");
+						}						
+					%>
 				
 			
 			
