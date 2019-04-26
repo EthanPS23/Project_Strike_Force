@@ -249,8 +249,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void webappLinkOpen(View view){
-        Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
-        startActivity(browserIntent);
+        /*Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
+        startActivity(browserIntent);*/
+        Intent webview = new Intent(MainActivity.this, WebViewActivity.class);
+        startActivity(webview);
     }
 
 }
