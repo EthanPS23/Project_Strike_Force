@@ -1,3 +1,8 @@
+// Author: Chris Potvin
+// Date: May 1st, 2019
+// About: This is the Session class to test some of its methods, not all the methods are incorporated into our app.
+// Need to learn more about how to better utilize a class like this. 
+
 package com.example.travelexperts;
 
 import android.content.Context;

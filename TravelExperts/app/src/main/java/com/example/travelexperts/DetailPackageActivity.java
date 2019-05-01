@@ -1,3 +1,11 @@
+// Author: Chris Potvin
+// Date: Wednesday, May 1, 2019
+// About: This class connects is the main activity and also works as the login page. User credentials are checked against the REST service,
+// with a POST via their email and password stored in the mySQL db. Their is also a session variable to handle logins to store the keys from one
+// activity to another. The second method is another POST to the REST service were we are retrieving the Customer ID from the DB depending
+// on the customers email and password. This ID is passed to the package detail activity. Where the customer can succesfully book a package based
+// on which one he selects and orders.
+
 package com.example.travelexperts;
 
 
@@ -51,6 +59,8 @@ public class DetailPackageActivity extends AppCompatActivity {
         initializeBtns();
         initializeFields();
 
+        // this will retrieve the string from Main Activity customer ID
+
         Intent intent = getIntent();
         String custId = intent.getStringExtra("custID");
         intent.putExtra("custID", custId);
@@ -59,10 +69,7 @@ public class DetailPackageActivity extends AppCompatActivity {
         Package pkg = (Package) intent.getSerializableExtra("pkg");
         intent.putExtra("packageId", pkg);
         System.out.println(pkg);
-//        System.out.println(pkg);
 
-
-        // this will retrieve thestring from Main Activity customer ID
 
 
         tvpkgName.setText(pkg.getPkgName());
@@ -75,6 +82,7 @@ public class DetailPackageActivity extends AppCompatActivity {
         session = new SessionManager(DetailPackageActivity.this);
 
 
+        // on logout the customer is now finished his session
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +91,8 @@ public class DetailPackageActivity extends AppCompatActivity {
 
             }
         });
+
+        // this on click listener calls on the POST method to insert a new booking based on the package the customer selects
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +104,7 @@ public class DetailPackageActivity extends AppCompatActivity {
     }
 
     // this is the post that will insert a new booking into the REST service
+    //  Author: Chris Potvin
     private void insertBookingDetails()
     {
         // this is the string URL for the bookings post
@@ -109,7 +120,6 @@ public class DetailPackageActivity extends AppCompatActivity {
                 }
                 else
                 {
-//                    Toast.makeText(DetailPackageActivity.this, "UOOOOOOOOH!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -140,14 +150,17 @@ public class DetailPackageActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
                 Intent intent = getIntent();
+
+                // grab the customer ID from the DetailCustomerActivity
                 String custId = intent.getStringExtra("custID");
-                System.out.println(custId);
+//                System.out.println(custId); // error checking to ensure we grab the cust id
                 intent.putExtra("custID", custId);
 
+                // grab the package ID from the Package
 
                 Package pkg = (Package) intent.getSerializableExtra("pkg");
                 intent.putExtra("packageId", pkg);
-                System.out.println(pkg);
+//                System.out.println(pkg); // error checking to ensure we grab the package id
 
 
                 parameters.put("CustomerId", custId );
@@ -161,11 +174,15 @@ public class DetailPackageActivity extends AppCompatActivity {
 
     }
 
+    //this method initializes the buttons on the activity
+
     private void initializeBtns ()
     {
         btnOrder = findViewById(R.id.btnOrder);
         btnLogout = findViewById(R.id.btnLogout);
     }
+
+    // this method initializes the fields
 
     private void initializeFields()
     {
@@ -176,6 +193,10 @@ public class DetailPackageActivity extends AppCompatActivity {
         tvpkgBasePrice = findViewById(R.id.tvpkgBasePrice);
         tvTitle = findViewById(R.id.tvTitle);
     }
+
+    // Author: Chris Potvin
+    // Prototype, customer is able to order only one package but if they tap on no, then they are logged out via their session.
+    // I think the app breaks because the session is not continued in the BUTTON_POSITIVE.
 
     private void custOrderAnotherPackage()
     {

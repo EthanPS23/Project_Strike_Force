@@ -1,3 +1,12 @@
+// Author: Chris Potvin
+// Co-author: Ethan Shipley
+// Date: Wednesday, May 1, 2019
+// About: This class connects the customer registration activity with the REST service from the web app, it posts successfuly
+// to the post service in creating a new customer, more importantly, the customers registered email and password can then be used
+// on the login page. The customers postal code and countries are dynamically generated via the REST service also. Error checking is done on via
+// custome Volley switch case and validation of the fields are done server side. This is done by Ethan Shipley. All the buttons, fields and spinners
+// are initiated in their own methods.
+
 package com.example.travelexperts;
 
 import android.content.Intent;
@@ -76,8 +85,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
         });
 
 
-        //addListenerOnSpinnerItemSelection();
-
         btnCreateNewCust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +97,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
                             startActivity(mainActivity);
 
                         } else {
-                            //Toast.makeText(DetailCustomerActivity.this, "Sorry but registration was not successful", Toast.LENGTH_LONG).show();
                             Toast.makeText(DetailCustomerActivity.this, response, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -126,8 +132,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
                         parameters.put("CustLastName", etCustLastName.getText().toString());
                         parameters.put("CustAddress", etCustAddress.getText().toString());
                         parameters.put("CustCity", etCustCity.getText().toString());
-                        /*parameters.put("CustProv", etCustProv.getText().toString());
-                        parameters.put("CustCountry", etCustCountry.getText().toString());*/
                         parameters.put("CustProv", String.valueOf(spCustProvState.getSelectedItem()));
                         parameters.put("CustCountry", String.valueOf(spCustCountry.getSelectedItem()));
                         parameters.put("CustPostal", etCustPostal.getText().toString());
@@ -166,8 +170,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
         etCustLastName = findViewById(R.id.etCustLastName);
         etCustAddress = findViewById(R.id.etCustAddress);
         etCustCity = findViewById(R.id.etCustCity);
-        //etCustCountry = findViewById(R.id.etCustCountry);
-        //etCustProv = findViewById(R.id.etCustProv);
         etCustPostal = findViewById(R.id.etCustPostal);
         etCustHomePhone = findViewById(R.id.etCustHomePhone);
         etCustBusPhone = findViewById(R.id.etCustBusPhone);
@@ -189,14 +191,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
     }
 
     public void addItemsOnSpinner1(){
-        /*spCustCountry = (Spinner) findViewById(R.id.spCustCountry);
-        List<String> list = new ArrayList<String>();
-        list.add("CA");
-        list.add("US");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spCustCountry.setAdapter(dataAdapter);*/
 
         CountryJson();
         if (dataCountries.size() == 0){
@@ -215,13 +209,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
         for (Countries c : dataCountries) {
             list.add(c.getCountryId());
         }
-//                    *//*HashMap<String, String> map = new HashMap<>();
-//                    map.put("pkgName", p.getPkgName() + "");
-//            map.put("pkgStartDate", p.getPkgStartDate());
-//            map.put("pkgEndDate", p.getPkgEndDate());
-//            map.put("pkgDesc", p.getPkgDesc());
-//            map.put("pkgBasePrice", p.getPkgBasePrice() + "");
-//            packageMaps.add(map);*//*
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_spinner_item, list);
@@ -327,7 +314,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //stffs();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -358,25 +344,4 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
     }
 
-    /*private void stffs(){
-        ArrayList<HashMap<String, String>> packageMaps = new ArrayList<>();
-        for (Countries c : dataCountries){
-            HashMap<String, String> map = new HashMap<>();
-            map.put("CountryId", c.getCountryId());
-            map.pu
-            *//*HashMap<String, String> map = new HashMap<>();
-            map.put("pkgName", p.getPkgName() + "");
-            map.put("pkgStartDate", p.getPkgStartDate());
-            map.put("pkgEndDate", p.getPkgEndDate());
-            map.put("pkgDesc", p.getPkgDesc());
-            map.put("pkgBasePrice", p.getPkgBasePrice() + "");
-            packageMaps.add(map);*//*
-        }
-
-        int resource = R.layout.package_item;
-        String[] from = {"pkgName", "pkgStartDate", "pkgEndDate", "pkgDesc", "pkgBasePrice"};
-        int[] to = {R.id.tvPkgNameItem, R.id.tvPkgStartDateItem, R.id.tvPkgEndDateItem, R.id.tvPkgDescItem, R.id.tvPkgBasePriceItem};
-        SimpleAdapter adapter = new SimpleAdapter(this, packageMaps, resource, from, to);
-        lvPackage.setAdapter(adapter);
-    }*/
 }

@@ -1,3 +1,12 @@
+// Author: Chris Potvin
+// Date: Wednesday, May 1, 2019
+// About: This class connects is the main activity and also works as the login page. User credentials are checked against the REST service,
+// with a POST via their email and password stored in the mySQL db. Their is also a session variable to handle logins to store the keys from one
+// activity to another. The second method is another POST to the REST service were we are retrieving the Customer ID from the DB depending
+// on the customers email and password. This ID is passed to the package detail activity. Where the customer can succesfully book a package based
+// on which one he selects and orders.
+
+
 package com.example.travelexperts;
 
 import android.content.Context;
@@ -111,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         // if login successful grant access to the packages page
-                        //if (response.equals("true")) {
+                         {
                         if (!response.equals("false")) {
 
 
@@ -248,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void webappLinkOpen(View view){
         /*Intent browserIntent= new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.163.37.7:8080/TravelExpertsWebApp"));
-        startActivity(browserIntent);*/
+        startActivity(browserIntent);*/ // this intent open a web browser to the link of our web app.
         Intent webview = new Intent(MainActivity.this, WebViewActivity.class);
         startActivity(webview);
     }
