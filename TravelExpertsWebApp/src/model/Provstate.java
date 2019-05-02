@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
-/**
+/** Ethan Shipley
  * The persistent class for the provstates database table.
  * 
  */

@@ -142,6 +142,8 @@ public class LoginRESTService {
 	}
 
 	// Ethan Shipley
+	// Gets the customer id to be passed to the web application or android application for use of 
+	// the bookings
 	public String custId(Customer cust)
 	{
 		String result = "false";

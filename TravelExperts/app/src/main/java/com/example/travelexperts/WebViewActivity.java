@@ -18,6 +18,11 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/** Loads the web application into a web view activity
+ * Author: Brandon Ezekiel and James Cockriel Co-Author: Ethan Shipley
+ * Course CMPP 264
+ * Date: April 24 2019
+ */
 public class WebViewActivity extends AppCompatActivity {
     Button btnDownload;
     EditText etWebPage;
@@ -28,16 +33,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);/*
-        btnDownload = findViewById(R.id.btnDownload);
-        etWebPage = findViewById(R.id.etWebPage);*/
-
-        /*btnDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Download().execute();
-            }
-        });*/
+        setContentView(R.layout.activity_webview);
 
         this.webView = (WebView) findViewById(R.id.webview);
 

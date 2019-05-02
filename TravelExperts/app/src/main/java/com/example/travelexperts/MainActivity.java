@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Author: Chris Potvin
+    //Author: Chris Potvin Co-author: Ethan Shipley
     //this method returns the customerID based on the REST service
 
     private void getcustomerId(){

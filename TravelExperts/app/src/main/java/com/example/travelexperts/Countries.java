@@ -1,5 +1,7 @@
 package com.example.travelexperts;
 
+// Ethan Shipley
+// Creates a country object with properties
 public class Countries {
     private String CountryId, CountryName;
 

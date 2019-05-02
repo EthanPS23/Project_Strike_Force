@@ -31,6 +31,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+/** Gets package JSON from the webservices hosted on a local server
+ * The pacakge information is then passed into the package fragments to display
+ * all of the packages relevant information
+ * Author: Ethan Shipley
+ * Course CMPP 264
+ * Date: April 24 2019
+ */
 
 public class PackageActivity extends AppCompatActivity {
     //ImageButton myImageButtonPackage1, myImageButtonPackage2, myImageButtonPackage3, myImageButtonPackage4;
@@ -39,6 +46,10 @@ public class PackageActivity extends AppCompatActivity {
 
     private RequestQueue rQueue;
 
+    //Ethan Shipley
+    // On creation of the activity the packages are displayed into the packages list
+    // and upon click of a package the package data and customer information is passed to the details
+    // activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +88,7 @@ public class PackageActivity extends AppCompatActivity {
     }
 
     //Author: Ethan Shipley
+    //prepares the packages information into a hashmap
     private void stffs(){
         ArrayList<HashMap<String, String>> packageMaps = new ArrayList<>();
         for (Package p : data){
@@ -97,6 +109,7 @@ public class PackageActivity extends AppCompatActivity {
     }
 
     //Author Chris Potvin, rewritten by Ethan Shipley
+    // Grabs the JSON data from the web services
     //private ArrayList<Package> getPackages()
     private void getPackages()
     {

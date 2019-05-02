@@ -12,6 +12,8 @@
  */ -->
 <script src="jquery-3.3.1.js"></script>
 <script>
+	//Ethan Shipley
+	// Loads the country combo box based on information of available countries on the database
 	$(document).ready(function(){
 		$.get("/TravelExpertsWebApp/rest/countries/getallcountries",
 		function(data){
@@ -27,6 +29,8 @@
 		},
 		"json");
 	})
+	//Ethan Shipley
+	// Based on the user selection of the country the available provinces or states are then displayed
 	function getProvState(countryid)
 	{			
 		$.get("/TravelExpertsWebApp/rest/provstates/getprovstates/" + countryid,
@@ -96,6 +100,9 @@
 						<h1>
 							Register <br> for your next Tour
 						</h1>
+						<!-- Ethan Shipley
+							Checks the user seesion to see if already logged in and if so
+							they are redirected to the home page -->
 						<%
 							String b = (String)session.getAttribute("loggedin");
 							if (b =="true"){
@@ -190,101 +197,6 @@
 								<button class="primary-btn text-uppercase">Register</button>
 							</div>
 						</Form>
-						<%-- <%!
-							public String validate(String [] customerData)
-							{
-								for (int i=0; i<customerData.length; i++)
-								{
-									if (customerData[i].equals(""))
-									{
-										switch(i)
-										{
-											case 0:
-												return "**First name must have a value!**";
-											
-											case 1:
-												return "**Last name must have a value!**";
-											
-											case 2:
-												break;						
-											
-											case 3:
-												return "**You must include your city name!**";
-												
-											case 4:
-												return "**You must include your province or state name!**";
-												
-											case 5:
-												return "**You must include your country name!**";
-												
-											case 6:
-												return "**You must include your postal or zip code!**";
-												
-											case 7:
-												return "**Please provide your home phone number!**";
-												
-											case 8:
-												break;
-												
-											case 9:
-	
-												break;
-											
-											default:
-											return "field must have a value.";
-										}
-									}
-								}
-								return "";
-							}
-						
-							public String createCustomer(String [] customerArray)
-							{
-								String sql = "INSERT INTO customers ("
-									+ "CustomerID, CustFirstName, CustLastName, CustAddress, CustCity, CustProv, CustCountry, CustPostal, CustHomePhone, CustBusPhone, CustEmail, AgentID"
-								    + ") values (S_101_1_CUSTOMERS.NEXTVAL, "
-									+ "'" + customerArray[0] + "'," 
-									+ " '" + customerArray[1] + "',"
-									+ " '" + customerArray[2] + "',"
-									+ " '" + customerArray[3] + "',"
-									+ " '" + customerArray[4] + "',"
-									+ " '" + customerArray[5] + "',"
-									+ " '" + customerArray[6] + "',"
-									+ " '" + customerArray[7] + "',"
-									+ " '" + customerArray[8] + "',"
-									+ " '" + customerArray[9] + "',"
-									+ " " + customerArray[10] + ")";
-
-							    try
-							    {
-							        //Class.forName("com.mysql.jdbc.Driver");
-									Class.forName("oracle.jdbc.driver.OracleDriver");
-							        //Connection dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts","root","password");
-							        Connection dbConn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orant11g", "ictoosd", "ictoosd");
-	
-							        Statement stmt = dbConn.createStatement();
-	
-							        int rows = stmt.executeUpdate(sql);
-	
-							        // Cleanup
-							        dbConn.close();  // close the connection
-							        
-									if (rows == 1)
-									{
-										return "Your registration was a success. Thank you for joining The Travel Experts.";
-									}
-									else
-									{
-										return "Insert was NOT successful";
-									}
-							    }
-							    catch (Exception excp)
-							    {
-							        excp.printStackTrace();
-							    }
-								return "";
-							}
-						%> --%>
 					</div>
 				</div>
 			</div>

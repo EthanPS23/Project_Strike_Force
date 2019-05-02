@@ -4,8 +4,7 @@
 <!doctype html>
 <html lang="en">
 
-<!-- /* User selects a country of either USA or Canada,
- * Depending on the country selected either provinces or states are displayed for corresponding country.
+<!-- /* User logins in to the website by entering in email and password that match the database
  * Author: Ethan Shipley
  * Course CMPP 264
  * Date: April 7 2019
@@ -37,74 +36,6 @@
 	<!-- Header area Include statement -->
 	<jsp:include page="header.jsp" />
 	
-	
-	<!-- <header class="header_area">
-		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container">
-					Brand and toggle get grouped for better mobile display
-					<a class="navbar-brand logo_h" href="index.jsp"><img
-						src="img/logo.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					Collect the nav links, forms, and other content for toggling
-					<div class="collapse navbar-collapse offset"
-						id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-							<li class="nav-item"><a class="nav-link"
-								href="packages.jsp">Packages</a></li>
-							<li class="nav-item submenu dropdown active"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link"
-										href="about-us.jsp">About</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="book-trip.jsp">Book trip</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="Login.jsp">Login</a></li>
-								</ul></li>
-							<li class="nav-item submenu dropdown"><a href="#"
-								class="nav-link dropdown-toggle" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.jsp">Blog</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="single-blog.jsp">Blog Details</a></li>
-								</ul></li>
-							<li class="nav-item"><a class="nav-link" href="contact.jsp">Contact</a></li>
-						</ul>
-						<ul class="nav navbar-nav ml-auto">
-							<li class="nav-item"><a href="#" class="primary-btn">Book
-									a trip</a></li>
-							<li class="nav-item">
-								<button type="button" class="search nav-link">
-									<i class="lnr lnr-magnifier" id="search"></i>
-								</button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-
-			<div class="search_input" id="search_input_box">
-				<div class="container">
-					<form class="d-flex justify-content-between">
-						<input type="text" class="form-control" id="search_input"
-							placeholder="Search Here">
-						<button type="submit" class="btn"></button>
-						<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-					</form>
-				</div>
-			</div>
-		</div>
-	</header> -->
 	<!--================ End Header Menu Area =================-->
 
 	<!--================Home Banner Area =================-->
@@ -131,6 +62,8 @@
 						<h1>
 							Login <br> for your next Tour
 						</h1>
+						<!-- Ethan Shipley
+							Checks the session varaibles to see if the user is already logged in -->
 						<%
 							String b = (String)session.getAttribute("loggedin");
 							if (b =="true"){
@@ -143,6 +76,10 @@
 							}
 							
 							%>
+						<!-- Ethan Shipley
+							The user can enter in their email and password. Upon clicking login
+							the information is sent to the servlet where the info is checked against
+							the database -->
 						<Form class="trip-form-area trip-page-form trip-form text-right"
 							id="myForm" action="LoginServlet" method="post">
 							<div class="form-group col-md-12">

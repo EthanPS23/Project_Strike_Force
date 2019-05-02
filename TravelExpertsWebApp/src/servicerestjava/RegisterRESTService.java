@@ -24,8 +24,8 @@ import model.Customer;
 @Path("/Register")
 public class RegisterRESTService {
 
-	/**
-	 * This register method is designed to enter the customers data into the database based on variables sent by the andoird application
+	/**Chris Potvin
+	 * This register method is designed to enter the customers data into the database based on variables sent by the android application
 	 * 
 	 */
 	@POST
@@ -82,7 +82,7 @@ public class RegisterRESTService {
 		return result;
 	}
 	
-	/**
+	/**Ethan Shipley
 	 * This register method is designed to enter the customers data into the database based on variables sent by the web application
 	 * This overloads the android register method
 	 */
@@ -131,7 +131,7 @@ public class RegisterRESTService {
 		return result;
 	}
 
-	/**
+	/**Ethan Shipley
 	 * Validates the customer information before entering the info into the database
 	 */
 	public String validator(Customer cust) {

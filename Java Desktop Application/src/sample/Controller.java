@@ -28,10 +28,12 @@ package sample;
         import java.util.regex.Matcher;
         import java.util.regex.Pattern;
 
+//GUI designed and created by Ethan Shipley with help of everyone
 //public class Controller implements Initializable {
 public class Controller {
     // this is the set password prompt text on application load
 
+    //Sets the default colour scheme
     String textColour = "#FFFFFF";
     String backgroundColour = "#9435FA";
     String menuColour = "#4D1371";
@@ -75,6 +77,8 @@ public class Controller {
         apEverything.setStyle("-label-text-colour: " + textColour + ";");
     }
 
+    //Ethan Shipley
+    //Sets the css background colours of everything
     private void setBackgroundColour() {
         pnlBookings.setStyle("-fx-background-color: " + backgroundColour + ";");
         pnlCustomers.setStyle("-fx-background-color: " + backgroundColour + ";");
@@ -84,11 +88,15 @@ public class Controller {
         pnlSettings.setStyle("-fx-background-color: " + backgroundColour + ";");
     }
 
+    //Ethan Shipley
+    //Sets the css menu colours of everything
     private void setMenuColour() {
         apMenu.setStyle("-fx-background-color: " + menuColour + ";");
         apToolbar.setStyle("-fx-background-color: " + menuColour + ";");
     }
 
+    //Ethan Shipley
+    //Sets the css secondary colours of everything
     private void setSecondaryColour() {
         apItems.setStyle("-btn-bg-colour: " + secondaryColour + ";" +
                 "-secondary-bg-colour: " + secondaryColour + ";" +
@@ -96,6 +104,8 @@ public class Controller {
                 "-tertiary-brdr-colour: " + tertiaryColour + ";");
     }
 
+    //Ethan Shipley
+    //Sets the css tertiary colours of everything
     private void setTertiaryColour() {
         apItems.setStyle("-btn-brdr-colour: " + tertiaryColour + ";" +
                 "-tertiary-brdr-colour: " + tertiaryColour + ";" +
@@ -870,30 +880,40 @@ public class Controller {
         pnlSettings.toFront();
     }
 
+    //Ethan Shipley
+    // Sets the background colour when changed from the colour picker
     @FXML
     void onActionSettingsBgColour(ActionEvent event) {
         backgroundColour = hexi(cpSettingsBgColour);
         setBackgroundColour();
     }
 
+    //Ethan Shipley
+    // Sets the menu colour when changed from the colour picker
     @FXML
     void onActionSettingsMenuColour(ActionEvent event) {
         menuColour = hexi(cpSettingsMenuColour);
         setMenuColour();
     }
 
+    //Ethan Shipley
+    // Sets the secondary colour when changed from the colour picker
     @FXML
     void onActionSettingsSecondaryColour(ActionEvent event) {
         secondaryColour = hexi(cpSettingsSecondaryColour);
         setSecondaryColour();
     }
 
+    //Ethan Shipley
+    // Sets the tertiary colour when changed from the colour picker
     @FXML
     void onActionSettingsTertiaryColour(ActionEvent event) {
         tertiaryColour = hexi(cpSettingsTertiaryColour);
         setTertiaryColour();
     }
 
+    //Ethan Shipley
+    // Sets the text colour when changed from the colour picker
     @FXML
     void onActionSettingsTextColour(ActionEvent event) {
         textColour = hexi(cpSettingsTextColour);
@@ -927,8 +947,6 @@ public class Controller {
     }
 
     //Ethan Shipley and Brandon Ezekiel
-
-
     // on mouse event for when user clicks on bookings tableview
     //Author James Cockriell, April 8/19
     @FXML
@@ -1014,7 +1032,8 @@ public class Controller {
 
     private ObservableList<Package> data = FXCollections.observableArrayList();
 
-
+    //Ethan Shipley and auto gen code
+    // upon initialization the settings colour picker values are set to the defaults
     @FXML
     void initialize() {
         EnableMenu(false);
@@ -1176,6 +1195,8 @@ public class Controller {
 
     }
 
+    //Ethan Shipley
+    // a method to change the colour picker values into hexidecimal
     private String hexi(ColorPicker cp) {
         Color c = cp.getValue();
         return String.format("#%02X%02X%02X",
@@ -1210,6 +1231,8 @@ public class Controller {
         }
     }
 
+    //Ethan Shipley and Chris Potvin
+    // hides the login button, makes the logout visible
     private void Logout() {
         btnLogin.setDisable(false);
         btnLogout.setDisable(false);
@@ -1231,6 +1254,8 @@ public class Controller {
         btnLogout.setVisible(b);
     }
 
+    //Chris Potvin
+    // Validates the customers login
     private void ValidateLogin (){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Authentication Validated");
@@ -1239,6 +1264,8 @@ public class Controller {
         alert.showAndWait();
     }
 
+    //Chris Potvin
+    // Invalidates the customer login
     private void InvalidateLogin (){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Authentication Error");

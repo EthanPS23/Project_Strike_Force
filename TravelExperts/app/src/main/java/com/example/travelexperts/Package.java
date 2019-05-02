@@ -3,9 +3,7 @@ package com.example.travelexperts;
 
 import java.io.Serializable;
 
-/** Take the inputted registation data, validates it and the inputs it into the database
- * Based on the validation error a corresponding error message is passed,
- * the web service is made to work for the website and android application
+/** Creates a package object with the following properties
  * Author: Ethan Shipley
  * Course CMPP 264
  * Date: April 24 2019

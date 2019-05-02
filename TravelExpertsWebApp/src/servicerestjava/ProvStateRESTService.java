@@ -18,13 +18,14 @@ import com.google.gson.reflect.TypeToken;
 
 import model.Provstate;
 
-/* Gets all of the provinces or states depending on what country id is passed.
- * Author: Ethan Shipley
- * Course CMPP 264
- * Date: April 7 2019
- */
+
 @Path("/provstates")
 public class ProvStateRESTService {
+	/* Gets all of the provinces or states depending on what country id is passed for the web application
+	* Author: Ethan Shipley
+	* Course CMPP 264
+	* Date: April 7 2019
+	*/
 	// http://localhost:8080/TravelExpertsWebApp/rest/provstates/getprovstates/CA
 	@GET
 	@Path("/getprovstates/{ countryid }")
@@ -43,7 +44,11 @@ public class ProvStateRESTService {
 		factory.close();
 		return jsonString;
 	}
-	
+	/* Gets all of the provinces or states depending on what country id is passed for the android application
+	* Author: Ethan Shipley
+	* Course CMPP 264
+	* Date: April 7 2019
+	*/
 	@GET
 	@Path("/getprovstatesapp/{ countryid }")
 	@Produces(MediaType.APPLICATION_JSON)

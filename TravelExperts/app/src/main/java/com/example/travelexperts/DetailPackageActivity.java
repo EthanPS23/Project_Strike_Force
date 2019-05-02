@@ -104,7 +104,7 @@ public class DetailPackageActivity extends AppCompatActivity {
     }
 
     // this is the post that will insert a new booking into the REST service
-    //  Author: Chris Potvin
+    //  Author: Chris Potvin Co-author: Ethan Shipley
     private void insertBookingDetails()
     {
         // this is the string URL for the bookings post

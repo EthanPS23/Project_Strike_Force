@@ -18,13 +18,15 @@ import com.google.gson.reflect.TypeToken;
 
 import model.Country;
 
-/* Gets all of the countries from the mySQL Database.
- * Author: Ethan Shipley
- * Course CMPP 264
- * Date: April 7 2019
- */
+
 @Path("/countries")
-public class CountryRESTService {	
+public class CountryRESTService {
+	/* Gets all of the countries from the mySQL Database and outputs the
+	* JSON in the format needed for the web application
+	* Author: Ethan Shipley
+	* Course CMPP 264
+	* Date: April 7 2019
+	*/
 	// http://localhost:8080/TravelExpertsWebApp/rest/countries/getallcountries
 	@GET
 	@Path("/getallcountries")
@@ -45,6 +47,12 @@ public class CountryRESTService {
 		return jsonString;
 	}
 	
+	/* Gets all of the countries from the mySQL Database and outputs the
+	* JSON in the format needed for the android application
+	* Author: Ethan Shipley
+	* Course CMPP 264
+	* Date: April 7 2019
+	*/
 	@GET
 	@Path("/getallcountriesapp")
 	@Produces(MediaType.APPLICATION_JSON)

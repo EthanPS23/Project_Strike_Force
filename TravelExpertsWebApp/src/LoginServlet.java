@@ -17,7 +17,7 @@ import model.Customer;
 import servicerestjava.LoginRESTService;
 import servicerestjava.RegisterRESTService;
 
-/**
+/**Ethan Shipley
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/LoginServlet")
@@ -42,14 +42,11 @@ public class LoginServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	//Ethan Shipley
+	// Used to connect the web application to use the web services for the login verification
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		out = response.getWriter();
 		session = request.getSession();
-//		String userid = request.getParameter("CustEmail");
-//		String password = request.getParameter("CustPassword");
 		
 		Customer cust = new Customer(-1, -1, "", "", "", "", request.getParameter("CustEmail").trim(), "", "", "", request.getParameter("CustPassword").trim(), "", "", null);
 		LoginRESTService lrs = new LoginRESTService();
