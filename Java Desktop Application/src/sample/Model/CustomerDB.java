@@ -1,3 +1,8 @@
+// Author: Chris Potvin
+// Co-Author: Ethan Shipley
+// Date: May 1st, 2019
+// About: This is a customer object where the SQL query is refactored from the main controller class.
+
 package sample.Model;
 
 import sample.DBConnect;

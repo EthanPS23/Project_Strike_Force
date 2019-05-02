@@ -1,3 +1,7 @@
+// Author: Chris Potvin
+// Date: May 1st, 2019
+// About: This is the customers class with its private fields and constructors. Along with its getters and setters.
+
 package sample.Model;
 
 import javafx.beans.property.SimpleIntegerProperty;

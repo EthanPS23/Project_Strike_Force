@@ -613,10 +613,16 @@ public class Controller {
         System.exit(0);
     }
 
+    // Author: Chris Potvin
+    // This on action event calls a couple of different methods to insert and repopulate the table on insert, in the get customer search method.
+
     @FXML
     void onActionCustAdd(ActionEvent event) {
         int addcustomer = JOptionPane.showConfirmDialog(null, "Are you sure you want to add a customer record?",
                 "Add a Customer", JOptionPane.YES_NO_OPTION);
+
+        // below is the valFields method on the get text from the different customer fields.
+
 
         if ((addcustomer == JOptionPane.YES_OPTION) && (valFields(txtCustFirstName.getText()) || valFields(txtCustLastName.getText()) ||
                 valFields(txtCustAddress.getText()) || valFields(txtCustCity.getText()) || valFields(txtCustProv.getText())) ||
@@ -658,12 +664,18 @@ public class Controller {
             txtCustSearch.requestFocus();
         }
     }
+
+    //customer method that inserts a new customer into the data
+
     private Customer customer(){
         Customer cust = new Customer(-1, txtCustFirstName.getText(), txtCustLastName.getText(), txtCustAddress.getText(),
                 txtCustCity.getText(), txtCustProv.getText(), txtCustPostal.getText(), txtCustCountry.getText(), txtCustHomePhone.getText(),
                 txtCustBusPhone.getText(), txtCustEmail.getText());
         return cust;
     }
+
+    // Author: Chris Potvin
+    // This on action event deletes a customer via the DeleteCustomer method. I should have put in a "Are you sure" delete dialog before the user can get rid of a row of data.
 
     @FXML
     void onActionCustDelete(ActionEvent event) {
@@ -674,6 +686,9 @@ public class Controller {
     void onActionCustEdit(ActionEvent event) {
        EnableFields();
     }
+
+    // Author: Chris Potvin
+    // similar to the insert of the customer except this one works to update the customer details from the text fields.
 
     @FXML
     void onActionCustSave(ActionEvent event) {
@@ -759,6 +774,8 @@ public class Controller {
         pnlCustomers.toFront();
     }
 
+
+
     @FXML
     void onActionDeletePkg(ActionEvent event) {
         int reply = JOptionPane.showConfirmDialog( null,"Are you sure you want to continue to delete package?", "Delete Package", JOptionPane.YES_NO_OPTION);
@@ -783,6 +800,9 @@ public class Controller {
         btnAddEditPkg.setText("Update Package");
     }
 
+    // Author: Chris Potvin
+    // Calls the login method.
+
     @FXML
     void onActionLogin(ActionEvent event) throws NoSuchAlgorithmException {
         Login();
@@ -793,6 +813,9 @@ public class Controller {
     void onActionLoginTab(ActionEvent event) {
         pnlLogin.toFront();
     }
+
+    // Author: Chris Potvin
+    // Calls the logout method. And disables the menu.
 
     @FXML
     void onActionLogout(ActionEvent event) {
@@ -937,6 +960,10 @@ public class Controller {
     void getCustomerDetails(MouseEvent event) {
         populateCustomerDetails();
     }
+
+    // Author: Chris Potvin
+    // This calls all of the set text from the customerSelectedDetails object grabbed from the grid. It also has a customer ID from the grid view based on the
+    // mouse click. Need to have an int.
 
     private void populateCustomerDetails ()
     {
@@ -1157,37 +1184,8 @@ public class Controller {
                 (int) (c.getBlue() * 255));
     }
 
-    /*@Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        cpSettingsTextColour.setValue(Color.web(textColour));
-        cpSettingsBgColour.setValue(Color.web(backgroundColour));
-        cpSettingsMenuColour.setValue(Color.web(menuColour));
-        cpSettingsSecondaryColour.setValue(Color.web(secondaryColour));
-        cpSettingsTertiaryColour.setValue(Color.web(tertiaryColour));
-
-        getCustomerBooking();
-
-        // to load packages table
-        getPackages();
-
-        getCustomerSearch();
-
-        // load the customer table
-//        getCustomerDetails();
-
-        setTextColour();
-        setMenuColour();
-        setBackgroundColour();
-        setSecondaryColour();
-        setTertiaryColour();
-
-    }*/
-    //this populates the Customer table on form load 1st step
-
-
     //Author: Christopher Potvin
-    //this is the login method
+    //this is the login method that calls the password encryption class to encrypt the string password. Currently only set at the top but it should in the future check this against the db.
 
     private void Login() throws NoSuchAlgorithmException {
         // to do switch
@@ -1249,6 +1247,8 @@ public class Controller {
     }
 
     // Author: Christopher Potvin
+    // populate the table via the customer search bar. Changed the SQL to include everything. Thank you to Ethan Shipley for help on the SQL query to
+    // to incorporate all of the wild cards.
 
     private void getCustomerSearch()
     {
@@ -1297,7 +1297,9 @@ public class Controller {
         }
     }
 
+    // Author: Chris Potvin
     //update method
+    // this is called on the save button
     private void saveCustomerDetails()
     {
             String custFirstName = txtCustFirstName.getText();
