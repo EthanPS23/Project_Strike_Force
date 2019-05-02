@@ -66,30 +66,6 @@ public class LoginServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
-//	private boolean verify(String userid, String password) {
-//		try {
-//			Connection conn = DBConnect.getConnection();
-//			String sql = "select CustPassword from customers where CustEmail=?";
-//			PreparedStatement stmt = conn.prepareStatement(sql);
-//			stmt.setString(1,userid);
-//			ResultSet rs = stmt.executeQuery();
-//			
-//			if(rs.next()) {
-//				String pwd = rs.getString(1);
-//				if(pwd.equals(password)) {
-//					//login is okay
-//					return true;
-//				}
-//			}else {
-//				return false;
-//			}
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return false;
-//	
 //	}
 	
 	
